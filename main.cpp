@@ -1,43 +1,32 @@
 #include <iostream>
 #include <cstring>
+#include "estructuras.h"
+#include "logica.h"
 using namespace std;
 
-struct Carro {  
-    char placa[10];
-    int anio;
-
-};
-
 int main() {
-    
-int edad = 20;
-cout << "tu edad es de:"<< edad << endl;
-cout << "la direccion de tu edad es:" << &edad << endl;
+    // 1. Datos del taller
+    Taller datos;
+    strcpy(datos.nombre, "Autoservicio");
+    strcpy(datos.rif, "J-12345678-9");
+    strcpy(datos.direccion, "Maracaibo");
+    strcpy(datos.telefono, "0424-6700838");
 
-int*p = &edad;
+    // 2. Abro el taller
+    SistemaTaller sistema;
+    inicializarSistema(&sistema, datos);
 
-cout << "en p esta la direccion:" << p << endl;
-cout << "P vale:" << *p << endl;
+    cout << "Taller: " << sistema.taller.nombre << endl;
+    cout << "Caben " << sistema.capacidadVehiculos << " vehiculos, hay " << sistema.numVehiculos << endl;
+    cout << "Proximo ID de vehiculo: " << sistema.siguienteIdVehiculo << endl;
 
-*p = 25;
+    // 3. Pruebo una mudanza
+    redimensionarVehiculos(&sistema);
+    cout << "Despues de la mudanza caben: " << sistema.capacidadVehiculos << endl;
 
-cout << "ahora p vale:" << *p << endl;
+    // 4. Cierro el taller
+    liberarSistema(&sistema);
+    cout << "Taller cerrado. Memoria devuelta." << endl;
 
-Carro c;
-strcpy ( c.placa, "AB123CD");
-
-c.anio = 2015;
-
-cout << "carro: " << c.placa << " del " << c.anio << endl;
-
-Carro* pc = &c;
-
-
-pc-> anio = 2020;
-
-cout << " el nuevo ano de tu carro es:" << c.anio << endl;
-
-return 0;
-
+    return 0;
 }
-

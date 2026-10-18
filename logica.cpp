@@ -49,3 +49,100 @@ void  liberarSistema(SistemaTaller* s) {
     s->ordenes = nullptr;
     //elimina direcciones
 }
+//redimensionarVehiculos: Cuando la caja de carros se llene, si la caja tiene espacios para 4 carros y llega un 5to, no cabe enotonces se busca una mas grande, se pasa los carros a la caja nueva, se delete la vieja y se usa la nueva apartir de ahora 
+void redimensionarVehiculos(SistemaTaller* s) {
+
+    //se busca la caja mas grande 
+    int nuevaCapacidad = s->capacidadVehiculos * 2;
+    Vehiculo* nueva = new Vehiculo[nuevaCapacidad];
+
+    //pasar los carros de la vieja caja  a la nueva 
+    for(int i= 0; i < s->numVehiculos; i++ ) {
+        nueva[i] = s->vehiculos[i];
+
+    }
+
+    //devolviendo la caja vieja 
+    delete[] s->vehiculos;
+
+    //usar la caja nueva
+    s->vehiculos = nueva;
+    s->capacidadVehiculos = nuevaCapacidad;
+}
+void redimensionarMecanicos(SistemaTaller* s) {
+
+    //se busca la caja mas grande 
+    int nuevaCapacidad = s->capacidadMecanicos * 2;
+    Mecanico* nueva = new Mecanico[nuevaCapacidad];
+
+    //pasar los carros de la vieja caja  a la nueva 
+    for(int i= 0; i < s->numMecanicos; i++ ) {
+        nueva[i] = s->mecanicos[i];
+
+    }
+
+    //devolviendo la caja vieja 
+    delete[] s->mecanicos;
+
+    //usar la caja nueva
+    s->mecanicos = nueva;
+    s->capacidadMecanicos = nuevaCapacidad;
+}
+void redimensionarRepuestos(SistemaTaller* s) {
+
+    //se busca la caja mas grande 
+    int nuevaCapacidad = s->capacidadRepuestos * 2;
+    Repuesto* nueva = new Repuesto[nuevaCapacidad];
+
+    //pasar los carros de la vieja caja  a la nueva 
+    for(int i= 0; i < s->numRepuestos; i++ ) {
+        nueva[i] = s->repuestos[i];
+
+    }
+
+    //devolviendo la caja vieja 
+    delete[] s->repuestos;
+
+    //usar la caja nueva
+    s->repuestos = nueva;
+    s->capacidadRepuestos = nuevaCapacidad;
+}
+void redimensionarOrdenes(SistemaTaller* s) {
+
+    //se busca la caja mas grande
+    int nuevaCapacidad = s->capacidadOrdenes * 2;
+    OrdenServicio* nueva = new OrdenServicio[nuevaCapacidad];
+
+    //pasar las ordenes de la vieja caja a la nueva
+    //(se copia la DIRECCION de los detalles de cada orden, no los detalles)
+    for(int i = 0; i < s->numOrdenes; i++) {
+        nueva[i] = s->ordenes[i];
+    }
+
+    //devolviendo la caja vieja
+    //esto NO borra los detalles: siguen vivos y la orden nueva los apunta)
+    delete[] s->ordenes;
+
+    //usar la caja nueva
+    s->ordenes = nueva;
+    s->capacidadOrdenes = nuevaCapacidad;
+}
+
+void redimensionarDetalles(OrdenServicio* orden) {
+
+    //se busca la caja mas grande
+    int nuevaCapacidad = orden->capacidadDetalles * 2;
+    DetalleOrden* nueva = new DetalleOrden[nuevaCapacidad];
+
+    //pasar los detalles de la vieja caja a la nueva
+    for(int i = 0; i < orden->numDetalles; i++) {
+        nueva[i] = orden->detalles[i];
+    }
+
+    //devolviendo la caja vieja
+    delete[] orden->detalles;
+
+    //usar la caja nueva
+    orden->detalles = nueva;
+    orden->capacidadDetalles = nuevaCapacidad;
+}
