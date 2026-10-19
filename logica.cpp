@@ -274,3 +274,82 @@ bool eliminarVehiculo(SistemaTaller* s, int id) {
     s->numVehiculos--;
     return true;
 }
+// ===== MECANICOS =====
+
+// Revisa que la especialidad sea una de las 5 permitidas
+bool esEspecialidadValida(const char* especialidad) {
+    const char* permitidas[5] = {"MOTOR", "FRENOS", "ELECTRICIDAD", "SUSPENSION", "GENERAL"};
+    for (int i = 0; i < 5; i++) {
+        if (strcmp(especialidad, permitidas[i]) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Retorna el mecanico con ese ID, o nullptr si no existe
+Mecanico* buscarMecanicoPorID(SistemaTaller* s, int id) {
+    for (int i = 0; i < s->numMecanicos; i++) {
+        if (s->mecanicos[i].id == id) {
+            return &s->mecanicos[i];
+        }
+    }
+    return nullptr;
+}
+
+// Retorna el mecanico con esa cedula, o nullptr si no existe
+Mecanico* buscarMecanicoPorCedula(SistemaTaller* s, const char* cedula) {
+    for (int i = 0; i < s->numMecanicos; i++) {
+        if (strcmp(s->mecanicos[i].cedula, cedula) == 0) {
+            return &s->mecanicos[i];
+        }
+    }
+    return nullptr;
+}
+
+// Valida nombre, cedula unica y especialidad. Asigna ID y fecha de ingreso
+Mecanico* agregarMecanico(SistemaTaller* s, Mecanico datos) {
+    if (strlen(datos.nombre) == 0) {
+        return nullptr;
+    }
+    if (!esCedulaValida(datos.cedula)) {
+        return nullptr;
+    }
+    if (buscarMecanicoPorCedula(s, datos.cedula) != nullptr) {
+        return nullptr;
+    }
+    if (!esEspecialidadValida(datos.especialidad)) {
+        return nullptr;
+    }
+    if (s->numMecanicos == s->capacidadMecanicos) {
+        redimensionarMecanicos(s);
+    }
+    datos.id = s->siguienteIdMecanico;
+    s->siguienteIdMecanico++;
+    fechaActual(datos.fechaIngreso);
+    s->mecanicos[s->numMecanicos] = datos;
+    s->numMecanicos++;
+    return &s->mecanicos[s->numMecanicos - 1];
+}
+
+// Cuenta cuantas ordenes ABIERTAS tiene un mecanico
+int contarOrdenesAbiertas(SistemaTaller* s, int idMecanico) {
+    int total = 0;
+    for (int i = 0; i < s->numOrdenes; i++) {
+        if (s->ordenes[i].idMecanico == idMecanico && strcmp(s->ordenes[i].estado, "ABIERTA") == 0) {
+            total++;
+        }
+    }
+    return total;
+}
+
+// Retorna lista de punteros a todos los mecanicos
+// Quien la llame debe borrarla con delete[]
+Mecanico** listarMecanicos(SistemaTaller* s, int* cantidad) {
+    *cantidad = s->numMecanicos;
+    Mecanico** lista = new Mecanico*[s->numMecanicos];
+    for (int i = 0; i < s->numMecanicos; i++) {
+        lista[i] = &s->mecanicos[i];
+    }
+    return lista;
+}

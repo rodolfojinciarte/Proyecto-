@@ -18,3 +18,11 @@ Vehiculo** buscarVehiculosPorPropietario(SistemaTaller* s, const char* subcadena
 Vehiculo** listarVehiculos(SistemaTaller* s, int* cantidad);
 bool actualizarVehiculo(SistemaTaller* s, int id, Vehiculo datos);
 bool eliminarVehiculo(SistemaTaller* s, int id);
+
+// MECANICOS
+bool esEspecialidadValida(const char* especialidad);
+Mecanico* agregarMecanico(SistemaTaller* s, Mecanico datos);
+Mecanico* buscarMecanicoPorID(SistemaTaller* s, int id);
+Mecanico* buscarMecanicoPorCedula(SistemaTaller* s, const char* cedula);
+int contarOrdenesAbiertas(SistemaTaller* s, int idMecanico);
+Mecanico** listarMecanicos(SistemaTaller* s, int* cantidad);
