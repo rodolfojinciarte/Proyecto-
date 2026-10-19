@@ -1,4 +1,5 @@
 #include "logica.h"
+#include "utilidades.h"
 
 void inicializarSistema( SistemaTaller* s, Taller datosTaller){
 
@@ -145,4 +146,59 @@ void redimensionarDetalles(OrdenServicio* orden) {
     //usar la caja nueva
     orden->detalles = nueva;
     orden->capacidadDetalles = nuevaCapacidad;
+}
+
+// Busca un vehiculo por su ID. Si no lo encuentra devuelve nullptr
+Vehiculo* buscarVehiculoPorID(SistemaTaller* s, int id) {
+    for (int i = 0; i < s->numVehiculos; i++) {
+        if (s->vehiculos[i].id == id) {
+            return &s->vehiculos[i];
+        }
+    }
+    return nullptr;
+}
+
+// Busca un vehiculo por su placa exacta. Si no lo encuentra devuelve nullptr
+Vehiculo* buscarVehiculoPorPlaca(SistemaTaller* s, const char* placa) {
+    for (int i = 0; i < s->numVehiculos; i++) {
+        if (strcmp(s->vehiculos[i].placa, placa) == 0) {
+            return &s->vehiculos[i];
+        }
+    }
+    return nullptr;
+}
+// Agrega un vehiculo. Si algun dato es invalido devuelve nullptr
+Vehiculo* agregarVehiculo(SistemaTaller* s, Vehiculo datos) {
+    // Validaciones
+    if (!esPlacaValida(datos.placa)) {
+        return nullptr;
+    }
+    if (buscarVehiculoPorPlaca(s, datos.placa) != nullptr) {
+        return nullptr;
+    }
+    if (datos.anio < 1950 || datos.anio > 2027) {
+        return nullptr;
+    }
+    if (datos.kilometraje < 0) {
+        return nullptr;
+    }
+    if (!esCedulaValida(datos.cedulaPropietario)) {
+        return nullptr;
+    }
+
+    // Si la caja esta llena, mudanza a una del doble
+    if (s->numVehiculos == s->capacidadVehiculos) {
+        redimensionarVehiculos(s);
+    }
+
+    // Le ponemos ID y fecha de registro
+    datos.id = s->siguienteIdVehiculo;
+    s->siguienteIdVehiculo++;
+    fechaActual(datos.fechaRegistro);
+
+    // Lo guardamos en el siguiente puesto libre
+    s->vehiculos[s->numVehiculos] = datos;
+    s->numVehiculos++;
+
+    return &s->vehiculos[s->numVehiculos - 1];
 }
