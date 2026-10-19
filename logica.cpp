@@ -1,5 +1,6 @@
 #include "logica.h"
 #include "utilidades.h"
+#include <cstring>
 
 void inicializarSistema( SistemaTaller* s, Taller datosTaller){
 
@@ -201,4 +202,75 @@ Vehiculo* agregarVehiculo(SistemaTaller* s, Vehiculo datos) {
     s->numVehiculos++;
 
     return &s->vehiculos[s->numVehiculos - 1];
+}
+
+// Devuelve una lista de punteros a todos los vehiculos
+// Quien la llame debe borrarla con delete[]
+Vehiculo** listarVehiculos(SistemaTaller* s, int* cantidad) {
+    *cantidad = s->numVehiculos;
+    Vehiculo** lista = new Vehiculo*[s->numVehiculos];
+    for (int i = 0; i < s->numVehiculos; i++) {
+        lista[i] = &s->vehiculos[i];
+    }
+    return lista;
+}
+
+// Devuelve los vehiculos cuyo propietario contiene el texto buscado
+// Quien la llame debe borrarla con delete[]
+Vehiculo** buscarVehiculosPorPropietario(SistemaTaller* s, const char* subcadena, int* cantidad) {
+    Vehiculo** lista = new Vehiculo*[s->numVehiculos];
+    *cantidad = 0;
+    for (int i = 0; i < s->numVehiculos; i++) {
+        if (contieneSinMayusculas(s->vehiculos[i].nombrePropietario, subcadena)) {
+            lista[*cantidad] = &s->vehiculos[i];
+            (*cantidad)++;
+        }
+    }
+    return lista;
+}
+
+// Actualiza marca, modelo, anio y datos del propietario
+// No cambia ID, placa, kilometraje ni fecha de registro
+bool actualizarVehiculo(SistemaTaller* s, int id, Vehiculo datos) {
+    Vehiculo* v = buscarVehiculoPorID(s, id);
+    if (v == nullptr) {
+        return false;
+    }
+    if (datos.anio < 1950 || datos.anio > 2027) {
+        return false;
+    }
+    if (!esCedulaValida(datos.cedulaPropietario)) {
+        return false;
+    }
+    strcpy(v->marca, datos.marca);
+    strcpy(v->modelo, datos.modelo);
+    v->anio = datos.anio;
+    strcpy(v->nombrePropietario, datos.nombrePropietario);
+    strcpy(v->cedulaPropietario, datos.cedulaPropietario);
+    strcpy(v->telefonoPropietario, datos.telefonoPropietario);
+    return true;
+}
+
+// Elimina un vehiculo corriendo los siguientes un puesto hacia atras
+// No se puede si tiene ordenes registradas
+bool eliminarVehiculo(SistemaTaller* s, int id) {
+    int posicion = -1;
+    for (int i = 0; i < s->numVehiculos; i++) {
+        if (s->vehiculos[i].id == id) {
+            posicion = i;
+        }
+    }
+    if (posicion == -1) {
+        return false;
+    }
+    for (int i = 0; i < s->numOrdenes; i++) {
+        if (s->ordenes[i].idVehiculo == id) {
+            return false;
+        }
+    }
+    for (int i = posicion; i < s->numVehiculos - 1; i++) {
+        s->vehiculos[i] = s->vehiculos[i + 1];
+    }
+    s->numVehiculos--;
+    return true;
 }
