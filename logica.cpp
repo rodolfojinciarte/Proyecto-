@@ -473,3 +473,191 @@ bool eliminarRepuesto(SistemaTaller* s, int id) {
     s->numRepuestos--;
     return true;
 }
+
+// ===== ORDENES =====
+
+// Retorna la orden con ese ID, o nullptr si no existe
+OrdenServicio* buscarOrdenPorID(SistemaTaller* s, int id) {
+    for (int i = 0; i < s->numOrdenes; i++) {
+        if (s->ordenes[i].id == id) {
+            return &s->ordenes[i];
+        }
+    }
+    return nullptr;
+}
+
+// Retorna la orden ABIERTA de un vehiculo, o nullptr si no tiene
+OrdenServicio* buscarOrdenAbiertaDeVehiculo(SistemaTaller* s, int idVehiculo) {
+    for (int i = 0; i < s->numOrdenes; i++) {
+        if (s->ordenes[i].idVehiculo == idVehiculo && strcmp(s->ordenes[i].estado, "ABIERTA") == 0) {
+            return &s->ordenes[i];
+        }
+    }
+    return nullptr;
+}
+
+// Abre una orden nueva aplicando todas las reglas del PDF
+OrdenServicio* abrirOrden(SistemaTaller* s, int idVehiculo, int idMecanico, int kilometraje, const char* falla) {
+    Vehiculo* v = buscarVehiculoPorID(s, idVehiculo);
+    Mecanico* m = buscarMecanicoPorID(s, idMecanico);
+    if (v == nullptr || m == nullptr) {
+        return nullptr;
+    }
+    if (buscarOrdenAbiertaDeVehiculo(s, idVehiculo) != nullptr) {
+        return nullptr;
+    }
+    if (contarOrdenesAbiertas(s, idMecanico) >= 3) {
+        return nullptr;
+    }
+    if (kilometraje < v->kilometraje) {
+        return nullptr;
+    }
+    if (s->numOrdenes == s->capacidadOrdenes) {
+        redimensionarOrdenes(s);
+    }
+    OrdenServicio* o = &s->ordenes[s->numOrdenes];
+    o->id = s->siguienteIdOrden;
+    s->siguienteIdOrden++;
+    o->idVehiculo = idVehiculo;
+    o->idMecanico = idMecanico;
+    fechaActual(o->fechaApertura);
+    strcpy(o->fechaCierre, "");
+    strcpy(o->estado, "ABIERTA");
+    strncpy(o->descripcionFalla, falla, 199);
+    o->descripcionFalla[199] = '\0';
+    o->kilometrajeIngreso = kilometraje;
+    o->manoObra = 0;
+    o->detalles = new DetalleOrden[2];
+    o->numDetalles = 0;
+    o->capacidadDetalles = 2;
+    s->numOrdenes++;
+    v->kilometraje = kilometraje;
+    return o;
+}
+
+// Agrega repuesto a una orden ABIERTA. Descuenta stock y guarda el precio de hoy
+// Si el repuesto ya esta en la orden, suma en la misma linea
+bool agregarRepuestoAOrden(SistemaTaller* s, int idOrden, int idRepuesto, int cantidad) {
+    OrdenServicio* o = buscarOrdenPorID(s, idOrden);
+    Repuesto* r = buscarRepuestoPorID(s, idRepuesto);
+    if (o == nullptr || r == nullptr) {
+        return false;
+    }
+    if (strcmp(o->estado, "ABIERTA") != 0) {
+        return false;
+    }
+    if (cantidad <= 0 || cantidad > r->stock) {
+        return false;
+    }
+    for (int i = 0; i < o->numDetalles; i++) {
+        if (o->detalles[i].idRepuesto == idRepuesto) {
+            o->detalles[i].cantidad = o->detalles[i].cantidad + cantidad;
+            r->stock = r->stock - cantidad;
+            return true;
+        }
+    }
+    if (o->numDetalles == o->capacidadDetalles) {
+        redimensionarDetalles(o);
+    }
+    o->detalles[o->numDetalles].idRepuesto = idRepuesto;
+    o->detalles[o->numDetalles].cantidad = cantidad;
+    o->detalles[o->numDetalles].precioUnitario = r->precio;
+    o->numDetalles++;
+    r->stock = r->stock - cantidad;
+    return true;
+}
+
+// Quita la linea completa y devuelve sus unidades al inventario
+bool quitarRepuestoDeOrden(SistemaTaller* s, int idOrden, int idRepuesto) {
+    OrdenServicio* o = buscarOrdenPorID(s, idOrden);
+    if (o == nullptr || strcmp(o->estado, "ABIERTA") != 0) {
+        return false;
+    }
+    int posicion = -1;
+    for (int i = 0; i < o->numDetalles; i++) {
+        if (o->detalles[i].idRepuesto == idRepuesto) {
+            posicion = i;
+        }
+    }
+    if (posicion == -1) {
+        return false;
+    }
+    Repuesto* r = buscarRepuestoPorID(s, idRepuesto);
+    if (r != nullptr) {
+        r->stock = r->stock + o->detalles[posicion].cantidad;
+    }
+    for (int i = posicion; i < o->numDetalles - 1; i++) {
+        o->detalles[i] = o->detalles[i + 1];
+    }
+    o->numDetalles--;
+    return true;
+}
+
+// Cierra una orden ABIERTA. Necesita al menos un repuesto o mano de obra > 0
+bool cerrarOrden(SistemaTaller* s, int idOrden, float manoObra) {
+    OrdenServicio* o = buscarOrdenPorID(s, idOrden);
+    if (o == nullptr || strcmp(o->estado, "ABIERTA") != 0) {
+        return false;
+    }
+    if (manoObra < 0) {
+        return false;
+    }
+    if (o->numDetalles == 0 && manoObra == 0) {
+        return false;
+    }
+    o->manoObra = manoObra;
+    strcpy(o->estado, "CERRADA");
+    fechaActual(o->fechaCierre);
+    return true;
+}
+
+// Anula una orden ABIERTA o CERRADA y devuelve todo al inventario
+bool anularOrden(SistemaTaller* s, int idOrden) {
+    OrdenServicio* o = buscarOrdenPorID(s, idOrden);
+    if (o == nullptr || strcmp(o->estado, "ANULADA") == 0) {
+        return false;
+    }
+    for (int i = 0; i < o->numDetalles; i++) {
+        Repuesto* r = buscarRepuestoPorID(s, o->detalles[i].idRepuesto);
+        if (r != nullptr) {
+            r->stock = r->stock + o->detalles[i].cantidad;
+        }
+    }
+    strcpy(o->estado, "ANULADA");
+    return true;
+}
+
+// Total = mano de obra + suma de (cantidad x precio guardado)
+float calcularTotalOrden(OrdenServicio* o) {
+    float total = o->manoObra;
+    for (int i = 0; i < o->numDetalles; i++) {
+        total = total + o->detalles[i].cantidad * o->detalles[i].precioUnitario;
+    }
+    return total;
+}
+
+// Lista las ordenes con ese estado. Quien la llame la borra con delete[]
+OrdenServicio** listarOrdenesPorEstado(SistemaTaller* s, const char* estado, int* cantidad) {
+    OrdenServicio** lista = new OrdenServicio*[s->numOrdenes];
+    *cantidad = 0;
+    for (int i = 0; i < s->numOrdenes; i++) {
+        if (strcmp(s->ordenes[i].estado, estado) == 0) {
+            lista[*cantidad] = &s->ordenes[i];
+            (*cantidad)++;
+        }
+    }
+    return lista;
+}
+
+// Historial de un vehiculo. Quien la llame la borra con delete[]
+OrdenServicio** listarOrdenesPorVehiculo(SistemaTaller* s, int idVehiculo, int* cantidad) {
+    OrdenServicio** lista = new OrdenServicio*[s->numOrdenes];
+    *cantidad = 0;
+    for (int i = 0; i < s->numOrdenes; i++) {
+        if (s->ordenes[i].idVehiculo == idVehiculo) {
+            lista[*cantidad] = &s->ordenes[i];
+            (*cantidad)++;
+        }
+    }
+    return lista;
+}
