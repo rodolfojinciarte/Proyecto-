@@ -353,3 +353,123 @@ Mecanico** listarMecanicos(SistemaTaller* s, int* cantidad) {
     }
     return lista;
 }
+
+// ===== REPUESTOS =====
+
+// Retorna el repuesto con ese ID, o nullptr si no existe
+Repuesto* buscarRepuestoPorID(SistemaTaller* s, int id) {
+    for (int i = 0; i < s->numRepuestos; i++) {
+        if (s->repuestos[i].id == id) {
+            return &s->repuestos[i];
+        }
+    }
+    return nullptr;
+}
+
+// Retorna el repuesto con ese codigo exacto, o nullptr
+Repuesto* buscarRepuestoPorCodigo(SistemaTaller* s, const char* codigo) {
+    for (int i = 0; i < s->numRepuestos; i++) {
+        if (strcmp(s->repuestos[i].codigo, codigo) == 0) {
+            return &s->repuestos[i];
+        }
+    }
+    return nullptr;
+}
+
+// Valida nombre, codigo unico, precio > 0, stock >= 0 y stock minimo >= 0
+Repuesto* agregarRepuesto(SistemaTaller* s, Repuesto datos) {
+    if (strlen(datos.nombre) == 0 || strlen(datos.codigo) == 0) {
+        return nullptr;
+    }
+    if (buscarRepuestoPorCodigo(s, datos.codigo) != nullptr) {
+        return nullptr;
+    }
+    if (datos.precio <= 0 || datos.stock < 0 || datos.stockMinimo < 0) {
+        return nullptr;
+    }
+    if (s->numRepuestos == s->capacidadRepuestos) {
+        redimensionarRepuestos(s);
+    }
+    datos.id = s->siguienteIdRepuesto;
+    s->siguienteIdRepuesto++;
+    fechaActual(datos.fechaRegistro);
+    s->repuestos[s->numRepuestos] = datos;
+    s->numRepuestos++;
+    return &s->repuestos[s->numRepuestos - 1];
+}
+
+// Busca repuestos cuyo codigo o nombre contenga el texto
+// Quien la llame debe borrarla con delete[]
+Repuesto** buscarRepuestosPorTexto(SistemaTaller* s, const char* texto, int* cantidad) {
+    Repuesto** lista = new Repuesto*[s->numRepuestos];
+    *cantidad = 0;
+    for (int i = 0; i < s->numRepuestos; i++) {
+        if (contieneSinMayusculas(s->repuestos[i].nombre, texto) ||
+            contieneSinMayusculas(s->repuestos[i].codigo, texto)) {
+            lista[*cantidad] = &s->repuestos[i];
+            (*cantidad)++;
+        }
+    }
+    return lista;
+}
+
+// Suma unidades al stock. La cantidad debe ser mayor que 0
+bool registrarEntrada(SistemaTaller* s, int id, int cantidad) {
+    Repuesto* r = buscarRepuestoPorID(s, id);
+    if (r == nullptr || cantidad <= 0) {
+        return false;
+    }
+    r->stock = r->stock + cantidad;
+    return true;
+}
+
+// Retorna lista de punteros a todos los repuestos
+// Quien la llame debe borrarla con delete[]
+Repuesto** listarRepuestos(SistemaTaller* s, int* cantidad) {
+    *cantidad = s->numRepuestos;
+    Repuesto** lista = new Repuesto*[s->numRepuestos];
+    for (int i = 0; i < s->numRepuestos; i++) {
+        lista[i] = &s->repuestos[i];
+    }
+    return lista;
+}
+
+// true si el stock esta en el minimo o por debajo
+bool esBajoStock(Repuesto* r) {
+    return r->stock <= r->stockMinimo;
+}
+
+// Cambia el precio. No toca las ordenes ya registradas
+bool cambiarPrecio(SistemaTaller* s, int id, float nuevoPrecio) {
+    Repuesto* r = buscarRepuestoPorID(s, id);
+    if (r == nullptr || nuevoPrecio <= 0) {
+        return false;
+    }
+    r->precio = nuevoPrecio;
+    return true;
+}
+
+// Elimina solo si el repuesto no aparece en ninguna orden
+bool eliminarRepuesto(SistemaTaller* s, int id) {
+    int posicion = -1;
+    for (int i = 0; i < s->numRepuestos; i++) {
+        if (s->repuestos[i].id == id) {
+            posicion = i;
+        }
+    }
+    if (posicion == -1) {
+        return false;
+    }
+    for (int i = 0; i < s->numOrdenes; i++) {
+        for (int j = 0; j < s->ordenes[i].numDetalles; j++) {
+            if (s->ordenes[i].detalles[j].idRepuesto == id) {
+                return false;
+            }
+        }
+    }
+    for (int i = posicion; i < s->numRepuestos - 1; i++) {
+        s->repuestos[i] = s->repuestos[i + 1];
+    }
+    s->numRepuestos--;
+    return true;
+}
