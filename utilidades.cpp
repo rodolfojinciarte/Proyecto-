@@ -26,26 +26,34 @@ bool esPlacaValida(const char* placa) {
     return true;
 }
 
-// La cedula debe ser V-, E- o J- seguido de numeros
+// Revisa que la cedula sea solo numeros
+// El prefijo V-, E- o J- es opcional (asi lo dice el PDF, seccion 7.1)
 bool esCedulaValida(const char* cedula) {
-    int largo = strlen(cedula);
-    if (largo < 3) {
+    int inicio = 0;  // desde donde empiezan los numeros
+
+    // Si empieza con V, E o J, despues tiene que venir un guion
+    char primera = toupper(cedula[0]);
+    if (primera == 'V' || primera == 'E' || primera == 'J') {
+        if (cedula[1] != '-') {
+            return false;
+        }
+        inicio = 2;  // los numeros empiezan despues del guion
+    }
+
+    // Tiene que haber al menos un numero
+    if (cedula[inicio] == '\0') {
         return false;
     }
-    char letra = toupper(cedula[0]);
-    if (letra != 'V' && letra != 'E' && letra != 'J') {
-        return false;
-    }
-    if (cedula[1] != '-') {
-        return false;
-    }
-    for (int i = 2; i < largo; i++) {
+
+    // Todo lo que queda tiene que ser numero
+    for (int i = inicio; cedula[i] != '\0'; i++) {
         if (!isdigit(cedula[i])) {
             return false;
         }
     }
     return true;
 }
+
 // La fecha debe ser AAAA-MM-DD, con mes y dia que existan
 bool esFechaValida(const char* fecha) {
     if (strlen(fecha) != 10) {

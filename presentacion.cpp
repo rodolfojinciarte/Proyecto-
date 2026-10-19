@@ -159,25 +159,119 @@ void menuListarVehiculos(SistemaTaller* s) {
     delete[] lista;
 }
 
-// Submenu de vehiculos
+// Submenu de vehiculos: se repite hasta que elija 0
 void menuVehiculos(SistemaTaller* s) {
     int opcion = -1;
     while (opcion != 0) {
-        cout << "\n╔═══════════════════════════════════════════╗" << endl;
-        cout << "║          GESTIÓN DE VEHÍCULOS             ║" << endl;
-        cout << "╠═══════════════════════════════════════════╣" << endl;
-        cout << "║  1. Registrar vehículo                    ║" << endl;
-        cout << "║  2. Buscar vehículo                       ║" << endl;
-        cout << "║  3. Actualizar vehículo                   ║" << endl;
-        cout << "║  4. Eliminar vehículo                     ║" << endl;
-        cout << "║  5. Listar vehículos                      ║" << endl;
-        cout << "║  0. Volver al menú principal              ║" << endl;
-        cout << "╚═══════════════════════════════════════════╝" << endl;
-        opcion = leerEntero("Seleccione una opción: ", 0, 5);
+        cout << "\n+===========================================+" << endl;
+        cout << "|           GESTION DE VEHICULOS            |" << endl;
+        cout << "+===========================================+" << endl;
+        cout << "|  1. Registrar vehiculo                    |" << endl;
+        cout << "|  2. Buscar vehiculo                       |" << endl;
+        cout << "|  3. Actualizar vehiculo                   |" << endl;
+        cout << "|  4. Eliminar vehiculo                     |" << endl;
+        cout << "|  5. Listar vehiculos                      |" << endl;
+        cout << "|  0. Volver al menu principal              |" << endl;
+        cout << "+===========================================+" << endl;
+        opcion = leerEntero("Seleccione una opcion: ", 0, 5);
+
+        // Cada numero llama a su funcion de menu
         if (opcion == 1) menuRegistrarVehiculo(s);
         if (opcion == 2) menuBuscarVehiculo(s);
         if (opcion == 3) menuActualizarVehiculo(s);
         if (opcion == 4) menuEliminarVehiculo(s);
         if (opcion == 5) menuListarVehiculos(s);
+    }
+}
+
+// ===== MECANICOS =====
+
+// Muestra un mecanico con sus ordenes abiertas
+void mostrarMecanico(SistemaTaller* s, Mecanico* m) {
+    cout << "  ID " << m->id << " - " << m->nombre << " (" << m->especialidad << ")" << endl;
+    cout << "  Cedula: " << m->cedula << "  Ingreso: " << m->fechaIngreso << endl;
+    // contarOrdenesAbiertas viene de la capa de logica
+    cout << "  Ordenes abiertas: " << contarOrdenesAbiertas(s, m->id) << endl;
+}
+
+// Pide los datos del mecanico y lo registra
+void menuRegistrarMecanico(SistemaTaller* s) {
+    Mecanico m;
+    cout << "\n(Escriba CANCELAR en cualquier texto para salir)" << endl;
+    if (!leerTexto("Nombre: ", m.nombre, 100)) { cout << "Registro cancelado." << endl; return; }
+    if (!leerTexto("Cedula: ", m.cedula, 20)) { cout << "Registro cancelado." << endl; return; }
+
+    // La especialidad se elige con un numero, asi nunca se escribe mal
+    cout << "Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL" << endl;
+    int esp = leerEntero("Opcion: ", 1, 5);
+    const char* nombres[5] = {"MOTOR", "FRENOS", "ELECTRICIDAD", "SUSPENSION", "GENERAL"};
+    strcpy(m.especialidad, nombres[esp - 1]);  // -1 porque el arreglo empieza en 0
+
+    // Validaciones con mensajes que dicen que fallo y con que dato
+    if (!esCedulaValida(m.cedula)) {
+        cout << "ERROR: La cedula '" << m.cedula << "' no es valida." << endl;
+        return;
+    }
+    if (buscarMecanicoPorCedula(s, m.cedula) != nullptr) {
+        cout << "ERROR: La cedula '" << m.cedula << "' ya esta registrada." << endl;
+        return;
+    }
+    if (!confirmar("Guardar el mecanico?")) {
+        cout << "Registro cancelado." << endl;
+        return;
+    }
+    Mecanico* nuevo = agregarMecanico(s, m);
+    if (nuevo == nullptr) {
+        cout << "ERROR: No se pudo registrar el mecanico." << endl;
+    } else {
+        cout << "Mecanico registrado:" << endl;
+        mostrarMecanico(s, nuevo);
+    }
+}
+
+// Busca un mecanico por su ID
+void menuBuscarMecanico(SistemaTaller* s) {
+    int id = leerEntero("ID del mecanico: ", 1, 1000000);
+    Mecanico* m = buscarMecanicoPorID(s, id);
+    if (m == nullptr) {
+        cout << "ERROR: No existe el mecanico con ID " << id << "." << endl;
+    } else {
+        mostrarMecanico(s, m);
+    }
+}
+
+// Lista todos los mecanicos con sus ordenes ABIERTAS (lo pide el PDF)
+void menuListarMecanicos(SistemaTaller* s) {
+    int cantidad;
+    Mecanico** lista = listarMecanicos(s, &cantidad);
+    cout << left;
+    cout << "  " << setw(4) << "ID" << setw(25) << "Nombre" << setw(14) << "Especialidad"
+         << "Abiertas" << endl;
+    cout << "  ---------------------------------------------------" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "  " << setw(4) << lista[i]->id << setw(25) << lista[i]->nombre
+             << setw(14) << lista[i]->especialidad
+             << contarOrdenesAbiertas(s, lista[i]->id) << endl;
+    }
+    cout << "  Total de mecanicos: " << cantidad << endl;
+    delete[] lista;  // libero solo la libreta, no los mecanicos
+}
+
+// Submenu de mecanicos: se repite hasta que elija 0
+void menuMecanicos(SistemaTaller* s) {
+    int opcion = -1;
+    while (opcion != 0) {
+        cout << "\n+===========================================+" << endl;
+        cout << "|           GESTION DE MECANICOS            |" << endl;
+        cout << "+===========================================+" << endl;
+        cout << "|  1. Registrar mecanico                    |" << endl;
+        cout << "|  2. Buscar mecanico                       |" << endl;
+        cout << "|  3. Listar mecanicos                      |" << endl;
+        cout << "|  0. Volver al menu principal              |" << endl;
+        cout << "+===========================================+" << endl;
+        opcion = leerEntero("Seleccione una opcion: ", 0, 3);
+        if (opcion == 1) menuRegistrarMecanico(s);
+        if (opcion == 2) menuBuscarMecanico(s);
+        if (opcion == 3) menuListarMecanicos(s);
     }
 }

@@ -10,3 +10,10 @@ void menuActualizarVehiculo(SistemaTaller* s);
 void menuEliminarVehiculo(SistemaTaller* s);
 void menuListarVehiculos(SistemaTaller* s);
 void menuVehiculos(SistemaTaller* s);
+
+// MECANICOS
+void mostrarMecanico(SistemaTaller* s, Mecanico* m);
+void menuRegistrarMecanico(SistemaTaller* s);
+void menuBuscarMecanico(SistemaTaller* s);
+void menuListarMecanicos(SistemaTaller* s);
+void menuMecanicos(SistemaTaller* s);
