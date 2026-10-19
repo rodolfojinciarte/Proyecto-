@@ -39,3 +39,14 @@ bool anularOrden(SistemaTaller* s, int idOrden);
 float calcularTotalOrden(OrdenServicio* o);
 OrdenServicio** listarOrdenesPorEstado(SistemaTaller* s, const char* estado, int* cantidad);
 OrdenServicio** listarOrdenesPorVehiculo(SistemaTaller* s, int idVehiculo, int* cantidad);
+
+// REPUESTOS
+Repuesto* agregarRepuesto(SistemaTaller* s, Repuesto datos);
+Repuesto* buscarRepuestoPorID(SistemaTaller* s, int id);
+Repuesto* buscarRepuestoPorCodigo(SistemaTaller* s, const char* codigo);
+Repuesto** buscarRepuestosPorTexto(SistemaTaller* s, const char* texto, int* cantidad);
+bool registrarEntrada(SistemaTaller* s, int id, int cantidad);
+Repuesto** listarRepuestos(SistemaTaller* s, int* cantidad);
+bool esBajoStock(Repuesto* r);
+bool cambiarPrecio(SistemaTaller* s, int id, float nuevoPrecio);
+bool eliminarRepuesto(SistemaTaller* s, int id);

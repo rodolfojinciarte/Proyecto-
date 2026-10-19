@@ -39,10 +39,10 @@ int main() {
         // Cada opcion llama a su submenu (capa de presentacion)
         if (opcion == 1) menuVehiculos(&sistema);
         if (opcion == 2) menuMecanicos(&sistema);
-        if (opcion == 3) cout << "Proximamente." << endl;
-        if (opcion == 4) cout << "Proximamente." << endl;
+       if (opcion == 3) menuRepuestos(&sistema);
+               if (opcion == 4) menuOrdenes(&sistema);
 
-        // El PDF pide confirmar antes de salir porque los datos se pierden
+      
         if (opcion == 0) {
             if (confirmar("Seguro que desea salir? Los datos se perderan")) {
                 salir = true;
