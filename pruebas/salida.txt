@@ -1,0 +1,247 @@
+
++===========================================+
+|        SISTEMA DE GESTION DE TALLER       |
+|  Taller: Autoservicio El Lago
++===========================================+
+|  1. Gestion de Vehiculos                  |
+|  2. Gestion de Mecanicos                  |
+|  3. Inventario de Repuestos               |
+|  4. Ordenes de Servicio                   |
+|  0. Salir                                 |
++===========================================+
+Seleccione una opcion: 
++===========================================+
+|           GESTION DE VEHICULOS            |
++===========================================+
+|  1. Registrar vehiculo                    |
+|  2. Buscar vehiculo                       |
+|  3. Actualizar vehiculo                   |
+|  4. Eliminar vehiculo                     |
+|  5. Listar vehiculos                      |
+|  0. Volver al menu principal              |
++===========================================+
+Seleccione una opcion: 
+(Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado:
+  ID 1 - AB123CD - Toyota Corolla 2015 (45000 km)
+  Propietario: Maria Gonzalez (12345678) Tel: 04141234567
+  Registrado: 2026-10-19
+
++===========================================+
+|           GESTION DE VEHICULOS            |
++===========================================+
+|  1. Registrar vehiculo                    |
+|  2. Buscar vehiculo                       |
+|  3. Actualizar vehiculo                   |
+|  4. Eliminar vehiculo                     |
+|  5. Listar vehiculos                      |
+|  0. Volver al menu principal              |
++===========================================+
+Seleccione una opcion: 
++===========================================+
+|        SISTEMA DE GESTION DE TALLER       |
+|  Taller: Autoservicio El Lago
++===========================================+
+|  1. Gestion de Vehiculos                  |
+|  2. Gestion de Mecanicos                  |
+|  3. Inventario de Repuestos               |
+|  4. Ordenes de Servicio                   |
+|  0. Salir                                 |
++===========================================+
+Seleccione una opcion: 
++===========================================+
+|           GESTION DE MECANICOS            |
++===========================================+
+|  1. Registrar mecanico                    |
+|  2. Buscar mecanico                       |
+|  3. Listar mecanicos                      |
+|  0. Volver al menu principal              |
++===========================================+
+Seleccione una opcion: 
+(Escriba CANCELAR en cualquier texto para salir)
+Nombre: Cedula: Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
+Opcion: Guardar el mecanico? (S/N): Mecanico registrado:
+  ID 1 - Jose Perez (FRENOS)
+  Cedula: 87654321  Ingreso: 2026-10-19
+  Ordenes abiertas: 0
+
++===========================================+
+|           GESTION DE MECANICOS            |
++===========================================+
+|  1. Registrar mecanico                    |
+|  2. Buscar mecanico                       |
+|  3. Listar mecanicos                      |
+|  0. Volver al menu principal              |
++===========================================+
+Seleccione una opcion: 
++===========================================+
+|        SISTEMA DE GESTION DE TALLER       |
+|  Taller: Autoservicio El Lago
++===========================================+
+|  1. Gestion de Vehiculos                  |
+|  2. Gestion de Mecanicos                  |
+|  3. Inventario de Repuestos               |
+|  4. Ordenes de Servicio                   |
+|  0. Salir                                 |
++===========================================+
+Seleccione una opcion: 
++===========================================+
+|         INVENTARIO DE REPUESTOS           |
++===========================================+
+|  1. Registrar repuesto                    |
+|  2. Buscar repuesto                       |
+|  3. Entrada de mercancia                  |
+|  4. Listar repuestos                      |
+|  5. Cambiar precio                        |
+|  6. Eliminar repuesto                     |
+|  0. Volver al menu principal              |
++===========================================+
+Seleccione una opcion: 
+(Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado:
+  ID 1 - FIL001 - Filtro de aceite (Bosch)
+  Precio: 25.50  Stock: 5  Minimo: 2
+
++===========================================+
+|         INVENTARIO DE REPUESTOS           |
++===========================================+
+|  1. Registrar repuesto                    |
+|  2. Buscar repuesto                       |
+|  3. Entrada de mercancia                  |
+|  4. Listar repuestos                      |
+|  5. Cambiar precio                        |
+|  6. Eliminar repuesto                     |
+|  0. Volver al menu principal              |
++===========================================+
+Seleccione una opcion: 
++===========================================+
+|        SISTEMA DE GESTION DE TALLER       |
+|  Taller: Autoservicio El Lago
++===========================================+
+|  1. Gestion de Vehiculos                  |
+|  2. Gestion de Mecanicos                  |
+|  3. Inventario de Repuestos               |
+|  4. Ordenes de Servicio                   |
+|  0. Salir                                 |
++===========================================+
+Seleccione una opcion: 
++==============================+
+|      ORDENES DE SERVICIO     |
++==============================+
+| 1. Abrir orden               |
+| 2. Agregar repuesto          |
+| 3. Quitar repuesto           |
+| 4. Cerrar orden              |
+| 5. Anular orden              |
+| 6. Ver detalle               |
+| 7. Listar ordenes            |
+| 0. Volver                    |
++==============================+
+Seleccione una opcion: ID del vehiculo: ID del mecanico: Kilometraje de ingreso: Descripcion de la falla: Orden abierta con ID 1
+
++==============================+
+|      ORDENES DE SERVICIO     |
++==============================+
+| 1. Abrir orden               |
+| 2. Agregar repuesto          |
+| 3. Quitar repuesto           |
+| 4. Cerrar orden              |
+| 5. Anular orden              |
+| 6. Ver detalle               |
+| 7. Listar ordenes            |
+| 0. Volver                    |
++==============================+
+Seleccione una opcion: ID de la orden: ID del repuesto: Cantidad: Repuesto agregado a la orden.
+
++==============================+
+|      ORDENES DE SERVICIO     |
++==============================+
+| 1. Abrir orden               |
+| 2. Agregar repuesto          |
+| 3. Quitar repuesto           |
+| 4. Cerrar orden              |
+| 5. Anular orden              |
+| 6. Ver detalle               |
+| 7. Listar ordenes            |
+| 0. Volver                    |
++==============================+
+Seleccione una opcion: ID de la orden: +==============================================+
+  Autoservicio El Lago  RIF: J-12345678-9
+  ORDEN #1   Estado: ABIERTA
+  Apertura: 2026-10-19   Cierre: 
+  Vehiculo ID: 1   Mecanico ID: 1
+  Km ingreso: 45500
+  Falla: Cambio de aceite
++----------------------------------------------+
+  Repuesto              Cant   P.Unit   Subtotal
+  Filtro de aceite         2    25.50      51.00
++----------------------------------------------+
+  Mano de obra: 0.00
+  TOTAL: 51.00
++==============================================+
+
++==============================+
+|      ORDENES DE SERVICIO     |
++==============================+
+| 1. Abrir orden               |
+| 2. Agregar repuesto          |
+| 3. Quitar repuesto           |
+| 4. Cerrar orden              |
+| 5. Anular orden              |
+| 6. Ver detalle               |
+| 7. Listar ordenes            |
+| 0. Volver                    |
++==============================+
+Seleccione una opcion: ID de la orden: Mano de obra en centavos (ej: 5000 = 50.00): Seguro que desea cerrar la orden? (S/N): Orden cerrada.
+
++==============================+
+|      ORDENES DE SERVICIO     |
++==============================+
+| 1. Abrir orden               |
+| 2. Agregar repuesto          |
+| 3. Quitar repuesto           |
+| 4. Cerrar orden              |
+| 5. Anular orden              |
+| 6. Ver detalle               |
+| 7. Listar ordenes            |
+| 0. Volver                    |
++==============================+
+Seleccione una opcion: ID de la orden: +==============================================+
+  Autoservicio El Lago  RIF: J-12345678-9
+  ORDEN #1   Estado: CERRADA
+  Apertura: 2026-10-19   Cierre: 2026-10-19
+  Vehiculo ID: 1   Mecanico ID: 1
+  Km ingreso: 45500
+  Falla: Cambio de aceite
++----------------------------------------------+
+  Repuesto              Cant   P.Unit   Subtotal
+  Filtro de aceite         2    25.50      51.00
++----------------------------------------------+
+  Mano de obra: 50.00
+  TOTAL: 101.00
++==============================================+
+
++==============================+
+|      ORDENES DE SERVICIO     |
++==============================+
+| 1. Abrir orden               |
+| 2. Agregar repuesto          |
+| 3. Quitar repuesto           |
+| 4. Cerrar orden              |
+| 5. Anular orden              |
+| 6. Ver detalle               |
+| 7. Listar ordenes            |
+| 0. Volver                    |
++==============================+
+Seleccione una opcion: 
++===========================================+
+|        SISTEMA DE GESTION DE TALLER       |
+|  Taller: Autoservicio El Lago
++===========================================+
+|  1. Gestion de Vehiculos                  |
+|  2. Gestion de Mecanicos                  |
+|  3. Inventario de Repuestos               |
+|  4. Ordenes de Servicio                   |
+|  0. Salir                                 |
++===========================================+
+Seleccione una opcion: Seguro que desea salir? Los datos se perderan (S/N): Hasta luego.

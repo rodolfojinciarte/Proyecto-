@@ -1,0 +1,50 @@
+1
+1
+AB123CD
+Toyota
+Corolla
+2015
+45000
+Maria Gonzalez
+12345678
+04141234567
+S
+0
+2
+1
+Jose Perez
+87654321
+2
+S
+0
+3
+1
+FIL001
+Filtro de aceite
+Bosch
+2550
+5
+2
+S
+0
+4
+1
+1
+1
+45500
+Cambio de aceite
+2
+1
+1
+2
+6
+1
+4
+1
+5000
+S
+6
+1
+0
+0
+S

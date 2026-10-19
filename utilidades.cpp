@@ -3,7 +3,17 @@
 #include <cstring>
 #include <cctype>
 #include <ctime>
+#include <cstdlib>   // para exit(): cerrar el programa si se acaba la entrada
 using namespace std;
+
+// Si ya no queda nada que leer (se acabo el archivo de pruebas),
+// cierro el programa en vez de quedarme preguntando para siempre
+void revisarFinDeEntrada() {
+    if (cin.eof()) {
+        cout << endl << "Fin de la entrada. Saliendo." << endl;
+        exit(0);
+    }
+}
 
 // Escribe la fecha de hoy en formato AAAA-MM-DD
 void fechaActual(char* destino) {
@@ -80,7 +90,8 @@ bool esFechaValida(const char* fecha) {
     }
     return true;
 }
-// Revisa si "buscado" aparece dentro de "texto", sin importar mayusculas
+
+// Busca un texto dentro de otro sin importar mayusculas o minusculas
 bool contieneSinMayusculas(const char* texto, const char* buscado) {
     int largoTexto = strlen(texto);
     int largoBuscado = strlen(buscado);
@@ -98,6 +109,7 @@ bool contieneSinMayusculas(const char* texto, const char* buscado) {
     }
     return false;
 }
+
 // Pide un numero y repite si escriben letras o si esta fuera de rango
 int leerEntero(const char* mensaje, int minimo, int maximo) {
     int valor;
@@ -107,6 +119,7 @@ int leerEntero(const char* mensaje, int minimo, int maximo) {
             cin.ignore(10000, '\n');
             return valor;
         }
+        revisarFinDeEntrada();   // NUEVO: si se acabo la entrada, salgo
         cout << "Valor invalido. Intente de nuevo." << endl;
         cin.clear();
         cin.ignore(10000, '\n');
@@ -118,6 +131,13 @@ bool leerTexto(const char* mensaje, char* destino, int tamano) {
     string linea;
     cout << mensaje;
     getline(cin, linea);
+    revisarFinDeEntrada();   // NUEVO: si se acabo la entrada, salgo
+
+    // NUEVO: Windows deja un caracter invisible '\r' al final; lo quito
+    if (!linea.empty() && linea[linea.size() - 1] == '\r') {
+        linea.erase(linea.size() - 1);
+    }
+
     if (linea == "CANCELAR") {
         return false;
     }
@@ -132,6 +152,7 @@ bool confirmar(const char* mensaje) {
     while (true) {
         cout << mensaje << " (S/N): ";
         cin >> respuesta;
+        revisarFinDeEntrada();   // NUEVO: si se acabo la entrada, salgo
         cin.ignore(10000, '\n');
         respuesta = toupper(respuesta);
         if (respuesta == 'S') {
