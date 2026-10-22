@@ -8,7 +8,7 @@ Prof. Ing. Victor Kneider.
 Estudiantes de Ingeniería en Computación, Universidad Rafael Urdaneta.
 
 - Rodolfo Inciarte
-- Kolja Balzan
+- Kolja Balza
 
 ## Descripción
 
