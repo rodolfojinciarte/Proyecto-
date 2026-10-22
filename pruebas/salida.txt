@@ -25,7 +25,7 @@ Seleccione una opcion:
 Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado:
   ID 1 - AB123CD - Toyota Corolla 2015 (45000 km)
   Propietario: Maria Gonzalez (12345678) Tel: 04141234567
-  Registrado: 2026-10-19
+  Registrado: 2026-10-22
 
 +===========================================+
 |           GESTION DE VEHICULOS            |
@@ -62,7 +62,7 @@ Seleccione una opcion:
 Nombre: Cedula: Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
 Opcion: Guardar el mecanico? (S/N): Mecanico registrado:
   ID 1 - Jose Perez (FRENOS)
-  Cedula: 87654321  Ingreso: 2026-10-19
+  Cedula: 87654321  Ingreso: 2026-10-22
   Ordenes abiertas: 0
 
 +===========================================+
@@ -168,7 +168,7 @@ Seleccione una opcion: ID de la orden: ID del repuesto: Cantidad: Repuesto agreg
 Seleccione una opcion: ID de la orden: +==============================================+
   Autoservicio El Lago  RIF: J-12345678-9
   ORDEN #1   Estado: ABIERTA
-  Apertura: 2026-10-19   Cierre: 
+  Apertura: 2026-10-22   Cierre: 
   Vehiculo ID: 1   Mecanico ID: 1
   Km ingreso: 45500
   Falla: Cambio de aceite
@@ -209,7 +209,7 @@ Seleccione una opcion: ID de la orden: Mano de obra en centavos (ej: 5000 = 50.0
 Seleccione una opcion: ID de la orden: +==============================================+
   Autoservicio El Lago  RIF: J-12345678-9
   ORDEN #1   Estado: CERRADA
-  Apertura: 2026-10-19   Cierre: 2026-10-19
+  Apertura: 2026-10-22   Cierre: 2026-10-22
   Vehiculo ID: 1   Mecanico ID: 1
   Km ingreso: 45500
   Falla: Cambio de aceite
