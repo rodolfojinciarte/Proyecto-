@@ -47,8 +47,8 @@ int main() {
 
         int op = leerEntero("Seleccione una opcion: ", 0, 6);
         if (op == 1) menuVehiculos();
-        if (op == 2) cout << "Proximamente." << endl;   // ronda 2
-        if (op == 3) cout << "Proximamente." << endl;   // ronda 2
+        if (op == 2) menuMecanicos();
+        if (op == 3) menuRepuestos();
         if (op == 4) cout << "Proximamente." << endl;   // ronda 3
         if (op == 5) cout << "Proximamente." << endl;   // lunes
         if (op == 6) cout << "Proximamente." << endl;   // lunes
