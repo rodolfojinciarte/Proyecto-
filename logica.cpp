@@ -2,13 +2,16 @@
 #include "persistencia.h"
 #include "utilidades.h"
 #include <cstring>
+#include <cstdio>     // snprintf: arma un texto con numeros adentro
+#include <ctime>
 
 // =====================================================================
-// FUNCIONES DE AYUDA (static = solo se pueden usar dentro de este archivo)
+// FUNCIONES DE AYUDA DE VEHICULOS
+// (static = solo se pueden usar dentro de este archivo)
 // =====================================================================
 
-// Recorre vehiculos.bin UN REGISTRO A LA VEZ buscando la placa entre los activos.
-// Devuelve el ID del vehiculo activo que la tiene, o 0 si ninguno la tiene.
+// QUE HACE: recorre vehiculos.bin UN REGISTRO A LA VEZ buscando la placa entre los activos.
+// DEVUELVE: el ID del vehiculo activo que la tiene, o 0 si ninguno la tiene.
 static int idConPlaca(const char* placa) {
     ArchivoHeader h;
     if (!leerHeader(RUTA_VEHICULOS, &h)) {
@@ -23,7 +26,8 @@ static int idConPlaca(const char* placa) {
     return 0;
 }
 
-// Revisa si algun registro de ordenes.bin pertenece a ese vehiculo (en cualquier estado)
+// QUE HACE: revisa si algun registro de ordenes.bin pertenece a ese vehiculo (en cualquier estado).
+// Deja la respuesta en *tiene.
 static Resultado vehiculoTieneOrdenes(int idVehiculo, bool* tiene) {
     *tiene = false;
     ArchivoHeader h;
@@ -43,7 +47,8 @@ static Resultado vehiculoTieneOrdenes(int idVehiculo, bool* tiene) {
     return OK;
 }
 
-// Revisa los datos que se pueden registrar o actualizar (todo menos placa y km)
+// QUE HACE: revisa los datos que se pueden registrar o actualizar (todo menos placa y km).
+// DEVUELVE: true si todos son validos.
 static bool datosVehiculoValidos(Vehiculo d) {
     if (strlen(d.marca) == 0 || strlen(d.modelo) == 0 || strlen(d.nombrePropietario) == 0) {
         return false;   // nombres, marca y modelo no pueden estar vacios
@@ -61,6 +66,7 @@ static bool datosVehiculoValidos(Vehiculo d) {
 // VEHICULOS
 // =====================================================================
 
+// QUE HACE: valida todos los datos y, si estan bien, guarda el vehiculo nuevo.
 Resultado registrarVehiculo(Vehiculo datos, int* idAsignado) {
     // 1. Todas las validaciones ANTES de escribir
     if (!datosVehiculoValidos(datos)) {
@@ -79,6 +85,7 @@ Resultado registrarVehiculo(Vehiculo datos, int* idAsignado) {
     return guardarVehiculoNuevo(datos, idAsignado);
 }
 
+// QUE HACE: lee el vehiculo por ID (acceso directo) y dice si esta activo o eliminado.
 Resultado obtenerVehiculoPorID(int id, Vehiculo* v) {
     Resultado r = leerVehiculoPorID(id, v);   // acceso directo: no recorre el archivo
     if (r != OK) {
@@ -90,6 +97,7 @@ Resultado obtenerVehiculoPorID(int id, Vehiculo* v) {
     return OK;
 }
 
+// QUE HACE: busca el vehiculo activo con esa placa exacta (recorre el archivo).
 Resultado obtenerVehiculoPorPlaca(const char* placa, Vehiculo* v) {
     int id = idConPlaca(placa);
     if (id == 0) {
@@ -98,6 +106,8 @@ Resultado obtenerVehiculoPorPlaca(const char* placa, Vehiculo* v) {
     return leerVehiculoPorID(id, v);
 }
 
+// QUE HACE: recorre el archivo y copia en resultados[] los vehiculos activos
+// cuyo propietario contiene el texto buscado (maximo MAX_RESULTADOS).
 Resultado buscarVehiculosPorPropietario(const char* texto, Vehiculo resultados[], int* cantidad, bool* hayMas) {
     *cantidad = 0;
     *hayMas = false;
@@ -126,6 +136,7 @@ Resultado buscarVehiculosPorPropietario(const char* texto, Vehiculo resultados[]
     return OK;
 }
 
+// QUE HACE: copia en resultados[] todos los vehiculos activos (maximo MAX_RESULTADOS).
 Resultado listarVehiculos(Vehiculo resultados[], int* cantidad, bool* hayMas) {
     *cantidad = 0;
     *hayMas = false;
@@ -151,31 +162,38 @@ Resultado listarVehiculos(Vehiculo resultados[], int* cantidad, bool* hayMas) {
     return OK;
 }
 
+// QUE HACE: cambia marca, modelo, ano y datos del propietario de un vehiculo activo.
 Resultado actualizarVehiculo(int id, Vehiculo datos) {
+    // 1. El vehiculo debe existir y estar activo
     Vehiculo actual;
     Resultado r = obtenerVehiculoPorID(id, &actual);
     if (r != OK) {
         return r;                     // NO_EXISTE, ELIMINADO o ERROR_ARCHIVO
     }
+    // 2. Los datos nuevos deben ser validos
     if (!datosVehiculoValidos(datos)) {
         return DATO_INVALIDO;
     }
-    // Copio solo lo que se puede cambiar. Placa, km, ID y fechaCreacion quedan igual.
+    // 3. Copio solo lo que se puede cambiar. Placa, km, ID y fechaCreacion quedan igual.
     strcpy(actual.marca, datos.marca);
     strcpy(actual.modelo, datos.modelo);
     actual.anio = datos.anio;
     strcpy(actual.nombrePropietario, datos.nombrePropietario);
     strcpy(actual.cedulaPropietario, datos.cedulaPropietario);
     strcpy(actual.telefonoPropietario, datos.telefonoPropietario);
-    return sobrescribirVehiculo(actual);   // lo escribe en su misma posicion
+    // 4. Lo escribo en su misma posicion
+    return sobrescribirVehiculo(actual);
 }
 
+// QUE HACE: borrado logico del vehiculo, solo si no tiene ordenes.
 Resultado eliminarVehiculo(int id) {
+    // 1. Debe existir y estar activo
     Vehiculo v;
     Resultado r = obtenerVehiculoPorID(id, &v);
     if (r != OK) {
         return r;
     }
+    // 2. No puede tener ordenes en ningun estado
     bool tiene = false;
     r = vehiculoTieneOrdenes(id, &tiene);
     if (r != OK) {
@@ -184,9 +202,11 @@ Resultado eliminarVehiculo(int id) {
     if (tiene) {
         return TIENE_ORDENES;
     }
-    return marcarVehiculoEliminado(id);    // borrado logico
+    // 3. Borrado logico
+    return marcarVehiculoEliminado(id);
 }
 
+// QUE HACE: dice en que byte de vehiculos.bin esta ese vehiculo (para depuracion).
 long posicionEnDiscoVehiculo(int id) {
     return posicionVehiculo(id);
 }
@@ -195,6 +215,7 @@ long posicionEnDiscoVehiculo(int id) {
 // MECANICOS
 // =====================================================================
 
+// QUE HACE: revisa que la especialidad sea una de las 5 permitidas.
 bool esEspecialidadValida(const char* especialidad) {
     const char* validas[5] = {"MOTOR", "FRENOS", "ELECTRICIDAD", "SUSPENSION", "GENERAL"};
     for (int i = 0; i < 5; i++) {
@@ -205,8 +226,8 @@ bool esEspecialidadValida(const char* especialidad) {
     return false;
 }
 
-// Recorre mecanicos.bin buscando la cedula entre TODOS (activos y de baja).
-// Devuelve el ID del que la tiene, o 0 si nadie.
+// QUE HACE: recorre mecanicos.bin buscando la cedula entre TODOS (activos y de baja).
+// DEVUELVE: el ID del que la tiene, o 0 si nadie.
 static int idConCedula(const char* cedula) {
     ArchivoHeader h;
     if (!leerHeader(RUTA_MECANICOS, &h)) {
@@ -221,7 +242,9 @@ static int idConCedula(const char* cedula) {
     return 0;
 }
 
+// QUE HACE: valida los datos del mecanico y, si estan bien, lo guarda con la fecha de hoy.
 Resultado registrarMecanico(Mecanico datos, int* idAsignado) {
+    // 1. Validaciones
     if (strlen(datos.nombre) == 0) {
         return DATO_INVALIDO;
     }
@@ -234,10 +257,12 @@ Resultado registrarMecanico(Mecanico datos, int* idAsignado) {
     if (idConCedula(datos.cedula) != 0) {
         return DUPLICADO;
     }
-    fechaActual(datos.fechaIngreso);          // fecha de ingreso = hoy
+    // 2. Fecha de ingreso = hoy, y se guarda
+    fechaActual(datos.fechaIngreso);
     return guardarMecanicoNuevo(datos, idAsignado);
 }
 
+// QUE HACE: lee el mecanico por ID y dice si esta activo o dado de baja.
 Resultado obtenerMecanicoPorID(int id, Mecanico* m) {
     Resultado r = leerMecanicoPorID(id, m);
     if (r != OK) {
@@ -249,6 +274,7 @@ Resultado obtenerMecanicoPorID(int id, Mecanico* m) {
     return OK;
 }
 
+// QUE HACE: recorre ordenes.bin y cuenta las ABIERTAS de ese mecanico.
 Resultado contarOrdenesAbiertas(int idMecanico, int* cantidad) {
     *cantidad = 0;
     ArchivoHeader h;
@@ -268,6 +294,7 @@ Resultado contarOrdenesAbiertas(int idMecanico, int* cantidad) {
     return OK;
 }
 
+// QUE HACE: copia todos los mecanicos (activos y de baja) con su numero de ordenes abiertas.
 Resultado listarMecanicos(Mecanico resultados[], int ordenesAbiertas[], int* cantidad, bool* hayMas) {
     *cantidad = 0;
     *hayMas = false;
@@ -296,12 +323,15 @@ Resultado listarMecanicos(Mecanico resultados[], int ordenesAbiertas[], int* can
     return OK;
 }
 
+// QUE HACE: da de baja (borrado logico) al mecanico, solo si no tiene ordenes abiertas.
 Resultado darDeBajaMecanico(int id) {
+    // 1. Debe existir y estar activo
     Mecanico m;
     Resultado r = obtenerMecanicoPorID(id, &m);
     if (r != OK) {
         return r;                 // NO_EXISTE, ERROR_ARCHIVO o ELIMINADO (ya de baja)
     }
+    // 2. No puede tener ordenes abiertas
     int abiertas = 0;
     r = contarOrdenesAbiertas(id, &abiertas);
     if (r != OK) {
@@ -310,14 +340,16 @@ Resultado darDeBajaMecanico(int id) {
     if (abiertas > 0) {
         return TIENE_ORDENES_ABIERTAS;
     }
-    return marcarMecanicoEliminado(id);   // baja logica: el registro sigue en el archivo
+    // 3. Baja logica: el registro sigue en el archivo para el historial
+    return marcarMecanicoEliminado(id);
 }
 
 // =====================================================================
 // REPUESTOS
 // =====================================================================
 
-// Recorre repuestos.bin buscando el codigo entre los ACTIVOS. ID o 0.
+// QUE HACE: recorre repuestos.bin buscando el codigo entre los ACTIVOS.
+// DEVUELVE: el ID del que lo tiene, o 0.
 static int idConCodigo(const char* codigo) {
     ArchivoHeader h;
     if (!leerHeader(RUTA_REPUESTOS, &h)) {
@@ -332,7 +364,7 @@ static int idConCodigo(const char* codigo) {
     return 0;
 }
 
-// Revisa si el repuesto aparece en alguna linea de alguna orden (cualquier estado)
+// QUE HACE: revisa si el repuesto aparece en alguna linea de alguna orden (cualquier estado).
 static Resultado repuestoUsadoEnOrdenes(int idRepuesto, bool* usado) {
     *usado = false;
     ArchivoHeader h;
@@ -355,6 +387,7 @@ static Resultado repuestoUsadoEnOrdenes(int idRepuesto, bool* usado) {
     return OK;
 }
 
+// QUE HACE: valida los datos del repuesto y, si estan bien, lo guarda.
 Resultado registrarRepuesto(Repuesto datos, int* idAsignado) {
     if (strlen(datos.codigo) == 0 || strlen(datos.nombre) == 0 || strlen(datos.marca) == 0) {
         return DATO_INVALIDO;
@@ -368,6 +401,7 @@ Resultado registrarRepuesto(Repuesto datos, int* idAsignado) {
     return guardarRepuestoNuevo(datos, idAsignado);
 }
 
+// QUE HACE: lee el repuesto por ID y dice si esta activo o eliminado.
 Resultado obtenerRepuestoPorID(int id, Repuesto* r) {
     Resultado res = leerRepuestoPorID(id, r);
     if (res != OK) {
@@ -379,6 +413,7 @@ Resultado obtenerRepuestoPorID(int id, Repuesto* r) {
     return OK;
 }
 
+// QUE HACE: busca el repuesto activo con ese codigo exacto.
 Resultado obtenerRepuestoPorCodigo(const char* codigo, Repuesto* r) {
     int id = idConCodigo(codigo);
     if (id == 0) {
@@ -387,6 +422,7 @@ Resultado obtenerRepuestoPorCodigo(const char* codigo, Repuesto* r) {
     return leerRepuestoPorID(id, r);
 }
 
+// QUE HACE: copia en resultados[] los repuestos activos cuyo nombre contiene el texto.
 Resultado buscarRepuestosPorNombre(const char* texto, Repuesto resultados[], int* cantidad, bool* hayMas) {
     *cantidad = 0;
     *hayMas = false;
@@ -412,6 +448,7 @@ Resultado buscarRepuestosPorNombre(const char* texto, Repuesto resultados[], int
     return OK;
 }
 
+// QUE HACE: suma unidades al stock (lee la copia, la cambia y la escribe de vuelta).
 Resultado registrarEntradaRepuesto(int id, int cantidad) {
     if (cantidad <= 0) {
         return DATO_INVALIDO;
@@ -425,6 +462,7 @@ Resultado registrarEntradaRepuesto(int id, int cantidad) {
     return sobrescribirRepuesto(r);     // ...y la escribo en su lugar del archivo
 }
 
+// QUE HACE: copia en resultados[] todos los repuestos activos.
 Resultado listarRepuestos(Repuesto resultados[], int* cantidad, bool* hayMas) {
     *cantidad = 0;
     *hayMas = false;
@@ -450,10 +488,12 @@ Resultado listarRepuestos(Repuesto resultados[], int* cantidad, bool* hayMas) {
     return OK;
 }
 
+// QUE HACE: dice si el repuesto esta en bajo stock (stock <= stock minimo).
 bool esBajoStock(Repuesto r) {
     return r.stock <= r.stockMinimo;
 }
 
+// QUE HACE: cambia el precio vigente. Las ordenes no se tocan: tienen su precio historico.
 Resultado cambiarPrecioRepuesto(int id, float nuevoPrecio) {
     if (nuevoPrecio <= 0) {
         return DATO_INVALIDO;
@@ -463,10 +503,11 @@ Resultado cambiarPrecioRepuesto(int id, float nuevoPrecio) {
     if (res != OK) {
         return res;
     }
-    r.precio = nuevoPrecio;             // las ordenes no se tocan: tienen su precioUnitario
+    r.precio = nuevoPrecio;
     return sobrescribirRepuesto(r);
 }
 
+// QUE HACE: borrado logico del repuesto, solo si no aparece en ninguna orden.
 Resultado eliminarRepuesto(int id) {
     Repuesto r;
     Resultado res = obtenerRepuestoPorID(id, &r);
@@ -485,10 +526,13 @@ Resultado eliminarRepuesto(int id) {
 }
 
 // =====================================================================
-// ORDENES - BLOQUE A
+// ORDENES
+// Reglas de las operaciones que escriben en varios archivos:
+// 1. Todas las validaciones se hacen ANTES de la primera escritura.
+// 2. Siempre se escribe primero la orden y despues el otro archivo.
 // =====================================================================
 
-// Busca si el vehiculo ya tiene una orden ABIERTA
+// QUE HACE: busca si el vehiculo ya tiene una orden ABIERTA.
 static Resultado vehiculoTieneOrdenAbierta(int idVehiculo, bool* tiene) {
     *tiene = false;
     ArchivoHeader h;
@@ -508,7 +552,8 @@ static Resultado vehiculoTieneOrdenAbierta(int idVehiculo, bool* tiene) {
     return OK;
 }
 
-// Devuelve la posicion (0 a 14) de la linea de ese repuesto en la orden, o -1 si no esta
+// QUE HACE: busca la linea de ese repuesto dentro de la orden.
+// DEVUELVE: su posicion (0 a 14), o -1 si no esta.
 static int posicionDeLinea(OrdenServicio o, int idRepuesto) {
     for (int i = 0; i < o.numLineas; i++) {
         if (o.lineas[i].idRepuesto == idRepuesto) {
@@ -518,6 +563,7 @@ static int posicionDeLinea(OrdenServicio o, int idRepuesto) {
     return -1;
 }
 
+// QUE HACE: abre una orden nueva. Escribe la orden y despues el km del vehiculo.
 Resultado abrirOrden(int idVehiculo, int idMecanico, int kilometraje, const char* falla, int* idAsignado) {
     // ---------- 1. TODAS las validaciones antes de escribir ----------
     if (strlen(falla) == 0 || kilometraje < 0) {
@@ -573,10 +619,12 @@ Resultado abrirOrden(int idVehiculo, int idMecanico, int kilometraje, const char
     return sobrescribirVehiculo(v);
 }
 
+// QUE HACE: lee una orden por ID (con sus lineas).
 Resultado obtenerOrdenPorID(int id, OrdenServicio* o) {
     return leerOrdenPorID(id, o);
 }
 
+// QUE HACE: agrega un repuesto a una orden ABIERTA. Escribe la orden y despues el stock.
 Resultado agregarRepuestoAOrden(int idOrden, int idRepuesto, int cantidad) {
     // ---------- 1. Validaciones ----------
     if (cantidad <= 0) {
@@ -622,10 +670,7 @@ Resultado agregarRepuestoAOrden(int idOrden, int idRepuesto, int cantidad) {
     return sobrescribirRepuesto(rep);
 }
 
-// =====================================================================
-// ORDENES - BLOQUE B
-// =====================================================================
-
+// QUE HACE: quita la linea completa de un repuesto y devuelve sus unidades al stock.
 Resultado quitarRepuestoDeOrden(int idOrden, int idRepuesto) {
     // ---------- 1. Validaciones ----------
     OrdenServicio o;
@@ -662,6 +707,7 @@ Resultado quitarRepuestoDeOrden(int idOrden, int idRepuesto) {
     return sobrescribirRepuesto(rep);
 }
 
+// QUE HACE: cierra una orden ABIERTA con su mano de obra y la fecha de hoy.
 Resultado cerrarOrden(int idOrden, float manoObra) {
     if (manoObra < 0) {
         return DATO_INVALIDO;
@@ -683,6 +729,7 @@ Resultado cerrarOrden(int idOrden, float manoObra) {
     return sobrescribirOrden(o);               // solo escribe un archivo
 }
 
+// QUE HACE: anula una orden ABIERTA o CERRADA y devuelve al stock todas sus unidades.
 Resultado anularOrden(int idOrden) {
     // ---------- 1. Validaciones ----------
     OrdenServicio o;
@@ -717,6 +764,7 @@ Resultado anularOrden(int idOrden) {
     return OK;
 }
 
+// QUE HACE: calcula el total: mano de obra + suma de (cantidad x precio historico).
 float calcularTotalOrden(OrdenServicio o) {
     float total = o.manoObra;
     for (int i = 0; i < o.numLineas; i++) {
@@ -725,6 +773,7 @@ float calcularTotalOrden(OrdenServicio o) {
     return total;
 }
 
+// QUE HACE: copia en resultados[] las ordenes que estan en ese estado.
 Resultado listarOrdenesPorEstado(const char* estado, OrdenServicio resultados[], int* cantidad, bool* hayMas) {
     *cantidad = 0;
     *hayMas = false;
@@ -750,6 +799,7 @@ Resultado listarOrdenesPorEstado(const char* estado, OrdenServicio resultados[],
     return OK;
 }
 
+// QUE HACE: copia en resultados[] todas las ordenes de ese vehiculo (su historial).
 Resultado listarOrdenesPorVehiculo(int idVehiculo, OrdenServicio resultados[], int* cantidad, bool* hayMas) {
     *cantidad = 0;
     *hayMas = false;
@@ -779,14 +829,17 @@ Resultado listarOrdenesPorVehiculo(int idVehiculo, OrdenServicio resultados[], i
 // TALLER Y ARRANQUE
 // =====================================================================
 
+// QUE HACE: crea los archivos .bin que falten (la presentacion no puede abrir archivos).
 bool prepararArchivos() {
     return inicializarArchivos();
 }
 
+// QUE HACE: dice si el taller ya fue configurado (si existe taller.bin).
 bool tallerConfigurado() {
     return existeTaller();
 }
 
+// QUE HACE: valida y guarda los datos del taller en el primer arranque.
 Resultado configurarTaller(Taller t) {
     if (strlen(t.nombre) == 0 || strlen(t.rif) == 0) {
         return DATO_INVALIDO;
@@ -795,6 +848,196 @@ Resultado configurarTaller(Taller t) {
     return guardarTaller(t) ? OK : ERROR_ARCHIVO;
 }
 
+// QUE HACE: lee los datos del taller.
 Resultado obtenerTaller(Taller* t) {
     return leerTaller(t) ? OK : ERROR_ARCHIVO;
+}
+
+// =====================================================================
+// MANTENIMIENTO
+// =====================================================================
+
+// QUE HACE: agrega un problema a la lista del reporte (si ya no cabe, solo lo cuenta).
+static void agregarProblema(ReporteIntegridad* rep, const char* texto) {
+    if (rep->numProblemas < MAX_PROBLEMAS) {
+        strncpy(rep->problemas[rep->numProblemas], texto, 149);
+        rep->problemas[rep->numProblemas][149] = '\0';
+        rep->numProblemas++;
+    } else {
+        rep->problemasNoMostrados++;
+    }
+}
+
+// QUE HACE: compara lo que dice el header con lo que realmente se conto.
+static void compararHeader(const char* nombre, ArchivoHeader h, int fisicos, int activos, ReporteIntegridad* rep) {
+    char msg[150];
+    if (h.cantidadRegistros != fisicos) {
+        snprintf(msg, 150, "ROTO: Header de %s indica %d registros; el archivo contiene %d",
+                 nombre, h.cantidadRegistros, fisicos);
+        agregarProblema(rep, msg);
+    }
+    if (h.registrosActivos != activos) {
+        snprintf(msg, 150, "ROTO: Header de %s indica %d activos; se contaron %d",
+                 nombre, h.registrosActivos, activos);
+        agregarProblema(rep, msg);
+    }
+}
+
+// QUE HACE: recorre los 4 archivos, un registro a la vez, y anota en el reporte:
+// a) ordenes con vehiculo o mecanico que no existe
+// b) ordenes ABIERTAS con vehiculo o mecanico inactivo
+// c) lineas con un repuesto que no existe
+// d) repuestos con stock negativo
+// e) headers que no coinciden con el contenido real
+Resultado verificarIntegridad(ReporteIntegridad* rep) {
+    rep->vehiculos = 0;
+    rep->mecanicos = 0;
+    rep->repuestos = 0;
+    rep->ordenes = 0;
+    rep->numProblemas = 0;
+    rep->problemasNoMostrados = 0;
+    char msg[150];
+    ArchivoHeader h;
+    int fisicos = 0;
+
+    // ---------- VEHICULOS: header (e) ----------
+    if (!leerHeader(RUTA_VEHICULOS, &h) ||
+        contarRegistrosEnArchivo(RUTA_VEHICULOS, sizeof(Vehiculo), &fisicos) != OK) {
+        agregarProblema(rep, "ROTO: No se pudo leer datos/vehiculos.bin");
+    } else {
+        int hasta = (h.cantidadRegistros < fisicos) ? h.cantidadRegistros : fisicos;
+        int activos = 0;
+        Vehiculo v;
+        for (int id = 1; id <= hasta; id++) {
+            if (leerVehiculoPorID(id, &v) == OK) {
+                rep->vehiculos++;
+                if (!v.eliminado) activos++;
+            }
+        }
+        compararHeader("vehiculos.bin", h, fisicos, activos, rep);
+    }
+
+    // ---------- MECANICOS: header (e) ----------
+    if (!leerHeader(RUTA_MECANICOS, &h) ||
+        contarRegistrosEnArchivo(RUTA_MECANICOS, sizeof(Mecanico), &fisicos) != OK) {
+        agregarProblema(rep, "ROTO: No se pudo leer datos/mecanicos.bin");
+    } else {
+        int hasta = (h.cantidadRegistros < fisicos) ? h.cantidadRegistros : fisicos;
+        int activos = 0;
+        Mecanico m;
+        for (int id = 1; id <= hasta; id++) {
+            if (leerMecanicoPorID(id, &m) == OK) {
+                rep->mecanicos++;
+                if (!m.eliminado) activos++;
+            }
+        }
+        compararHeader("mecanicos.bin", h, fisicos, activos, rep);
+    }
+
+    // ---------- REPUESTOS: header (e) y stock negativo (d) ----------
+    if (!leerHeader(RUTA_REPUESTOS, &h) ||
+        contarRegistrosEnArchivo(RUTA_REPUESTOS, sizeof(Repuesto), &fisicos) != OK) {
+        agregarProblema(rep, "ROTO: No se pudo leer datos/repuestos.bin");
+    } else {
+        int hasta = (h.cantidadRegistros < fisicos) ? h.cantidadRegistros : fisicos;
+        int activos = 0;
+        Repuesto r;
+        for (int id = 1; id <= hasta; id++) {
+            if (leerRepuestoPorID(id, &r) == OK) {
+                rep->repuestos++;
+                if (!r.eliminado) activos++;
+                if (r.stock < 0) {
+                    snprintf(msg, 150, "ROTO: Repuesto ID %d (%s) tiene stock negativo: %d", r.id, r.codigo, r.stock);
+                    agregarProblema(rep, msg);
+                }
+            }
+        }
+        compararHeader("repuestos.bin", h, fisicos, activos, rep);
+    }
+
+    // ---------- ORDENES: header (e), vehiculo y mecanico (a, b) y lineas (c) ----------
+    if (!leerHeader(RUTA_ORDENES, &h) ||
+        contarRegistrosEnArchivo(RUTA_ORDENES, sizeof(OrdenServicio), &fisicos) != OK) {
+        agregarProblema(rep, "ROTO: No se pudo leer datos/ordenes.bin");
+        return OK;
+    }
+    int hasta = (h.cantidadRegistros < fisicos) ? h.cantidadRegistros : fisicos;
+    int activas = 0;
+    OrdenServicio o;
+    for (int id = 1; id <= hasta; id++) {
+        if (leerOrdenPorID(id, &o) != OK) {
+            continue;
+        }
+        rep->ordenes++;
+        if (!o.eliminado) activas++;
+
+        // a) el vehiculo y el mecanico de la orden existen?
+        Vehiculo v;
+        Resultado rv = leerVehiculoPorID(o.idVehiculo, &v);
+        if (rv != OK) {
+            snprintf(msg, 150, "ROTO: Orden #%d apunta al vehiculo ID %d (no existe en vehiculos.bin)", o.id, o.idVehiculo);
+            agregarProblema(rep, msg);
+        }
+        Mecanico m;
+        Resultado rm = leerMecanicoPorID(o.idMecanico, &m);
+        if (rm != OK) {
+            snprintf(msg, 150, "ROTO: Orden #%d apunta al mecanico ID %d (no existe en mecanicos.bin)", o.id, o.idMecanico);
+            agregarProblema(rep, msg);
+        }
+
+        // b) si esta ABIERTA, su vehiculo y su mecanico deben estar activos
+        if (strcmp(o.estado, "ABIERTA") == 0) {
+            if (rv == OK && v.eliminado) {
+                snprintf(msg, 150, "ROTO: Orden #%d esta ABIERTA y su vehiculo ID %d esta eliminado", o.id, o.idVehiculo);
+                agregarProblema(rep, msg);
+            }
+            if (rm == OK && m.eliminado) {
+                snprintf(msg, 150, "ROTO: Orden #%d esta ABIERTA y su mecanico ID %d esta dado de baja", o.id, o.idMecanico);
+                agregarProblema(rep, msg);
+            }
+        }
+
+        // c) las lineas apuntan a repuestos que existen?
+        if (o.numLineas < 0 || o.numLineas > MAX_LINEAS) {
+            snprintf(msg, 150, "ROTO: Orden #%d tiene un numero de lineas imposible: %d", o.id, o.numLineas);
+            agregarProblema(rep, msg);
+            continue;
+        }
+        for (int j = 0; j < o.numLineas; j++) {
+            Repuesto r;
+            if (leerRepuestoPorID(o.lineas[j].idRepuesto, &r) != OK) {
+                snprintf(msg, 150, "ROTO: Orden #%d, linea %d: el repuesto ID %d no existe en repuestos.bin",
+                         o.id, j + 1, o.lineas[j].idRepuesto);
+                agregarProblema(rep, msg);
+            }
+        }
+    }
+    compararHeader("ordenes.bin", h, fisicos, activas, rep);
+    return OK;
+}
+
+// QUE HACE: crea la carpeta backup_AAAA-MM-DD_HH-MM-SS y copia ahi los 5 archivos .bin.
+Resultado crearBackup(char* rutaBackup) {
+    // 1. Nombre de la carpeta con la fecha y hora de ahora
+    time_t ahora = time(0);
+    tm* t = localtime(&ahora);
+    strftime(rutaBackup, 100, "backup_%Y-%m-%d_%H-%M-%S", t);
+
+    // 2. Creo la carpeta
+    if (crearCarpeta(rutaBackup) != OK) {
+        return ERROR_ARCHIVO;
+    }
+    // 3. Copio cada archivo byte a byte
+    const char* origenes[5] = {RUTA_TALLER, RUTA_VEHICULOS, RUTA_MECANICOS, RUTA_REPUESTOS, RUTA_ORDENES};
+    const char* nombres[5]  = {"taller.bin", "vehiculos.bin", "mecanicos.bin", "repuestos.bin", "ordenes.bin"};
+    for (int i = 0; i < 5; i++) {
+        char destino[200];
+        strcpy(destino, rutaBackup);
+        strcat(destino, "/");
+        strcat(destino, nombres[i]);          // ej: backup_2026-11-08_16-20-05/vehiculos.bin
+        if (copiarArchivo(origenes[i], destino) != OK) {
+            return ERROR_ARCHIVO;
+        }
+    }
+    return OK;
 }

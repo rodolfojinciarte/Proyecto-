@@ -2,6 +2,12 @@
 #include "estructuras.h"
 #include "resultados.h"
 
+// =====================================================================
+// CAPA DE PERSISTENCIA: la UNICA que abre archivos.
+// Lee y escribe registros "crudos": no aplica reglas del negocio,
+// no filtra eliminados y no usa cin/cout.
+// =====================================================================
+
 // ===================== RUTAS DE LOS ARCHIVOS =====================
 const char RUTA_TALLER[]     = "datos/taller.bin";
 const char RUTA_VEHICULOS[]  = "datos/vehiculos.bin";
@@ -53,3 +59,8 @@ bool leerTaller(Taller* t);          // lee el unico registro
 
 // ===================== ARRANQUE =====================
 bool inicializarArchivos();          // crea los 4 archivos de entidades si faltan
+
+// ===================== MANTENIMIENTO =====================
+Resultado contarRegistrosEnArchivo(const char* ruta, long tamRegistro, int* cantidad); // por el tamano del archivo
+Resultado crearCarpeta(const char* ruta);                          // para el backup
+Resultado copiarArchivo(const char* origen, const char* destino);  // copia byte a byte

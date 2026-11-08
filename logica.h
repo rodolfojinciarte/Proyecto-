@@ -137,3 +137,23 @@ bool prepararArchivos();                 // crea los .bin que falten (true = lis
 bool tallerConfigurado();                // true si taller.bin ya existe
 Resultado configurarTaller(Taller t);    // primer arranque: OK, DATO_INVALIDO, ERROR_ARCHIVO
 Resultado obtenerTaller(Taller* t);      // OK, ERROR_ARCHIVO
+
+// ===================== MANTENIMIENTO =====================
+const int MAX_PROBLEMAS = 50;   // maximo de problemas que se guardan en el reporte
+
+// Lo que devuelve la verificacion: cuantos se revisaron y la lista de problemas
+struct ReporteIntegridad {
+    int vehiculos;
+    int mecanicos;
+    int repuestos;
+    int ordenes;
+    int numProblemas;                      // cuantos hay en la lista
+    char problemas[MAX_PROBLEMAS][150];    // cada problema es un texto
+    int problemasNoMostrados;              // los que no cupieron en la lista
+};
+
+// Recorre todos los archivos y anota todo lo que este fuera de lugar
+Resultado verificarIntegridad(ReporteIntegridad* rep);
+
+// Crea la carpeta backup_AAAA-MM-DD_HH-MM-SS y copia los 5 .bin. Escribe el nombre en rutaBackup.
+Resultado crearBackup(char* rutaBackup);

@@ -54,3 +54,8 @@ void menuAnularOrden();
 void menuVerDetalleOrden();
 void menuListarOrdenes();
 void menuOrdenes();
+
+// ===================== MANTENIMIENTO =====================
+void menuVerificarIntegridad();
+void menuCrearBackup();
+void menuMantenimiento();

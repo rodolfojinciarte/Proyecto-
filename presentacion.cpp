@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>    // setw (ancho de columnas) y setprecision (decimales)
 #include <cstring>
+#include <cstdio>     // snprintf: arma un texto con numeros adentro
 #include <ctime>
 using namespace std;
 
@@ -11,7 +12,8 @@ using namespace std;
 // AYUDAS
 // =====================================================================
 
-// switch = un if con muchos casos: segun el valor de r, devuelve un texto
+// QUE HACE: devuelve un mensaje en texto para cada Resultado.
+// switch = un if con muchos casos: segun el valor de r, devuelve un texto.
 const char* textoResultado(Resultado r) {
     switch (r) {
         case OK:                         return "Operacion exitosa.";
@@ -34,13 +36,13 @@ const char* textoResultado(Resultado r) {
     return "Error desconocido.";
 }
 
-// Convierte el numero time_t en texto "AAAA-MM-DD"
+// QUE HACE: convierte la fecha guardada como numero (time_t) en texto "AAAA-MM-DD".
 void textoFecha(time_t t, char* destino) {
     tm* f = localtime(&t);
     strftime(destino, 11, "%Y-%m-%d", f);
 }
 
-// Bordes de los menus: 44 caracteres de ancho
+// QUE HACE: dibuja el borde de arriba de un menu con su titulo (44 caracteres de ancho).
 void encabezado(const char* titulo) {
     cout << endl;
     cout << "+==========================================+" << endl;
@@ -48,25 +50,30 @@ void encabezado(const char* titulo) {
     cout << "+==========================================+" << endl;
 }
 
+// QUE HACE: dibuja una linea del menu con sus bordes a los lados.
 void opcion(const char* texto) {
     cout << "|  " << left << setw(40) << texto << "|" << endl;
 }
 
+// QUE HACE: dibuja el borde de abajo de un menu.
 void pie() {
     cout << "+==========================================+" << endl;
 }
 
-// Primer arranque: taller.bin no existe, se piden los datos del taller
+// QUE HACE: en el primer arranque (no existe taller.bin) pide los datos del taller y los guarda.
+// DEVUELVE: true si se guardaron; false si el usuario escribio CANCELAR o hubo un error.
 bool menuPrimerArranque() {
     encabezado("CONFIGURACION INICIAL DEL TALLER");
     cout << "Es la primera vez que se ejecuta el sistema." << endl;
     cout << "(Escriba CANCELAR para salir)" << endl;
     while (true) {
+        // 1. Pido los datos
         Taller t = {};
         if (!leerTexto("Nombre del taller: ", t.nombre, 100)) return false;
         if (!leerTexto("RIF: ", t.rif, 20)) return false;
         if (!leerTexto("Direccion: ", t.direccion, 200)) return false;
         if (!leerTexto("Telefono: ", t.telefono, 20)) return false;
+        // 2. Le pido a la logica que los guarde
         Resultado r = configurarTaller(t);
         if (r == OK) {
             cout << "Taller guardado en datos/taller.bin" << endl;
@@ -76,6 +83,7 @@ bool menuPrimerArranque() {
             cout << "ERROR: No se pudo crear datos/taller.bin" << endl;
             return false;
         }
+        // 3. Datos invalidos: vuelve a preguntar
         cout << "ERROR: El nombre y el RIF no pueden estar vacios. Intente de nuevo." << endl;
     }
 }
@@ -84,7 +92,7 @@ bool menuPrimerArranque() {
 // VEHICULOS
 // =====================================================================
 
-// Mensaje cuando no se pudo obtener un vehiculo por su ID
+// QUE HACE: muestra el mensaje correcto cuando no se pudo obtener un vehiculo por su ID.
 static void avisoVehiculo(Resultado r, int id, Vehiculo v) {
     if (r == NO_EXISTE) {
         cout << "No existe un vehiculo con ID " << id << "." << endl;
@@ -95,6 +103,7 @@ static void avisoVehiculo(Resultado r, int id, Vehiculo v) {
     }
 }
 
+// QUE HACE: muestra todos los datos de un vehiculo.
 void mostrarVehiculo(Vehiculo v) {
     char fecha[11];
     textoFecha(v.fechaCreacion, fecha);
@@ -109,14 +118,17 @@ void mostrarVehiculo(Vehiculo v) {
     cout << "  Registrado: " << fecha << endl;
 }
 
+// QUE HACE: muestra una lista de vehiculos como tabla, y avisa si hay mas resultados.
 void mostrarListaVehiculos(Vehiculo lista[], int cantidad, bool hayMas) {
     if (cantidad == 0) {
         cout << "No hay vehiculos para mostrar." << endl;
         return;
     }
+    // Encabezado de la tabla (setw = ancho de cada columna)
     cout << left << setw(5) << "ID" << setw(10) << "Placa" << setw(26) << "Vehiculo"
          << setw(6) << "Anio" << setw(10) << "Km" << "Propietario" << endl;
     cout << "-------------------------------------------------------------------------" << endl;
+    // Una fila por vehiculo
     for (int i = 0; i < cantidad; i++) {
         char vehiculo[110];
         strcpy(vehiculo, lista[i].marca);
@@ -132,7 +144,9 @@ void mostrarListaVehiculos(Vehiculo lista[], int cantidad, bool hayMas) {
     }
 }
 
+// QUE HACE: pide los datos de un vehiculo nuevo, confirma y le pide a la logica registrarlo.
 void menuRegistrarVehiculo() {
+    // 1. Pido los datos (CANCELAR en cualquier texto sale sin guardar)
     Vehiculo v = {};
     cout << "(Escriba CANCELAR en cualquier texto para salir)" << endl;
     if (!leerTexto("Placa: ", v.placa, 10)) return;
@@ -143,10 +157,12 @@ void menuRegistrarVehiculo() {
     if (!leerTexto("Nombre del propietario: ", v.nombrePropietario, 100)) return;
     if (!leerTexto("Cedula (12345678 o V-12345678): ", v.cedulaPropietario, 20)) return;
     if (!leerTexto("Telefono: ", v.telefonoPropietario, 20)) return;
+    // 2. Confirmacion
     if (!confirmar("Guardar el vehiculo?")) {
         cout << "No se guardo el vehiculo." << endl;
         return;
     }
+    // 3. Le pido a la logica que lo registre y muestro el resultado
     int id = 0;
     Resultado r = registrarVehiculo(v, &id);
     if (r == OK) {
@@ -161,11 +177,13 @@ void menuRegistrarVehiculo() {
     }
 }
 
+// QUE HACE: busca vehiculos por ID (acceso directo), por placa o por propietario.
 void menuBuscarVehiculo() {
     cout << "1. Por ID   2. Por placa   3. Por propietario" << endl;
     int op = leerEntero("Opcion: ", 1, 3);
     Vehiculo v;
     if (op == 1) {
+        // ----- Por ID: acceso aleatorio -----
         int id = leerEntero("ID del vehiculo: ", 1, 999999);
         Resultado r = obtenerVehiculoPorID(id, &v);
         if (r == OK || r == ELIMINADO) {
@@ -179,6 +197,7 @@ void menuBuscarVehiculo() {
             avisoVehiculo(r, id, v);
         }
     } else if (op == 2) {
+        // ----- Por placa exacta -----
         char placa[10];
         if (!leerTexto("Placa exacta: ", placa, 10)) return;
         Resultado r = obtenerVehiculoPorPlaca(placa, &v);
@@ -190,6 +209,7 @@ void menuBuscarVehiculo() {
             cout << "ERROR: " << textoResultado(r) << endl;
         }
     } else {
+        // ----- Por parte del nombre del propietario -----
         char texto[100];
         if (!leerTexto("Parte del nombre del propietario: ", texto, 100)) return;
         Vehiculo lista[MAX_RESULTADOS];
@@ -204,7 +224,9 @@ void menuBuscarVehiculo() {
     }
 }
 
+// QUE HACE: muestra un vehiculo, pide los datos nuevos y le pide a la logica actualizarlo.
 void menuActualizarVehiculo() {
+    // 1. Busco el vehiculo
     int id = leerEntero("ID del vehiculo: ", 1, 999999);
     Vehiculo v;
     Resultado r = obtenerVehiculoPorID(id, &v);
@@ -213,6 +235,7 @@ void menuActualizarVehiculo() {
         return;
     }
     mostrarVehiculo(v);
+    // 2. Pido los datos nuevos
     cout << "Escriba los datos nuevos (la placa y el kilometraje no se cambian)." << endl;
     cout << "(Escriba CANCELAR en cualquier texto para salir)" << endl;
     Vehiculo d = v;
@@ -222,6 +245,7 @@ void menuActualizarVehiculo() {
     if (!leerTexto("Nombre del propietario: ", d.nombrePropietario, 100)) return;
     if (!leerTexto("Cedula: ", d.cedulaPropietario, 20)) return;
     if (!leerTexto("Telefono: ", d.telefonoPropietario, 20)) return;
+    // 3. Confirmo y guardo
     if (!confirmar("Guardar los cambios?")) {
         cout << "No se guardaron los cambios." << endl;
         return;
@@ -234,7 +258,9 @@ void menuActualizarVehiculo() {
     }
 }
 
+// QUE HACE: muestra un vehiculo, confirma y le pide a la logica eliminarlo (borrado logico).
 void menuEliminarVehiculo() {
+    // 1. Busco el vehiculo
     int id = leerEntero("ID del vehiculo: ", 1, 999999);
     Vehiculo v;
     Resultado r = obtenerVehiculoPorID(id, &v);
@@ -243,13 +269,16 @@ void menuEliminarVehiculo() {
         return;
     }
     mostrarVehiculo(v);
+    // 2. Confirmo
     if (!confirmar("Seguro que desea eliminar este vehiculo?")) {
         return;
     }
+    // 3. Elimino y muestro el resultado
     r = eliminarVehiculo(id);
     if (r == OK) {
         cout << "Vehiculo eliminado (borrado logico)." << endl;
     } else if (r == TIENE_ORDENES) {
+        // cuento sus ordenes para decir cuantas tiene
         OrdenServicio ordenes[MAX_RESULTADOS];
         int n = 0;
         bool mas = false;
@@ -261,6 +290,7 @@ void menuEliminarVehiculo() {
     }
 }
 
+// QUE HACE: pide a la logica la lista de vehiculos activos y la muestra.
 void menuListarVehiculos() {
     Vehiculo lista[MAX_RESULTADOS];
     int cantidad = 0;
@@ -273,6 +303,7 @@ void menuListarVehiculos() {
     mostrarListaVehiculos(lista, cantidad, hayMas);
 }
 
+// QUE HACE: submenu de vehiculos; se repite hasta que el usuario elige 0.
 void menuVehiculos() {
     int op = -1;
     while (op != 0) {
@@ -297,6 +328,7 @@ void menuVehiculos() {
 // MECANICOS
 // =====================================================================
 
+// QUE HACE: muestra el mensaje correcto cuando no se pudo obtener un mecanico por su ID.
 static void avisoMecanico(Resultado r, int id, Mecanico m) {
     if (r == NO_EXISTE) {
         cout << "No existe un mecanico con ID " << id << "." << endl;
@@ -307,6 +339,7 @@ static void avisoMecanico(Resultado r, int id, Mecanico m) {
     }
 }
 
+// QUE HACE: muestra los datos de un mecanico y cuantas ordenes abiertas tiene.
 void mostrarMecanico(Mecanico m, int ordenesAbiertas) {
     cout << "  ID " << m.id << " - " << m.nombre << " (" << m.especialidad << ")";
     if (m.eliminado) {
@@ -317,15 +350,19 @@ void mostrarMecanico(Mecanico m, int ordenesAbiertas) {
          << "  Ordenes abiertas: " << ordenesAbiertas << endl;
 }
 
+// QUE HACE: pide los datos de un mecanico nuevo, confirma y le pide a la logica registrarlo.
 void menuRegistrarMecanico() {
+    // 1. Pido los datos
     Mecanico m = {};
     cout << "(Escriba CANCELAR en cualquier texto para salir)" << endl;
     if (!leerTexto("Nombre: ", m.nombre, 100)) return;
     if (!leerTexto("Cedula (12345678 o V-12345678): ", m.cedula, 20)) return;
+    // 2. La especialidad se escoge por numero para que no haya errores al escribirla
     cout << "Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL" << endl;
     int e = leerEntero("Opcion: ", 1, 5);
     const char* especialidades[5] = {"MOTOR", "FRENOS", "ELECTRICIDAD", "SUSPENSION", "GENERAL"};
     strcpy(m.especialidad, especialidades[e - 1]);   // opcion 1 = posicion 0
+    // 3. Confirmo y registro
     if (!confirmar("Guardar el mecanico?")) {
         cout << "No se guardo el mecanico." << endl;
         return;
@@ -343,6 +380,7 @@ void menuRegistrarMecanico() {
     }
 }
 
+// QUE HACE: busca un mecanico por ID y lo muestra (si esta de baja, lo muestra marcado).
 void menuBuscarMecanico() {
     int id = leerEntero("ID del mecanico: ", 1, 999999);
     Mecanico m;
@@ -356,7 +394,9 @@ void menuBuscarMecanico() {
     }
 }
 
+// QUE HACE: muestra la tabla de mecanicos (activos y de baja) con sus ordenes abiertas.
 void menuListarMecanicos() {
+    // 1. Pido la lista a la logica
     Mecanico lista[MAX_RESULTADOS];
     int abiertas[MAX_RESULTADOS];
     int cantidad = 0;
@@ -370,6 +410,7 @@ void menuListarMecanicos() {
         cout << "No hay mecanicos registrados." << endl;
         return;
     }
+    // 2. La muestro como tabla
     cout << left << setw(5) << "ID" << setw(24) << "Nombre" << setw(14) << "Cedula"
          << setw(14) << "Especialidad" << setw(10) << "Abiertas" << "Estado" << endl;
     cout << "---------------------------------------------------------------------------" << endl;
@@ -384,7 +425,9 @@ void menuListarMecanicos() {
     }
 }
 
+// QUE HACE: muestra un mecanico, confirma y le pide a la logica darlo de baja.
 void menuDarDeBajaMecanico() {
+    // 1. Busco el mecanico
     int id = leerEntero("ID del mecanico: ", 1, 999999);
     Mecanico m;
     Resultado r = obtenerMecanicoPorID(id, &m);
@@ -395,6 +438,7 @@ void menuDarDeBajaMecanico() {
     int abiertas = 0;
     contarOrdenesAbiertas(id, &abiertas);
     mostrarMecanico(m, abiertas);
+    // 2. Confirmo y doy de baja
     if (!confirmar("Seguro que desea dar de baja a este mecanico?")) {
         return;
     }
@@ -409,6 +453,7 @@ void menuDarDeBajaMecanico() {
     }
 }
 
+// QUE HACE: submenu de mecanicos; se repite hasta que el usuario elige 0.
 void menuMecanicos() {
     int op = -1;
     while (op != 0) {
@@ -431,6 +476,7 @@ void menuMecanicos() {
 // REPUESTOS
 // =====================================================================
 
+// QUE HACE: muestra el mensaje correcto cuando no se pudo obtener un repuesto por su ID.
 static void avisoRepuesto(Resultado r, int id, Repuesto rep) {
     if (r == NO_EXISTE) {
         cout << "No existe un repuesto con ID " << id << "." << endl;
@@ -441,6 +487,7 @@ static void avisoRepuesto(Resultado r, int id, Repuesto rep) {
     }
 }
 
+// QUE HACE: muestra los datos de un repuesto y lo marca si esta en BAJO STOCK.
 void mostrarRepuesto(Repuesto r) {
     cout << fixed << setprecision(2);       // precios siempre con 2 decimales
     cout << "  ID " << r.id << " - " << r.codigo << " - " << r.nombre << " (" << r.marca << ")";
@@ -455,6 +502,7 @@ void mostrarRepuesto(Repuesto r) {
     cout << endl;
 }
 
+// QUE HACE: muestra una lista de repuestos como tabla, marcando los de BAJO STOCK.
 void mostrarListaRepuestos(Repuesto lista[], int cantidad, bool hayMas) {
     if (cantidad == 0) {
         cout << "No hay repuestos para mostrar." << endl;
@@ -479,16 +527,19 @@ void mostrarListaRepuestos(Repuesto lista[], int cantidad, bool hayMas) {
     }
 }
 
+// QUE HACE: pide los datos de un repuesto nuevo (precio en centavos), confirma y lo registra.
 void menuRegistrarRepuesto() {
+    // 1. Pido los datos
     Repuesto r = {};
     cout << "(Escriba CANCELAR en cualquier texto para salir)" << endl;
     if (!leerTexto("Codigo: ", r.codigo, 20)) return;
     if (!leerTexto("Nombre: ", r.nombre, 100)) return;
     if (!leerTexto("Marca: ", r.marca, 50)) return;
     int centavos = leerEntero("Precio en centavos (ej: 2550 = 25.50): ", 1, 99999999);
-    r.precio = centavos / 100.0f;
+    r.precio = centavos / 100.0f;           // .0f para que no sea division entera
     r.stock = leerEntero("Stock inicial: ", 0, 999999);
     r.stockMinimo = leerEntero("Stock minimo: ", 0, 999999);
+    // 2. Confirmo y registro
     if (!confirmar("Guardar el repuesto?")) {
         cout << "No se guardo el repuesto." << endl;
         return;
@@ -506,11 +557,13 @@ void menuRegistrarRepuesto() {
     }
 }
 
+// QUE HACE: busca repuestos por ID, por codigo exacto o por parte del nombre.
 void menuBuscarRepuesto() {
     cout << "1. Por ID   2. Por codigo   3. Por nombre" << endl;
     int op = leerEntero("Opcion: ", 1, 3);
     Repuesto r;
     if (op == 1) {
+        // ----- Por ID -----
         int id = leerEntero("ID del repuesto: ", 1, 999999);
         Resultado res = obtenerRepuestoPorID(id, &r);
         if (res == OK) {
@@ -519,6 +572,7 @@ void menuBuscarRepuesto() {
             avisoRepuesto(res, id, r);
         }
     } else if (op == 2) {
+        // ----- Por codigo exacto -----
         char codigo[20];
         if (!leerTexto("Codigo exacto: ", codigo, 20)) return;
         Resultado res = obtenerRepuestoPorCodigo(codigo, &r);
@@ -530,6 +584,7 @@ void menuBuscarRepuesto() {
             cout << "ERROR: " << textoResultado(res) << endl;
         }
     } else {
+        // ----- Por parte del nombre -----
         char texto[100];
         if (!leerTexto("Parte del nombre: ", texto, 100)) return;
         Repuesto lista[MAX_RESULTADOS];
@@ -544,7 +599,9 @@ void menuBuscarRepuesto() {
     }
 }
 
+// QUE HACE: registra la llegada de unidades de un repuesto y muestra el stock nuevo.
 void menuEntradaMercancia() {
+    // 1. Busco el repuesto
     int id = leerEntero("ID del repuesto: ", 1, 999999);
     Repuesto r;
     Resultado res = obtenerRepuestoPorID(id, &r);
@@ -553,6 +610,7 @@ void menuEntradaMercancia() {
         return;
     }
     mostrarRepuesto(r);
+    // 2. Pido las unidades y registro la entrada
     int cantidad = leerEntero("Unidades que llegaron: ", 1, 999999);
     res = registrarEntradaRepuesto(id, cantidad);
     if (res == OK) {
@@ -563,6 +621,7 @@ void menuEntradaMercancia() {
     }
 }
 
+// QUE HACE: pide a la logica la lista de repuestos activos y la muestra.
 void menuListarRepuestos() {
     Repuesto lista[MAX_RESULTADOS];
     int cantidad = 0;
@@ -575,7 +634,9 @@ void menuListarRepuestos() {
     mostrarListaRepuestos(lista, cantidad, hayMas);
 }
 
+// QUE HACE: muestra un repuesto, pide el precio nuevo (en centavos), confirma y lo cambia.
 void menuCambiarPrecio() {
+    // 1. Busco el repuesto
     int id = leerEntero("ID del repuesto: ", 1, 999999);
     Repuesto r;
     Resultado res = obtenerRepuestoPorID(id, &r);
@@ -584,10 +645,12 @@ void menuCambiarPrecio() {
         return;
     }
     mostrarRepuesto(r);
+    // 2. Pido el precio nuevo y confirmo
     int centavos = leerEntero("Precio nuevo en centavos (ej: 2550 = 25.50): ", 1, 99999999);
     if (!confirmar("Guardar el precio nuevo?")) {
         return;
     }
+    // 3. Lo cambio
     res = cambiarPrecioRepuesto(id, centavos / 100.0f);
     if (res == OK) {
         cout << "Precio actualizado. Las ordenes ya registradas conservan su precio." << endl;
@@ -596,7 +659,9 @@ void menuCambiarPrecio() {
     }
 }
 
+// QUE HACE: muestra un repuesto, confirma y le pide a la logica eliminarlo (borrado logico).
 void menuEliminarRepuesto() {
+    // 1. Busco el repuesto
     int id = leerEntero("ID del repuesto: ", 1, 999999);
     Repuesto r;
     Resultado res = obtenerRepuestoPorID(id, &r);
@@ -605,6 +670,7 @@ void menuEliminarRepuesto() {
         return;
     }
     mostrarRepuesto(r);
+    // 2. Confirmo y elimino
     if (!confirmar("Seguro que desea eliminar este repuesto?")) {
         return;
     }
@@ -618,6 +684,7 @@ void menuEliminarRepuesto() {
     }
 }
 
+// QUE HACE: submenu de repuestos; se repite hasta que el usuario elige 0.
 void menuRepuestos() {
     int op = -1;
     while (op != 0) {
@@ -641,10 +708,11 @@ void menuRepuestos() {
 }
 
 // =====================================================================
-// ORDENES - BLOQUE A (ayudas y mostrar)
+// ORDENES
 // =====================================================================
 
-// Pide el numero de orden y la lee. Si no se puede, muestra el error y devuelve false.
+// QUE HACE: pide el numero de orden y la lee.
+// DEVUELVE: true si la pudo leer; si no, muestra el error y devuelve false.
 static bool pedirOrden(OrdenServicio* o) {
     int id = leerEntero("Numero de orden: ", 1, 999999);
     Resultado r = obtenerOrdenPorID(id, o);
@@ -659,12 +727,12 @@ static bool pedirOrden(OrdenServicio* o) {
     return true;
 }
 
-// Mensaje cuando la orden no esta ABIERTA
+// QUE HACE: muestra el mensaje de error cuando la orden no esta ABIERTA.
 static void avisoEstadoOrden(OrdenServicio o) {
     cout << "ERROR: La orden #" << o.id << " esta " << o.estado << " y no puede modificarse." << endl;
 }
 
-// Arma un texto con la placa y el modelo del vehiculo (aunque este eliminado)
+// QUE HACE: arma un texto con la placa, marca y modelo del vehiculo (aunque este eliminado).
 static void describirVehiculo(int id, char* destino) {
     Vehiculo v;
     Resultado r = obtenerVehiculoPorID(id, &v);
@@ -682,7 +750,7 @@ static void describirVehiculo(int id, char* destino) {
     }
 }
 
-// Arma un texto con el nombre del mecanico (aunque este dado de baja)
+// QUE HACE: arma un texto con el nombre y la especialidad del mecanico (aunque este de baja).
 static void describirMecanico(int id, char* destino) {
     Mecanico m;
     Resultado r = obtenerMecanicoPorID(id, &m);
@@ -699,7 +767,7 @@ static void describirMecanico(int id, char* destino) {
     }
 }
 
-// Una orden en dos lineas, para los listados
+// QUE HACE: muestra una orden en dos lineas (para los listados), con nombres y no solo IDs.
 void mostrarResumenOrden(OrdenServicio o) {
     char vehiculo[200];
     char mecanico[200];
@@ -711,8 +779,9 @@ void mostrarResumenOrden(OrdenServicio o) {
     cout << "      Vehiculo: " << vehiculo << "   Mecanico: " << mecanico << endl;
 }
 
-// La orden completa, como una factura
+// QUE HACE: muestra la orden completa como una factura: datos, lineas y totales.
 static void mostrarDetalleOrden(OrdenServicio o) {
+    // ----- Datos de la orden -----
     cout << fixed << setprecision(2);
     cout << endl << "+==================================================================+" << endl;
     cout << "  ORDEN DE SERVICIO #" << o.id << endl;
@@ -736,6 +805,7 @@ static void mostrarDetalleOrden(OrdenServicio o) {
     cout << "  Falla    : " << o.descripcionFalla << endl;
     cout << "+------------------------------------------------------------------+" << endl;
 
+    // ----- Lineas (una por repuesto) -----
     cout << "  " << left << setw(10) << "Codigo" << setw(26) << "Repuesto"
          << right << setw(6) << "Cant" << setw(10) << "P.Unit" << setw(10) << "Total" << endl;
     float repuestos = 0;
@@ -754,6 +824,8 @@ static void mostrarDetalleOrden(OrdenServicio o) {
     if (o.numLineas == 0) {
         cout << "  (sin repuestos)" << endl;
     }
+
+    // ----- Totales -----
     cout << "+------------------------------------------------------------------+" << endl;
     cout << right << setw(54) << "Repuestos:" << setw(10) << repuestos << endl;
     cout << right << setw(54) << "Mano de obra:" << setw(10) << o.manoObra << endl;
@@ -762,11 +834,9 @@ static void mostrarDetalleOrden(OrdenServicio o) {
     cout << left;     // dejo la alineacion como estaba para los menus
 }
 
-// =====================================================================
-// ORDENES - BLOQUE B (menus)
-// =====================================================================
-
+// QUE HACE: pide vehiculo, mecanico, km y falla, confirma y le pide a la logica abrir la orden.
 void menuAbrirOrden() {
+    // 1. Vehiculo: debe existir y estar activo
     int idV = leerEntero("ID del vehiculo: ", 1, 999999);
     Vehiculo v;
     Resultado r = obtenerVehiculoPorID(idV, &v);
@@ -777,6 +847,7 @@ void menuAbrirOrden() {
     cout << "  Vehiculo: " << v.placa << " - " << v.marca << " " << v.modelo
          << " (" << v.kilometraje << " km)" << endl;
 
+    // 2. Mecanico: debe existir y no estar dado de baja
     int idM = leerEntero("ID del mecanico: ", 1, 999999);
     Mecanico m;
     r = obtenerMecanicoPorID(idM, &m);
@@ -790,6 +861,7 @@ void menuAbrirOrden() {
     }
     cout << "  Mecanico: " << m.nombre << " (" << m.especialidad << ")" << endl;
 
+    // 3. Kilometraje, falla y confirmacion
     int km = leerEntero("Kilometraje de ingreso: ", 0, 9999999);
     char falla[200];
     if (!leerTexto("Descripcion de la falla: ", falla, 200)) return;
@@ -798,6 +870,7 @@ void menuAbrirOrden() {
         return;
     }
 
+    // 4. Le pido a la logica que la abra y muestro el resultado
     int idOrden = 0;
     r = abrirOrden(idV, idM, km, falla, &idOrden);
     if (r == OK) {
@@ -827,7 +900,9 @@ void menuAbrirOrden() {
     }
 }
 
+// QUE HACE: pide orden, repuesto y cantidad, y le pide a la logica agregarlo a la orden.
 void menuAgregarRepuestoOrden() {
+    // 1. La orden debe existir y estar ABIERTA
     OrdenServicio o;
     if (!pedirOrden(&o)) return;
     if (strcmp(o.estado, "ABIERTA") != 0) {
@@ -835,6 +910,7 @@ void menuAgregarRepuestoOrden() {
         return;
     }
     mostrarResumenOrden(o);
+    // 2. El repuesto debe existir y estar activo
     int idR = leerEntero("ID del repuesto: ", 1, 999999);
     Repuesto rep;
     Resultado r = obtenerRepuestoPorID(idR, &rep);
@@ -843,6 +919,7 @@ void menuAgregarRepuestoOrden() {
         return;
     }
     cout << "  " << rep.nombre << " - stock disponible: " << rep.stock << endl;
+    // 3. Cantidad y resultado
     int cantidad = leerEntero("Cantidad: ", 1, 999999);
     r = agregarRepuestoAOrden(o.id, idR, cantidad);
     if (r == OK) {
@@ -858,7 +935,9 @@ void menuAgregarRepuestoOrden() {
     }
 }
 
+// QUE HACE: muestra la orden, pide el repuesto a quitar, confirma y quita su linea completa.
 void menuQuitarRepuestoOrden() {
+    // 1. La orden debe existir y estar ABIERTA
     OrdenServicio o;
     if (!pedirOrden(&o)) return;
     if (strcmp(o.estado, "ABIERTA") != 0) {
@@ -866,10 +945,12 @@ void menuQuitarRepuestoOrden() {
         return;
     }
     mostrarDetalleOrden(o);
+    // 2. Repuesto a quitar y confirmacion
     int idR = leerEntero("ID del repuesto a quitar: ", 1, 999999);
     if (!confirmar("Quitar la linea completa de ese repuesto?")) {
         return;
     }
+    // 3. Resultado
     Resultado r = quitarRepuestoDeOrden(o.id, idR);
     if (r == OK) {
         cout << "Linea quitada. Las unidades volvieron al inventario." << endl;
@@ -880,7 +961,9 @@ void menuQuitarRepuestoOrden() {
     }
 }
 
+// QUE HACE: muestra la orden, pide la mano de obra (en centavos), confirma y la cierra.
 void menuCerrarOrden() {
+    // 1. La orden debe existir y estar ABIERTA
     OrdenServicio o;
     if (!pedirOrden(&o)) return;
     if (strcmp(o.estado, "ABIERTA") != 0) {
@@ -888,13 +971,15 @@ void menuCerrarOrden() {
         return;
     }
     mostrarDetalleOrden(o);
+    // 2. Mano de obra y confirmacion
     int centavos = leerEntero("Mano de obra en centavos (ej: 4000 = 40.00): ", 0, 99999999);
     if (!confirmar("Seguro que desea cerrar la orden?")) {
         return;
     }
+    // 3. Resultado
     Resultado r = cerrarOrden(o.id, centavos / 100.0f);
     if (r == OK) {
-        obtenerOrdenPorID(o.id, &o);
+        obtenerOrdenPorID(o.id, &o);        // la leo otra vez para mostrar el total final
         cout << fixed << setprecision(2);
         cout << "Orden #" << o.id << " CERRADA. Total: " << calcularTotalOrden(o) << endl;
     } else if (r == ORDEN_VACIA) {
@@ -904,7 +989,9 @@ void menuCerrarOrden() {
     }
 }
 
+// QUE HACE: muestra la orden, confirma y la anula (devuelve todo el stock de sus lineas).
 void menuAnularOrden() {
+    // 1. La orden debe existir y no estar ya anulada
     OrdenServicio o;
     if (!pedirOrden(&o)) return;
     if (strcmp(o.estado, "ANULADA") == 0) {
@@ -912,6 +999,7 @@ void menuAnularOrden() {
         return;
     }
     mostrarDetalleOrden(o);
+    // 2. Confirmo y anulo
     if (!confirmar("Seguro que desea anular la orden?")) {
         return;
     }
@@ -923,13 +1011,16 @@ void menuAnularOrden() {
     }
 }
 
+// QUE HACE: pide el numero de orden y muestra su detalle completo.
 void menuVerDetalleOrden() {
     OrdenServicio o;
     if (!pedirOrden(&o)) return;
     mostrarDetalleOrden(o);
 }
 
+// QUE HACE: lista ordenes por estado (ABIERTA, CERRADA, ANULADA) o el historial de un vehiculo.
 void menuListarOrdenes() {
+    // 1. Que lista quiere
     cout << "1. Por estado   2. Historial de un vehiculo" << endl;
     int op = leerEntero("Opcion: ", 1, 2);
     OrdenServicio lista[MAX_RESULTADOS];
@@ -945,6 +1036,7 @@ void menuListarOrdenes() {
         int idV = leerEntero("ID del vehiculo: ", 1, 999999);
         r = listarOrdenesPorVehiculo(idV, lista, &cantidad, &hayMas);
     }
+    // 2. La muestro
     if (r != OK) {
         cout << "ERROR: " << textoResultado(r) << endl;
         return;
@@ -962,6 +1054,7 @@ void menuListarOrdenes() {
     }
 }
 
+// QUE HACE: submenu de ordenes; se repite hasta que el usuario elige 0.
 void menuOrdenes() {
     int op = -1;
     while (op != 0) {
@@ -983,5 +1076,71 @@ void menuOrdenes() {
         if (op == 5) menuAnularOrden();
         if (op == 6) menuVerDetalleOrden();
         if (op == 7) menuListarOrdenes();
+    }
+}
+
+// =====================================================================
+// MANTENIMIENTO
+// =====================================================================
+
+// QUE HACE: le pide a la logica verificar los archivos y muestra los problemas y el resumen.
+void menuVerificarIntegridad() {
+    // 1. Verificacion
+    ReporteIntegridad rep;
+    Resultado r = verificarIntegridad(&rep);
+    if (r != OK) {
+        cout << "ERROR: " << textoResultado(r) << endl;
+        return;
+    }
+    // 2. Lista de problemas encontrados
+    cout << endl;
+    for (int i = 0; i < rep.numProblemas; i++) {
+        cout << rep.problemas[i] << endl;
+    }
+    if (rep.problemasNoMostrados > 0) {
+        cout << "... y " << rep.problemasNoMostrados << " problemas mas." << endl;
+    }
+    // 3. Resumen en un cuadro
+    int total = rep.numProblemas + rep.problemasNoMostrados;
+    char linea[60];
+    encabezado("REPORTE DE INTEGRIDAD DEL SISTEMA");
+    snprintf(linea, 60, "Vehiculos verificados : %d", rep.vehiculos);
+    opcion(linea);
+    snprintf(linea, 60, "Mecanicos verificados : %d", rep.mecanicos);
+    opcion(linea);
+    snprintf(linea, 60, "Repuestos verificados : %d", rep.repuestos);
+    opcion(linea);
+    snprintf(linea, 60, "Ordenes verificadas   : %d", rep.ordenes);
+    opcion(linea);
+    opcion("");
+    snprintf(linea, 60, "Problemas encontrados : %d", total);
+    opcion(linea);
+    opcion(total == 0 ? "Estado: SISTEMA INTEGRO" : "Estado: SE ENCONTRARON PROBLEMAS");
+    pie();
+}
+
+// QUE HACE: le pide a la logica crear un backup y muestra en que carpeta quedo.
+void menuCrearBackup() {
+    char ruta[100];
+    Resultado r = crearBackup(ruta);
+    if (r == OK) {
+        cout << "Backup creado en la carpeta: " << ruta << endl;
+    } else {
+        cout << "ERROR: No se pudo crear el backup (carpeta o archivos de datos/)." << endl;
+    }
+}
+
+// QUE HACE: submenu de mantenimiento; se repite hasta que el usuario elige 0.
+void menuMantenimiento() {
+    int op = -1;
+    while (op != 0) {
+        encabezado("MANTENIMIENTO");
+        opcion("1. Verificar integridad");
+        opcion("2. Crear backup");
+        opcion("0. Volver al menu principal");
+        pie();
+        op = leerEntero("Seleccione una opcion: ", 0, 2);
+        if (op == 1) menuVerificarIntegridad();
+        if (op == 2) menuCrearBackup();
     }
 }
