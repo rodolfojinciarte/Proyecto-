@@ -774,3 +774,27 @@ Resultado listarOrdenesPorVehiculo(int idVehiculo, OrdenServicio resultados[], i
     }
     return OK;
 }
+
+// =====================================================================
+// TALLER Y ARRANQUE
+// =====================================================================
+
+bool prepararArchivos() {
+    return inicializarArchivos();
+}
+
+bool tallerConfigurado() {
+    return existeTaller();
+}
+
+Resultado configurarTaller(Taller t) {
+    if (strlen(t.nombre) == 0 || strlen(t.rif) == 0) {
+        return DATO_INVALIDO;
+    }
+    t.fechaCreacion = time(0);
+    return guardarTaller(t) ? OK : ERROR_ARCHIVO;
+}
+
+Resultado obtenerTaller(Taller* t) {
+    return leerTaller(t) ? OK : ERROR_ARCHIVO;
+}

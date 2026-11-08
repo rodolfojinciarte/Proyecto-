@@ -1,40 +1,56 @@
 #pragma once
 #include "estructuras.h"
+#include "resultados.h"
 
-// VEHICULOS
-void mostrarVehiculo(Vehiculo* v);
-void mostrarListaVehiculos(Vehiculo** vehiculos, int cantidad);
-void menuRegistrarVehiculo(SistemaTaller* s);
-void menuBuscarVehiculo(SistemaTaller* s);
-void menuActualizarVehiculo(SistemaTaller* s);
-void menuEliminarVehiculo(SistemaTaller* s);
-void menuListarVehiculos(SistemaTaller* s);
-void menuVehiculos(SistemaTaller* s);
+// =====================================================================
+// CAPA DE PRESENTACION: menus y mensajes. Funciones void.
+// Usa cin/cout. NO abre archivos: todo lo pide a la logica.
+// =====================================================================
 
-// MECANICOS
-void mostrarMecanico(SistemaTaller* s, Mecanico* m);
-void menuRegistrarMecanico(SistemaTaller* s);
-void menuBuscarMecanico(SistemaTaller* s);
-void menuListarMecanicos(SistemaTaller* s);
-void menuMecanicos(SistemaTaller* s);
+// ===================== AYUDAS =====================
+const char* textoResultado(Resultado r);    // mensaje para cada Resultado
+void textoFecha(time_t t, char* destino);   // time_t -> "AAAA-MM-DD"
+void encabezado(const char* titulo);        // borde de arriba con el titulo
+void opcion(const char* texto);             // una linea del menu con bordes
+void pie();                                 // borde de abajo
+bool menuPrimerArranque();                  // pide los datos del taller la primera vez
 
-// REPUESTOS
-void mostrarRepuesto(Repuesto* r);
-void mostrarListaRepuestos(Repuesto** lista, int cantidad);
-void menuRegistrarRepuesto(SistemaTaller* s);
-void menuBuscarRepuesto(SistemaTaller* s);
-void menuEntradaMercancia(SistemaTaller* s);
-void menuListarRepuestos(SistemaTaller* s);
-void menuCambiarPrecio(SistemaTaller* s);
-void menuEliminarRepuesto(SistemaTaller* s);
-void menuRepuestos(SistemaTaller* s);
+// ===================== VEHICULOS =====================
+void mostrarVehiculo(Vehiculo v);
+void mostrarListaVehiculos(Vehiculo lista[], int cantidad, bool hayMas);
+void menuRegistrarVehiculo();
+void menuBuscarVehiculo();
+void menuActualizarVehiculo();
+void menuEliminarVehiculo();
+void menuListarVehiculos();
+void menuVehiculos();
 
-// ORDENES (menus)
-void abrirOrdenMenu(SistemaTaller* s);        // abre una orden nueva
-void agregarRepuestoMenu(SistemaTaller* s);   // mete un repuesto a la orden
-void quitarRepuestoMenu(SistemaTaller* s);    // saca un repuesto de la orden
-void cerrarOrdenMenu(SistemaTaller* s);       // cobra mano de obra y cierra
-void anularOrdenMenu(SistemaTaller* s);       // anula y devuelve el stock
-void verDetalleOrden(SistemaTaller* s);       // muestra la factura
-void listarOrdenesMenu(SistemaTaller* s);     // lista por estado
-void menuOrdenes(SistemaTaller* s);           // el submenu
+// ===================== MECANICOS =====================
+void mostrarMecanico(Mecanico m, int ordenesAbiertas);
+void menuRegistrarMecanico();
+void menuBuscarMecanico();
+void menuListarMecanicos();
+void menuDarDeBajaMecanico();
+void menuMecanicos();
+
+// ===================== REPUESTOS =====================
+void mostrarRepuesto(Repuesto r);
+void mostrarListaRepuestos(Repuesto lista[], int cantidad, bool hayMas);
+void menuRegistrarRepuesto();
+void menuBuscarRepuesto();
+void menuEntradaMercancia();
+void menuListarRepuestos();
+void menuCambiarPrecio();
+void menuEliminarRepuesto();
+void menuRepuestos();
+
+// ===================== ORDENES =====================
+void mostrarResumenOrden(OrdenServicio o);
+void menuAbrirOrden();
+void menuAgregarRepuestoOrden();
+void menuQuitarRepuestoOrden();
+void menuCerrarOrden();
+void menuAnularOrden();
+void menuVerDetalleOrden();
+void menuListarOrdenes();
+void menuOrdenes();

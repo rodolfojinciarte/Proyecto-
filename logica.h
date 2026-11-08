@@ -131,3 +131,9 @@ Resultado listarOrdenesPorEstado(const char* estado, OrdenServicio resultados[],
 
 // Historial de un vehiculo (todas sus ordenes), maximo MAX_RESULTADOS
 Resultado listarOrdenesPorVehiculo(int idVehiculo, OrdenServicio resultados[], int* cantidad, bool* hayMas);
+
+// ===================== TALLER Y ARRANQUE =====================
+bool prepararArchivos();                 // crea los .bin que falten (true = listos)
+bool tallerConfigurado();                // true si taller.bin ya existe
+Resultado configurarTaller(Taller t);    // primer arranque: OK, DATO_INVALIDO, ERROR_ARCHIVO
+Resultado obtenerTaller(Taller* t);      // OK, ERROR_ARCHIVO
