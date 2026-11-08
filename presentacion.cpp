@@ -639,3 +639,349 @@ void menuRepuestos() {
         if (op == 6) menuEliminarRepuesto();
     }
 }
+
+// =====================================================================
+// ORDENES - BLOQUE A (ayudas y mostrar)
+// =====================================================================
+
+// Pide el numero de orden y la lee. Si no se puede, muestra el error y devuelve false.
+static bool pedirOrden(OrdenServicio* o) {
+    int id = leerEntero("Numero de orden: ", 1, 999999);
+    Resultado r = obtenerOrdenPorID(id, o);
+    if (r == NO_EXISTE) {
+        cout << "No existe la orden #" << id << "." << endl;
+        return false;
+    }
+    if (r != OK) {
+        cout << "ERROR: " << textoResultado(r) << endl;
+        return false;
+    }
+    return true;
+}
+
+// Mensaje cuando la orden no esta ABIERTA
+static void avisoEstadoOrden(OrdenServicio o) {
+    cout << "ERROR: La orden #" << o.id << " esta " << o.estado << " y no puede modificarse." << endl;
+}
+
+// Arma un texto con la placa y el modelo del vehiculo (aunque este eliminado)
+static void describirVehiculo(int id, char* destino) {
+    Vehiculo v;
+    Resultado r = obtenerVehiculoPorID(id, &v);
+    if (r == OK || r == ELIMINADO) {
+        strcpy(destino, v.placa);
+        strcat(destino, " - ");
+        strcat(destino, v.marca);
+        strcat(destino, " ");
+        strcat(destino, v.modelo);
+        if (r == ELIMINADO) {
+            strcat(destino, " [ELIMINADO]");
+        }
+    } else {
+        strcpy(destino, "(vehiculo no encontrado)");
+    }
+}
+
+// Arma un texto con el nombre del mecanico (aunque este dado de baja)
+static void describirMecanico(int id, char* destino) {
+    Mecanico m;
+    Resultado r = obtenerMecanicoPorID(id, &m);
+    if (r == OK || r == ELIMINADO) {
+        strcpy(destino, m.nombre);
+        strcat(destino, " (");
+        strcat(destino, m.especialidad);
+        strcat(destino, ")");
+        if (r == ELIMINADO) {
+            strcat(destino, " [BAJA]");
+        }
+    } else {
+        strcpy(destino, "(mecanico no encontrado)");
+    }
+}
+
+// Una orden en dos lineas, para los listados
+void mostrarResumenOrden(OrdenServicio o) {
+    char vehiculo[200];
+    char mecanico[200];
+    describirVehiculo(o.idVehiculo, vehiculo);
+    describirMecanico(o.idMecanico, mecanico);
+    cout << fixed << setprecision(2);
+    cout << "  #" << o.id << "  " << o.fechaApertura << "  " << left << setw(9) << o.estado
+         << "  Total: " << calcularTotalOrden(o) << endl;
+    cout << "      Vehiculo: " << vehiculo << "   Mecanico: " << mecanico << endl;
+}
+
+// La orden completa, como una factura
+static void mostrarDetalleOrden(OrdenServicio o) {
+    cout << fixed << setprecision(2);
+    cout << endl << "+==================================================================+" << endl;
+    cout << "  ORDEN DE SERVICIO #" << o.id << endl;
+    cout << "+==================================================================+" << endl;
+    cout << "  Estado   : " << o.estado << "     Apertura: " << o.fechaApertura
+         << "     Cierre: " << (strlen(o.fechaCierre) > 0 ? o.fechaCierre : "-") << endl;
+
+    Vehiculo v;
+    Resultado rv = obtenerVehiculoPorID(o.idVehiculo, &v);
+    if (rv == OK || rv == ELIMINADO) {
+        cout << "  Vehiculo : " << v.placa << " - " << v.marca << " " << v.modelo << " " << v.anio
+             << (v.eliminado ? " [ELIMINADO]" : "") << endl;
+        cout << "  Dueno    : " << v.nombrePropietario << endl;
+    } else {
+        cout << "  Vehiculo : (no encontrado, ID " << o.idVehiculo << ")" << endl;
+    }
+    char mecanico[200];
+    describirMecanico(o.idMecanico, mecanico);
+    cout << "  Mecanico : " << mecanico << endl;
+    cout << "  Km ingreso: " << o.kilometrajeIngreso << endl;
+    cout << "  Falla    : " << o.descripcionFalla << endl;
+    cout << "+------------------------------------------------------------------+" << endl;
+
+    cout << "  " << left << setw(10) << "Codigo" << setw(26) << "Repuesto"
+         << right << setw(6) << "Cant" << setw(10) << "P.Unit" << setw(10) << "Total" << endl;
+    float repuestos = 0;
+    for (int i = 0; i < o.numLineas; i++) {
+        Repuesto r;
+        Resultado rr = obtenerRepuestoPorID(o.lineas[i].idRepuesto, &r);
+        bool hay = (rr == OK || rr == ELIMINADO);
+        float totalLinea = o.lineas[i].cantidad * o.lineas[i].precioUnitario;
+        repuestos += totalLinea;
+        cout << "  " << left << setw(10) << (hay ? r.codigo : "?")
+             << setw(26) << (hay ? r.nombre : "(no existe)")
+             << right << setw(6) << o.lineas[i].cantidad
+             << setw(10) << o.lineas[i].precioUnitario      // precio HISTORICO
+             << setw(10) << totalLinea << endl;
+    }
+    if (o.numLineas == 0) {
+        cout << "  (sin repuestos)" << endl;
+    }
+    cout << "+------------------------------------------------------------------+" << endl;
+    cout << right << setw(54) << "Repuestos:" << setw(10) << repuestos << endl;
+    cout << right << setw(54) << "Mano de obra:" << setw(10) << o.manoObra << endl;
+    cout << right << setw(54) << "TOTAL:" << setw(10) << calcularTotalOrden(o) << endl;
+    cout << "+==================================================================+" << endl;
+    cout << left;     // dejo la alineacion como estaba para los menus
+}
+
+// =====================================================================
+// ORDENES - BLOQUE B (menus)
+// =====================================================================
+
+void menuAbrirOrden() {
+    int idV = leerEntero("ID del vehiculo: ", 1, 999999);
+    Vehiculo v;
+    Resultado r = obtenerVehiculoPorID(idV, &v);
+    if (r != OK) {
+        avisoVehiculo(r, idV, v);
+        return;
+    }
+    cout << "  Vehiculo: " << v.placa << " - " << v.marca << " " << v.modelo
+         << " (" << v.kilometraje << " km)" << endl;
+
+    int idM = leerEntero("ID del mecanico: ", 1, 999999);
+    Mecanico m;
+    r = obtenerMecanicoPorID(idM, &m);
+    if (r == ELIMINADO) {
+        cout << "ERROR: El mecanico '" << m.nombre << "' esta dado de baja y no recibe ordenes nuevas." << endl;
+        return;
+    }
+    if (r != OK) {
+        avisoMecanico(r, idM, m);
+        return;
+    }
+    cout << "  Mecanico: " << m.nombre << " (" << m.especialidad << ")" << endl;
+
+    int km = leerEntero("Kilometraje de ingreso: ", 0, 9999999);
+    char falla[200];
+    if (!leerTexto("Descripcion de la falla: ", falla, 200)) return;
+    if (!confirmar("Abrir la orden?")) {
+        cout << "No se abrio la orden." << endl;
+        return;
+    }
+
+    int idOrden = 0;
+    r = abrirOrden(idV, idM, km, falla, &idOrden);
+    if (r == OK) {
+        cout << "Orden #" << idOrden << " abierta." << endl;
+    } else if (r == VEHICULO_CON_ORDEN_ABIERTA) {
+        // busco cual es la orden abierta para decir su numero
+        OrdenServicio lista[MAX_RESULTADOS];
+        int n = 0;
+        bool mas = false;
+        listarOrdenesPorVehiculo(idV, lista, &n, &mas);
+        int numero = 0;
+        for (int i = 0; i < n; i++) {
+            if (strcmp(lista[i].estado, "ABIERTA") == 0) {
+                numero = lista[i].id;
+            }
+        }
+        cout << "ERROR: El vehiculo '" << v.placa << "' ya tiene la orden #" << numero << " ABIERTA." << endl;
+    } else if (r == MECANICO_OCUPADO) {
+        cout << "ERROR: El mecanico '" << m.nombre << "' ya tiene 3 ordenes abiertas." << endl;
+    } else if (r == KILOMETRAJE_MENOR) {
+        cout << "ERROR: El kilometraje de ingreso (" << km << ") es menor que el registrado ("
+             << v.kilometraje << " km)." << endl;
+    } else if (r == DATO_INVALIDO) {
+        cout << "ERROR: La descripcion de la falla no puede estar vacia." << endl;
+    } else {
+        cout << "ERROR: " << textoResultado(r) << endl;
+    }
+}
+
+void menuAgregarRepuestoOrden() {
+    OrdenServicio o;
+    if (!pedirOrden(&o)) return;
+    if (strcmp(o.estado, "ABIERTA") != 0) {
+        avisoEstadoOrden(o);
+        return;
+    }
+    mostrarResumenOrden(o);
+    int idR = leerEntero("ID del repuesto: ", 1, 999999);
+    Repuesto rep;
+    Resultado r = obtenerRepuestoPorID(idR, &rep);
+    if (r != OK) {
+        avisoRepuesto(r, idR, rep);
+        return;
+    }
+    cout << "  " << rep.nombre << " - stock disponible: " << rep.stock << endl;
+    int cantidad = leerEntero("Cantidad: ", 1, 999999);
+    r = agregarRepuestoAOrden(o.id, idR, cantidad);
+    if (r == OK) {
+        cout << "Repuesto agregado a la orden #" << o.id << "." << endl;
+    } else if (r == STOCK_INSUFICIENTE) {
+        cout << "ERROR: Stock insuficiente de '" << rep.nombre << "'. Disponible: " << rep.stock
+             << ", solicitado: " << cantidad << "." << endl;
+    } else if (r == LIMITE_LINEAS) {
+        cout << "ERROR: La orden #" << o.id << " ya tiene " << MAX_LINEAS
+             << " lineas; no se puede agregar otro repuesto." << endl;
+    } else {
+        cout << "ERROR: " << textoResultado(r) << endl;
+    }
+}
+
+void menuQuitarRepuestoOrden() {
+    OrdenServicio o;
+    if (!pedirOrden(&o)) return;
+    if (strcmp(o.estado, "ABIERTA") != 0) {
+        avisoEstadoOrden(o);
+        return;
+    }
+    mostrarDetalleOrden(o);
+    int idR = leerEntero("ID del repuesto a quitar: ", 1, 999999);
+    if (!confirmar("Quitar la linea completa de ese repuesto?")) {
+        return;
+    }
+    Resultado r = quitarRepuestoDeOrden(o.id, idR);
+    if (r == OK) {
+        cout << "Linea quitada. Las unidades volvieron al inventario." << endl;
+    } else if (r == NO_ESTA_EN_ORDEN) {
+        cout << "ERROR: El repuesto ID " << idR << " no esta en la orden #" << o.id << "." << endl;
+    } else {
+        cout << "ERROR: " << textoResultado(r) << endl;
+    }
+}
+
+void menuCerrarOrden() {
+    OrdenServicio o;
+    if (!pedirOrden(&o)) return;
+    if (strcmp(o.estado, "ABIERTA") != 0) {
+        avisoEstadoOrden(o);
+        return;
+    }
+    mostrarDetalleOrden(o);
+    int centavos = leerEntero("Mano de obra en centavos (ej: 4000 = 40.00): ", 0, 99999999);
+    if (!confirmar("Seguro que desea cerrar la orden?")) {
+        return;
+    }
+    Resultado r = cerrarOrden(o.id, centavos / 100.0f);
+    if (r == OK) {
+        obtenerOrdenPorID(o.id, &o);
+        cout << fixed << setprecision(2);
+        cout << "Orden #" << o.id << " CERRADA. Total: " << calcularTotalOrden(o) << endl;
+    } else if (r == ORDEN_VACIA) {
+        cout << "ERROR: La orden no tiene repuestos; la mano de obra debe ser mayor que 0." << endl;
+    } else {
+        cout << "ERROR: " << textoResultado(r) << endl;
+    }
+}
+
+void menuAnularOrden() {
+    OrdenServicio o;
+    if (!pedirOrden(&o)) return;
+    if (strcmp(o.estado, "ANULADA") == 0) {
+        cout << "ERROR: La orden #" << o.id << " ya esta ANULADA." << endl;
+        return;
+    }
+    mostrarDetalleOrden(o);
+    if (!confirmar("Seguro que desea anular la orden?")) {
+        return;
+    }
+    Resultado r = anularOrden(o.id);
+    if (r == OK) {
+        cout << "Orden #" << o.id << " ANULADA. Las unidades de sus lineas volvieron al inventario." << endl;
+    } else {
+        cout << "ERROR: " << textoResultado(r) << endl;
+    }
+}
+
+void menuVerDetalleOrden() {
+    OrdenServicio o;
+    if (!pedirOrden(&o)) return;
+    mostrarDetalleOrden(o);
+}
+
+void menuListarOrdenes() {
+    cout << "1. Por estado   2. Historial de un vehiculo" << endl;
+    int op = leerEntero("Opcion: ", 1, 2);
+    OrdenServicio lista[MAX_RESULTADOS];
+    int cantidad = 0;
+    bool hayMas = false;
+    Resultado r;
+    if (op == 1) {
+        cout << "1. ABIERTA   2. CERRADA   3. ANULADA" << endl;
+        int e = leerEntero("Estado: ", 1, 3);
+        const char* estados[3] = {"ABIERTA", "CERRADA", "ANULADA"};
+        r = listarOrdenesPorEstado(estados[e - 1], lista, &cantidad, &hayMas);
+    } else {
+        int idV = leerEntero("ID del vehiculo: ", 1, 999999);
+        r = listarOrdenesPorVehiculo(idV, lista, &cantidad, &hayMas);
+    }
+    if (r != OK) {
+        cout << "ERROR: " << textoResultado(r) << endl;
+        return;
+    }
+    if (cantidad == 0) {
+        cout << "No hay ordenes para mostrar." << endl;
+        return;
+    }
+    for (int i = 0; i < cantidad; i++) {
+        mostrarResumenOrden(lista[i]);
+    }
+    cout << "Total mostrado: " << cantidad << endl;
+    if (hayMas) {
+        cout << "(Hay mas resultados: solo se muestran los primeros " << MAX_RESULTADOS << ")" << endl;
+    }
+}
+
+void menuOrdenes() {
+    int op = -1;
+    while (op != 0) {
+        encabezado("ORDENES DE SERVICIO");
+        opcion("1. Abrir orden");
+        opcion("2. Agregar repuesto a orden");
+        opcion("3. Quitar repuesto de orden");
+        opcion("4. Cerrar orden");
+        opcion("5. Anular orden");
+        opcion("6. Ver detalle de orden");
+        opcion("7. Listar ordenes");
+        opcion("0. Volver al menu principal");
+        pie();
+        op = leerEntero("Seleccione una opcion: ", 0, 7);
+        if (op == 1) menuAbrirOrden();
+        if (op == 2) menuAgregarRepuestoOrden();
+        if (op == 3) menuQuitarRepuestoOrden();
+        if (op == 4) menuCerrarOrden();
+        if (op == 5) menuAnularOrden();
+        if (op == 6) menuVerDetalleOrden();
+        if (op == 7) menuListarOrdenes();
+    }
+}
