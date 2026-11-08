@@ -483,3 +483,294 @@ Resultado eliminarRepuesto(int id) {
     }
     return marcarRepuestoEliminado(id);
 }
+
+// =====================================================================
+// ORDENES - BLOQUE A
+// =====================================================================
+
+// Busca si el vehiculo ya tiene una orden ABIERTA
+static Resultado vehiculoTieneOrdenAbierta(int idVehiculo, bool* tiene) {
+    *tiene = false;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_ORDENES, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    OrdenServicio o;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerOrdenPorID(id, &o) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (o.idVehiculo == idVehiculo && strcmp(o.estado, "ABIERTA") == 0) {
+            *tiene = true;
+            return OK;
+        }
+    }
+    return OK;
+}
+
+// Devuelve la posicion (0 a 14) de la linea de ese repuesto en la orden, o -1 si no esta
+static int posicionDeLinea(OrdenServicio o, int idRepuesto) {
+    for (int i = 0; i < o.numLineas; i++) {
+        if (o.lineas[i].idRepuesto == idRepuesto) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+Resultado abrirOrden(int idVehiculo, int idMecanico, int kilometraje, const char* falla, int* idAsignado) {
+    // ---------- 1. TODAS las validaciones antes de escribir ----------
+    if (strlen(falla) == 0 || kilometraje < 0) {
+        return DATO_INVALIDO;
+    }
+    Vehiculo v;
+    Resultado r = obtenerVehiculoPorID(idVehiculo, &v);
+    if (r != OK) {
+        return r;                       // NO_EXISTE, ELIMINADO o ERROR_ARCHIVO
+    }
+    Mecanico m;
+    r = obtenerMecanicoPorID(idMecanico, &m);
+    if (r != OK) {
+        return r;                       // ELIMINADO = dado de baja: no recibe ordenes nuevas
+    }
+    bool tieneAbierta = false;
+    r = vehiculoTieneOrdenAbierta(idVehiculo, &tieneAbierta);
+    if (r != OK) {
+        return r;
+    }
+    if (tieneAbierta) {
+        return VEHICULO_CON_ORDEN_ABIERTA;
+    }
+    int abiertas = 0;
+    r = contarOrdenesAbiertas(idMecanico, &abiertas);
+    if (r != OK) {
+        return r;
+    }
+    if (abiertas >= 3) {
+        return MECANICO_OCUPADO;
+    }
+    if (kilometraje < v.kilometraje) {
+        return KILOMETRAJE_MENOR;
+    }
+
+    // ---------- 2. Armo la orden nueva ----------
+    OrdenServicio o = {};               // {} = todo en cero, numLineas = 0
+    o.idVehiculo = idVehiculo;
+    o.idMecanico = idMecanico;
+    fechaActual(o.fechaApertura);
+    strcpy(o.fechaCierre, "");          // vacia mientras este abierta
+    strcpy(o.estado, "ABIERTA");
+    strncpy(o.descripcionFalla, falla, 199);
+    o.kilometrajeIngreso = kilometraje;
+    o.manoObra = 0;
+
+    // ---------- 3. Escrituras: primero la orden, despues el vehiculo ----------
+    r = guardarOrdenNueva(o, idAsignado);
+    if (r != OK) {
+        return r;
+    }
+    v.kilometraje = kilometraje;        // al abrir se actualiza el km del vehiculo
+    return sobrescribirVehiculo(v);
+}
+
+Resultado obtenerOrdenPorID(int id, OrdenServicio* o) {
+    return leerOrdenPorID(id, o);
+}
+
+Resultado agregarRepuestoAOrden(int idOrden, int idRepuesto, int cantidad) {
+    // ---------- 1. Validaciones ----------
+    if (cantidad <= 0) {
+        return DATO_INVALIDO;
+    }
+    OrdenServicio o;
+    Resultado r = leerOrdenPorID(idOrden, &o);
+    if (r != OK) {
+        return r;
+    }
+    if (strcmp(o.estado, "ABIERTA") != 0) {
+        return ESTADO_INCORRECTO;
+    }
+    Repuesto rep;
+    r = obtenerRepuestoPorID(idRepuesto, &rep);
+    if (r != OK) {
+        return r;
+    }
+    if (rep.stock < cantidad) {
+        return STOCK_INSUFICIENTE;
+    }
+    int pos = posicionDeLinea(o, idRepuesto);
+    if (pos == -1 && o.numLineas == MAX_LINEAS) {
+        return LIMITE_LINEAS;           // es un repuesto nuevo y ya no hay casillas libres
+    }
+
+    // ---------- 2. Cambio la COPIA de la orden ----------
+    if (pos != -1) {
+        o.lineas[pos].cantidad += cantidad;      // ya estaba: acumulo en su linea
+    } else {
+        o.lineas[o.numLineas].idRepuesto = idRepuesto;
+        o.lineas[o.numLineas].cantidad = cantidad;
+        o.lineas[o.numLineas].precioUnitario = rep.precio;   // precio historico
+        o.numLineas++;
+    }
+
+    // ---------- 3. Escrituras: primero la orden, despues el stock ----------
+    r = sobrescribirOrden(o);
+    if (r != OK) {
+        return r;
+    }
+    rep.stock -= cantidad;
+    return sobrescribirRepuesto(rep);
+}
+
+// =====================================================================
+// ORDENES - BLOQUE B
+// =====================================================================
+
+Resultado quitarRepuestoDeOrden(int idOrden, int idRepuesto) {
+    // ---------- 1. Validaciones ----------
+    OrdenServicio o;
+    Resultado r = leerOrdenPorID(idOrden, &o);
+    if (r != OK) {
+        return r;
+    }
+    if (strcmp(o.estado, "ABIERTA") != 0) {
+        return ESTADO_INCORRECTO;
+    }
+    int pos = posicionDeLinea(o, idRepuesto);
+    if (pos == -1) {
+        return NO_ESTA_EN_ORDEN;
+    }
+    Repuesto rep;
+    r = leerRepuestoPorID(idRepuesto, &rep);   // lectura cruda: lo necesito igual
+    if (r != OK) {
+        return r;
+    }
+
+    // ---------- 2. Quito la linea: corro las de la derecha una casilla ----------
+    int unidades = o.lineas[pos].cantidad;
+    for (int i = pos; i < o.numLineas - 1; i++) {
+        o.lineas[i] = o.lineas[i + 1];
+    }
+    o.numLineas--;
+
+    // ---------- 3. Escrituras: primero la orden, despues el stock ----------
+    r = sobrescribirOrden(o);
+    if (r != OK) {
+        return r;
+    }
+    rep.stock += unidades;                     // devuelvo las unidades al inventario
+    return sobrescribirRepuesto(rep);
+}
+
+Resultado cerrarOrden(int idOrden, float manoObra) {
+    if (manoObra < 0) {
+        return DATO_INVALIDO;
+    }
+    OrdenServicio o;
+    Resultado r = leerOrdenPorID(idOrden, &o);
+    if (r != OK) {
+        return r;
+    }
+    if (strcmp(o.estado, "ABIERTA") != 0) {
+        return ESTADO_INCORRECTO;
+    }
+    if (o.numLineas == 0 && manoObra <= 0) {
+        return ORDEN_VACIA;
+    }
+    o.manoObra = manoObra;
+    strcpy(o.estado, "CERRADA");
+    fechaActual(o.fechaCierre);                // fecha de cierre = hoy
+    return sobrescribirOrden(o);               // solo escribe un archivo
+}
+
+Resultado anularOrden(int idOrden) {
+    // ---------- 1. Validaciones ----------
+    OrdenServicio o;
+    Resultado r = leerOrdenPorID(idOrden, &o);
+    if (r != OK) {
+        return r;
+    }
+    if (strcmp(o.estado, "ANULADA") == 0) {
+        return ESTADO_INCORRECTO;              // solo ABIERTAS o CERRADAS
+    }
+    Repuesto rep;
+    for (int i = 0; i < o.numLineas; i++) {    // reviso que todos los repuestos se puedan leer
+        if (leerRepuestoPorID(o.lineas[i].idRepuesto, &rep) != OK) {
+            return ERROR_ARCHIVO;
+        }
+    }
+
+    // ---------- 2. Escrituras: primero la orden, despues cada stock ----------
+    strcpy(o.estado, "ANULADA");
+    r = sobrescribirOrden(o);
+    if (r != OK) {
+        return r;
+    }
+    for (int i = 0; i < o.numLineas; i++) {
+        leerRepuestoPorID(o.lineas[i].idRepuesto, &rep);
+        rep.stock += o.lineas[i].cantidad;     // devuelvo las unidades de esa linea
+        r = sobrescribirRepuesto(rep);
+        if (r != OK) {
+            return r;
+        }
+    }
+    return OK;
+}
+
+float calcularTotalOrden(OrdenServicio o) {
+    float total = o.manoObra;
+    for (int i = 0; i < o.numLineas; i++) {
+        total += o.lineas[i].cantidad * o.lineas[i].precioUnitario;
+    }
+    return total;
+}
+
+Resultado listarOrdenesPorEstado(const char* estado, OrdenServicio resultados[], int* cantidad, bool* hayMas) {
+    *cantidad = 0;
+    *hayMas = false;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_ORDENES, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    OrdenServicio o;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerOrdenPorID(id, &o) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (strcmp(o.estado, estado) != 0) {
+            continue;
+        }
+        if (*cantidad == MAX_RESULTADOS) {
+            *hayMas = true;
+            break;
+        }
+        resultados[*cantidad] = o;
+        (*cantidad)++;
+    }
+    return OK;
+}
+
+Resultado listarOrdenesPorVehiculo(int idVehiculo, OrdenServicio resultados[], int* cantidad, bool* hayMas) {
+    *cantidad = 0;
+    *hayMas = false;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_ORDENES, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    OrdenServicio o;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerOrdenPorID(id, &o) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (o.idVehiculo != idVehiculo) {
+            continue;
+        }
+        if (*cantidad == MAX_RESULTADOS) {
+            *hayMas = true;
+            break;
+        }
+        resultados[*cantidad] = o;
+        (*cantidad)++;
+    }
+    return OK;
+}

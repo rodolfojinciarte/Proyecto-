@@ -93,3 +93,41 @@ Resultado cambiarPrecioRepuesto(int id, float nuevoPrecio);
 // Borrado logico. Rechazado si aparece en alguna linea de cualquier orden.
 // OK, NO_EXISTE, ELIMINADO, TIENE_ORDENES, ERROR_ARCHIVO
 Resultado eliminarRepuesto(int id);
+
+// ===================== ORDENES =====================
+// Abre una orden. Vehiculo y mecanico activos, el vehiculo sin otra ABIERTA,
+// el mecanico con menos de 3 ABIERTAS, km de ingreso >= km del vehiculo.
+// Escribe: ordenes.bin (orden nueva) y vehiculos.bin (km actualizado).
+// OK, DATO_INVALIDO, NO_EXISTE, ELIMINADO, VEHICULO_CON_ORDEN_ABIERTA,
+// MECANICO_OCUPADO, KILOMETRAJE_MENOR, ERROR_ARCHIVO
+Resultado abrirOrden(int idVehiculo, int idMecanico, int kilometraje, const char* falla, int* idAsignado);
+
+// Las ordenes nunca se eliminan. OK, NO_EXISTE, ERROR_ARCHIVO
+Resultado obtenerOrdenPorID(int id, OrdenServicio* o);
+
+// Solo ABIERTAS. Stock suficiente (se descuenta). Precio actual = precio historico.
+// Si el repuesto ya esta en la orden, suma a su linea. Maximo MAX_LINEAS lineas.
+// OK, DATO_INVALIDO, NO_EXISTE, ELIMINADO, ESTADO_INCORRECTO, STOCK_INSUFICIENTE,
+// LIMITE_LINEAS, ERROR_ARCHIVO
+Resultado agregarRepuestoAOrden(int idOrden, int idRepuesto, int cantidad);
+
+// Solo ABIERTAS. Quita la linea completa y devuelve sus unidades al stock.
+// OK, NO_EXISTE, ESTADO_INCORRECTO, NO_ESTA_EN_ORDEN, ERROR_ARCHIVO
+Resultado quitarRepuestoDeOrden(int idOrden, int idRepuesto);
+
+// Solo ABIERTAS. Mano de obra >= 0. Debe tener una linea o mano de obra > 0.
+// OK, DATO_INVALIDO, NO_EXISTE, ESTADO_INCORRECTO, ORDEN_VACIA, ERROR_ARCHIVO
+Resultado cerrarOrden(int idOrden, float manoObra);
+
+// Solo ABIERTAS o CERRADAS. Devuelve al stock las unidades de todas sus lineas.
+// OK, NO_EXISTE, ESTADO_INCORRECTO, ERROR_ARCHIVO
+Resultado anularOrden(int idOrden);
+
+// Mano de obra + suma de (cantidad x precio historico). No se guarda: se calcula.
+float calcularTotalOrden(OrdenServicio o);
+
+// Ordenes en ese estado ("ABIERTA", "CERRADA" o "ANULADA"), maximo MAX_RESULTADOS
+Resultado listarOrdenesPorEstado(const char* estado, OrdenServicio resultados[], int* cantidad, bool* hayMas);
+
+// Historial de un vehiculo (todas sus ordenes), maximo MAX_RESULTADOS
+Resultado listarOrdenesPorVehiculo(int idVehiculo, OrdenServicio resultados[], int* cantidad, bool* hayMas);
