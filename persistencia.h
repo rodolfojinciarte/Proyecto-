@@ -21,3 +21,35 @@ Resultado leerVehiculoPorID(int id, Vehiculo* v);             // lo entrega acti
 Resultado sobrescribirVehiculo(Vehiculo v);                   // lo reescribe en su misma posicion
 Resultado marcarVehiculoEliminado(int id);                    // borrado logico
 Resultado contarVehiculosActivos(int* cantidad);              // desde el header, sin recorrer
+
+// ===================== MECANICOS =====================
+long posicionMecanico(int id);
+Resultado guardarMecanicoNuevo(Mecanico m, int* idAsignado);
+Resultado leerMecanicoPorID(int id, Mecanico* m);
+Resultado sobrescribirMecanico(Mecanico m);
+Resultado marcarMecanicoEliminado(int id);
+Resultado contarMecanicosActivos(int* cantidad);
+
+// ===================== REPUESTOS =====================
+long posicionRepuesto(int id);
+Resultado guardarRepuestoNuevo(Repuesto r, int* idAsignado);
+Resultado leerRepuestoPorID(int id, Repuesto* r);
+Resultado sobrescribirRepuesto(Repuesto r);
+Resultado marcarRepuestoEliminado(int id);
+Resultado contarRepuestosActivos(int* cantidad);
+
+// ===================== ORDENES =====================
+long posicionOrden(int id);
+Resultado guardarOrdenNueva(OrdenServicio o, int* idAsignado);
+Resultado leerOrdenPorID(int id, OrdenServicio* o);
+Resultado sobrescribirOrden(OrdenServicio o);
+Resultado marcarOrdenEliminada(int id);
+Resultado contarOrdenesActivas(int* cantidad);
+
+// ===================== TALLER (sin header, un solo registro) =====================
+bool existeTaller();                 // true si taller.bin ya existe
+bool guardarTaller(Taller t);        // escribe (o reescribe) el unico registro
+bool leerTaller(Taller* t);          // lee el unico registro
+
+// ===================== ARRANQUE =====================
+bool inicializarArchivos();          // crea los 4 archivos de entidades si faltan
