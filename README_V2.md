@@ -8,7 +8,7 @@ Programación 2 (2026-C), Universidad Rafael Urdaneta. Prof. Ing. Victor Kneider
 Estudiantes de Ingeniería en Computación, Universidad Rafael Urdaneta.
 
 - Rodolfo Inciarte
-- Kolja Balzan
+- Kolja Balza
 
 ## Compilación y ejecución
 
