@@ -312,3 +312,174 @@ Resultado darDeBajaMecanico(int id) {
     }
     return marcarMecanicoEliminado(id);   // baja logica: el registro sigue en el archivo
 }
+
+// =====================================================================
+// REPUESTOS
+// =====================================================================
+
+// Recorre repuestos.bin buscando el codigo entre los ACTIVOS. ID o 0.
+static int idConCodigo(const char* codigo) {
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_REPUESTOS, &h)) {
+        return 0;
+    }
+    Repuesto r;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerRepuestoPorID(id, &r) == OK && !r.eliminado && strcmp(r.codigo, codigo) == 0) {
+            return id;
+        }
+    }
+    return 0;
+}
+
+// Revisa si el repuesto aparece en alguna linea de alguna orden (cualquier estado)
+static Resultado repuestoUsadoEnOrdenes(int idRepuesto, bool* usado) {
+    *usado = false;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_ORDENES, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    OrdenServicio o;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerOrdenPorID(id, &o) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        // for dentro de for: cada orden (id) y, dentro de ella, cada linea (j)
+        for (int j = 0; j < o.numLineas; j++) {
+            if (o.lineas[j].idRepuesto == idRepuesto) {
+                *usado = true;
+                return OK;
+            }
+        }
+    }
+    return OK;
+}
+
+Resultado registrarRepuesto(Repuesto datos, int* idAsignado) {
+    if (strlen(datos.codigo) == 0 || strlen(datos.nombre) == 0 || strlen(datos.marca) == 0) {
+        return DATO_INVALIDO;
+    }
+    if (datos.precio <= 0 || datos.stock < 0 || datos.stockMinimo < 0) {
+        return DATO_INVALIDO;
+    }
+    if (idConCodigo(datos.codigo) != 0) {
+        return DUPLICADO;
+    }
+    return guardarRepuestoNuevo(datos, idAsignado);
+}
+
+Resultado obtenerRepuestoPorID(int id, Repuesto* r) {
+    Resultado res = leerRepuestoPorID(id, r);
+    if (res != OK) {
+        return res;
+    }
+    if (r->eliminado) {
+        return ELIMINADO;
+    }
+    return OK;
+}
+
+Resultado obtenerRepuestoPorCodigo(const char* codigo, Repuesto* r) {
+    int id = idConCodigo(codigo);
+    if (id == 0) {
+        return NO_EXISTE;
+    }
+    return leerRepuestoPorID(id, r);
+}
+
+Resultado buscarRepuestosPorNombre(const char* texto, Repuesto resultados[], int* cantidad, bool* hayMas) {
+    *cantidad = 0;
+    *hayMas = false;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_REPUESTOS, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    Repuesto r;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerRepuestoPorID(id, &r) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (r.eliminado || !contieneSinMayusculas(r.nombre, texto)) {
+            continue;
+        }
+        if (*cantidad == MAX_RESULTADOS) {
+            *hayMas = true;
+            break;
+        }
+        resultados[*cantidad] = r;
+        (*cantidad)++;
+    }
+    return OK;
+}
+
+Resultado registrarEntradaRepuesto(int id, int cantidad) {
+    if (cantidad <= 0) {
+        return DATO_INVALIDO;
+    }
+    Repuesto r;
+    Resultado res = obtenerRepuestoPorID(id, &r);
+    if (res != OK) {
+        return res;
+    }
+    r.stock = r.stock + cantidad;       // cambio la copia...
+    return sobrescribirRepuesto(r);     // ...y la escribo en su lugar del archivo
+}
+
+Resultado listarRepuestos(Repuesto resultados[], int* cantidad, bool* hayMas) {
+    *cantidad = 0;
+    *hayMas = false;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_REPUESTOS, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    Repuesto r;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerRepuestoPorID(id, &r) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (r.eliminado) {
+            continue;
+        }
+        if (*cantidad == MAX_RESULTADOS) {
+            *hayMas = true;
+            break;
+        }
+        resultados[*cantidad] = r;
+        (*cantidad)++;
+    }
+    return OK;
+}
+
+bool esBajoStock(Repuesto r) {
+    return r.stock <= r.stockMinimo;
+}
+
+Resultado cambiarPrecioRepuesto(int id, float nuevoPrecio) {
+    if (nuevoPrecio <= 0) {
+        return DATO_INVALIDO;
+    }
+    Repuesto r;
+    Resultado res = obtenerRepuestoPorID(id, &r);
+    if (res != OK) {
+        return res;
+    }
+    r.precio = nuevoPrecio;             // las ordenes no se tocan: tienen su precioUnitario
+    return sobrescribirRepuesto(r);
+}
+
+Resultado eliminarRepuesto(int id) {
+    Repuesto r;
+    Resultado res = obtenerRepuestoPorID(id, &r);
+    if (res != OK) {
+        return res;
+    }
+    bool usado = false;
+    res = repuestoUsadoEnOrdenes(id, &usado);
+    if (res != OK) {
+        return res;
+    }
+    if (usado) {
+        return TIENE_ORDENES;
+    }
+    return marcarRepuestoEliminado(id);
+}

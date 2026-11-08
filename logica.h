@@ -61,3 +61,35 @@ Resultado listarMecanicos(Mecanico resultados[], int ordenesAbiertas[], int* can
 // Baja logica. Rechazada si tiene ordenes ABIERTAS.
 // OK, NO_EXISTE, ELIMINADO (ya estaba de baja), TIENE_ORDENES_ABIERTAS, ERROR_ARCHIVO
 Resultado darDeBajaMecanico(int id);
+
+// ===================== REPUESTOS =====================
+// Codigo unico entre los ACTIVOS. Precio > 0, stock >= 0, stock minimo >= 0.
+// OK, DATO_INVALIDO, DUPLICADO, ERROR_ARCHIVO
+Resultado registrarRepuesto(Repuesto datos, int* idAsignado);
+
+// OK = activo. ELIMINADO (igual llena r). NO_EXISTE, ERROR_ARCHIVO
+Resultado obtenerRepuestoPorID(int id, Repuesto* r);
+
+// Codigo exacto, solo activos. OK, NO_EXISTE, ERROR_ARCHIVO
+Resultado obtenerRepuestoPorCodigo(const char* codigo, Repuesto* r);
+
+// Parte del nombre (sin importar mayusculas), solo activos, maximo MAX_RESULTADOS
+Resultado buscarRepuestosPorNombre(const char* texto, Repuesto resultados[], int* cantidad, bool* hayMas);
+
+// Suma unidades al stock. Cantidad > 0.
+// OK, DATO_INVALIDO, NO_EXISTE, ELIMINADO, ERROR_ARCHIVO
+Resultado registrarEntradaRepuesto(int id, int cantidad);
+
+// Solo activos, maximo MAX_RESULTADOS
+Resultado listarRepuestos(Repuesto resultados[], int* cantidad, bool* hayMas);
+
+// true si stock <= stockMinimo (la presentacion lo marca BAJO STOCK)
+bool esBajoStock(Repuesto r);
+
+// Nuevo precio > 0. No afecta ordenes ya registradas (guardan su precio historico).
+// OK, DATO_INVALIDO, NO_EXISTE, ELIMINADO, ERROR_ARCHIVO
+Resultado cambiarPrecioRepuesto(int id, float nuevoPrecio);
+
+// Borrado logico. Rechazado si aparece en alguna linea de cualquier orden.
+// OK, NO_EXISTE, ELIMINADO, TIENE_ORDENES, ERROR_ARCHIVO
+Resultado eliminarRepuesto(int id);

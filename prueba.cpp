@@ -1,112 +1,63 @@
 #include <iostream>
 #include <cstring>
 #include "logica.h"
-#include "persistencia.h"   // solo para crear archivos y una orden de prueba
+#include "persistencia.h"
 using namespace std;
+
+// Para no repetir: arma un repuesto con estos datos
+Repuesto armar(const char* codigo, const char* nombre, float precio, int stock, int minimo) {
+    Repuesto r = {};
+    strcpy(r.codigo, codigo);
+    strcpy(r.nombre, nombre);
+    strcpy(r.marca, "Bosch");
+    r.precio = precio;
+    r.stock = stock;
+    r.stockMinimo = minimo;
+    return r;
+}
 
 int main() {
     inicializarArchivos();
+    int id = 0;
 
-    // ================= VEHICULOS (Caso de Uso 2) =================
-    cout << "===== VEHICULOS =====" << endl;
-    const char* placas[6] = {"AAA111", "BBB222", "CCC333", "DDD444", "EEE555", "FFF666"};
-    for (int i = 0; i < 6; i++) {
-        Vehiculo v = {};
-        strcpy(v.placa, placas[i]);
-        strcpy(v.marca, "Toyota");
-        strcpy(v.modelo, "Corolla");
-        v.anio = 2015;
-        v.kilometraje = 40000;
-        strcpy(v.nombrePropietario, "Maria Gonzalez");
-        strcpy(v.cedulaPropietario, "12345678");
-        strcpy(v.telefonoPropietario, "04141234567");
-        int id = 0;
-        Resultado r = registrarVehiculo(v, &id);
-        cout << "Registro " << placas[i] << ": " << (r == OK ? "OK, ID " : "fallo ") << id << endl;
-    }
+    cout << "Registro FIL001: " << (registrarRepuesto(armar("FIL001", "Filtro de aceite", 25.50f, 5, 5), &id) == OK ? "OK" : "fallo") << ", ID " << id << endl;
+    cout << "Registro BUJ001: " << (registrarRepuesto(armar("BUJ001", "Bujia", 8.00f, 20, 4), &id) == OK ? "OK" : "fallo") << ", ID " << id << endl;
+    cout << "Codigo repetido: " << (registrarRepuesto(armar("FIL001", "Otro", 1.0f, 1, 1), &id) == DUPLICADO ? "rechazado (bien)" : "ERROR") << endl;
+    cout << "Precio 0: " << (registrarRepuesto(armar("XXX001", "Malo", 0.0f, 1, 1), &id) == DATO_INVALIDO ? "rechazado (bien)" : "ERROR") << endl;
 
-    Vehiculo rep = {};
-    strcpy(rep.placa, "AAA111");
-    strcpy(rep.marca, "Ford");
-    strcpy(rep.modelo, "Fiesta");
-    rep.anio = 2010;
-    strcpy(rep.nombrePropietario, "Pedro Rojas");
-    strcpy(rep.cedulaPropietario, "87654321");
-    int idRep = 0;
-    cout << "Placa repetida AAA111: "
-         << (registrarVehiculo(rep, &idRep) == DUPLICADO ? "rechazada (bien)" : "ERROR") << endl;
+    Repuesto r;
+    obtenerRepuestoPorID(1, &r);
+    cout << r.nombre << ": stock " << r.stock << (esBajoStock(r) ? " BAJO STOCK" : "") << endl;
 
-    cout << "Eliminar ID 3: " << (eliminarVehiculo(3) == OK ? "OK" : "fallo") << endl;
+    registrarEntradaRepuesto(1, 10);
+    obtenerRepuestoPorID(1, &r);
+    cout << "Despues de la entrada: stock " << r.stock << (esBajoStock(r) ? " BAJO STOCK" : " (ya no marcado)") << endl;
 
-    Vehiculo v;
-    if (obtenerVehiculoPorID(5, &v) == OK) {
-        cout << "[DEPURACION] Vehiculo ID 5 leido en el byte "
-             << posicionEnDiscoVehiculo(5) << ": " << v.placa << endl;
-    }
-    if (obtenerVehiculoPorID(3, &v) == ELIMINADO) {
-        cout << "Vehiculo ID 3 (" << v.placa << "): fue ELIMINADO" << endl;
-    }
+    cambiarPrecioRepuesto(1, 30.00f);
+    obtenerRepuestoPorID(1, &r);
+    cout << "Precio nuevo del filtro: " << r.precio << endl;
 
-    Vehiculo nuevo = rep;
-    strcpy(nuevo.placa, "CCC333");
-    int idNuevo = 0;
-    cout << "Re-registrar CCC333: "
-         << (registrarVehiculo(nuevo, &idNuevo) == OK ? "OK, ID " : "fallo ") << idNuevo << endl;
-
-    Vehiculo lista[MAX_RESULTADOS];
+    Repuesto lista[MAX_RESULTADOS];
     int cant = 0;
     bool hayMas = false;
-    buscarVehiculosPorPropietario("gonz", lista, &cant, &hayMas);
-    cout << "Buscar 'gonz': " << cant << " vehiculo(s) activos" << endl;
+    buscarRepuestosPorNombre("filt", lista, &cant, &hayMas);
+    cout << "Buscar 'filt': " << cant << " resultado(s)" << endl;
 
-    // ================= MECANICOS (Caso de Uso 6) =================
-    cout << endl << "===== MECANICOS =====" << endl;
-    Mecanico m = {};
-    strcpy(m.nombre, "Jose Perez");
-    strcpy(m.cedula, "11111111");
-    strcpy(m.especialidad, "FRENOS");
-    int idM = 0;
-    cout << "Registro Jose Perez: " << (registrarMecanico(m, &idM) == OK ? "OK, ID " : "fallo ") << idM << endl;
-
-    cout << "Cedula repetida: " << (registrarMecanico(m, &idM) == DUPLICADO ? "rechazada (bien)" : "ERROR") << endl;
-
-    Mecanico malo = m;
-    strcpy(malo.cedula, "22222222");
-    strcpy(malo.especialidad, "PINTURA");
-    cout << "Especialidad PINTURA: "
-         << (registrarMecanico(malo, &idM) == DATO_INVALIDO ? "rechazada (bien)" : "ERROR") << endl;
-
-    // Orden ABIERTA de prueba para el mecanico 1 y el vehiculo 1 (directo con la persistencia)
+    // Orden de prueba que usa la bujia (ID 2)
     OrdenServicio o = {};
-    o.idVehiculo = 1;
-    o.idMecanico = 1;
-    strcpy(o.estado, "ABIERTA");
+    strcpy(o.estado, "CERRADA");
+    o.lineas[0].idRepuesto = 2;
+    o.lineas[0].cantidad = 4;
+    o.lineas[0].precioUnitario = 8.00f;
+    o.numLineas = 1;
     int idO = 0;
     guardarOrdenNueva(o, &idO);
 
-    int abiertas = 0;
-    contarOrdenesAbiertas(1, &abiertas);
-    cout << "Ordenes abiertas de Jose: " << abiertas << endl;
+    cout << "Eliminar bujia (usada en orden): " << (eliminarRepuesto(2) == TIENE_ORDENES ? "rechazado (bien)" : "ERROR") << endl;
+    cout << "Eliminar filtro (no usado): " << (eliminarRepuesto(1) == OK ? "OK" : "fallo") << endl;
+    cout << "Buscar filtro despues: " << (obtenerRepuestoPorID(1, &r) == ELIMINADO ? "ELIMINADO (bien)" : "ERROR") << endl;
 
-    cout << "Dar de baja con orden ABIERTA: "
-         << (darDeBajaMecanico(1) == TIENE_ORDENES_ABIERTAS ? "rechazado (bien)" : "ERROR") << endl;
-
-    cout << "Eliminar vehiculo 1 (tiene orden): "
-         << (eliminarVehiculo(1) == TIENE_ORDENES ? "rechazado (bien)" : "ERROR") << endl;
-
-    // Cierro la orden y ahora si se puede dar de baja
-    leerOrdenPorID(idO, &o);
-    strcpy(o.estado, "CERRADA");
-    sobrescribirOrden(o);
-    cout << "Dar de baja con la orden CERRADA: " << (darDeBajaMecanico(1) == OK ? "OK" : "fallo") << endl;
-
-    if (obtenerMecanicoPorID(1, &m) == ELIMINADO) {
-        cout << "Mecanico 1: " << m.nombre << " (DADO DE BAJA)" << endl;
-    }
-
-    Mecanico mecs[MAX_RESULTADOS];
-    int abiertasDe[MAX_RESULTADOS];
-    listarMecanicos(mecs, abiertasDe, &cant, &hayMas);
-    cout << "Listado de mecanicos: " << cant << " (incluye los de baja)" << endl;
+    cout << "Registrar FIL001 otra vez (el anterior esta eliminado): "
+         << (registrarRepuesto(armar("FIL001", "Filtro nuevo", 27.0f, 3, 1), &id) == OK ? "OK, ID " : "fallo ") << id << endl;
     return 0;
 }
