@@ -1040,4 +1040,170 @@ Resultado crearBackup(char* rutaBackup) {
         }
     }
     return OK;
+
+}
+
+// =====================================================================
+// REPORTES
+// Leen los archivos UN REGISTRO A LA VEZ (nunca el archivo completo en memoria).
+// Solo las ordenes CERRADAS suman: las ABIERTAS y ANULADAS no.
+// =====================================================================
+
+// QUE HACE: Reporte 1. Busca el vehiculo por placa, copia sus ordenes en ordenes[]
+// y suma en *totalCerradas el total de sus ordenes CERRADAS.
+Resultado reporteHistorialVehiculo(const char* placa, Vehiculo* v, OrdenServicio ordenes[],
+                                   int* cantidad, bool* hayMas, float* totalCerradas) {
+    *cantidad = 0;
+    *hayMas = false;
+    *totalCerradas = 0;
+
+    // 1. El vehiculo (activo) con esa placa
+    Resultado r = obtenerVehiculoPorPlaca(placa, v);
+    if (r != OK) {
+        return r;
+    }
+    // 2. Recorro ordenes.bin una orden a la vez
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_ORDENES, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    OrdenServicio o;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerOrdenPorID(id, &o) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (o.idVehiculo != v->id) {
+            continue;                       // es de otro vehiculo
+        }
+        // 3. Solo las CERRADAS suman al total (aunque ya no quepan en la lista)
+        if (strcmp(o.estado, "CERRADA") == 0) {
+            *totalCerradas += calcularTotalOrden(o);
+        }
+        // 4. La guardo en la lista si aun cabe
+        if (*cantidad < MAX_RESULTADOS) {
+            ordenes[*cantidad] = o;
+            (*cantidad)++;
+        } else {
+            *hayMas = true;
+        }
+    }
+    return OK;
+}
+
+// QUE HACE: cuenta cuantas unidades de ese repuesto se usaron en ordenes CERRADAS
+// (recorre ordenes.bin una orden a la vez y revisa sus lineas).
+static Resultado unidadesUsadasEnCerradas(int idRepuesto, int* unidades) {
+    *unidades = 0;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_ORDENES, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    OrdenServicio o;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        if (leerOrdenPorID(id, &o) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (strcmp(o.estado, "CERRADA") != 0) {
+            continue;                       // ABIERTA o ANULADA: no cuenta
+        }
+        for (int i = 0; i < o.numLineas; i++) {
+            if (o.lineas[i].idRepuesto == idRepuesto) {
+                *unidades += o.lineas[i].cantidad;
+            }
+        }
+    }
+    return OK;
+}
+
+// QUE HACE: Reporte 2. Para cada repuesto cuenta sus unidades usadas y lo mete en el top 10,
+// que se mantiene ordenado de mayor a menor (como ordenar cartas en la mano).
+Resultado reporteRepuestosMasUsados(FilaTopRepuesto top[], int* cantidad) {
+    *cantidad = 0;
+    ArchivoHeader h;
+    if (!leerHeader(RUTA_REPUESTOS, &h)) {
+        return ERROR_ARCHIVO;
+    }
+    Repuesto rep;
+    for (int id = 1; id <= h.cantidadRegistros; id++) {
+        // 1. Leo un repuesto y cuento sus unidades
+        if (leerRepuestoPorID(id, &rep) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        int unidades = 0;
+        if (unidadesUsadasEnCerradas(id, &unidades) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        if (unidades == 0) {
+            continue;                       // no se uso: no entra al top
+        }
+        // 2. Busco en que posicion le toca (despues de los que tienen mas o igual)
+        int pos = *cantidad;
+        while (pos > 0 && top[pos - 1].unidades < unidades) {
+            pos--;
+        }
+        if (pos >= TOP_REPUESTOS) {
+            continue;                       // no le alcanza para estar en el top 10
+        }
+        // 3. Corro una casilla a la derecha a los que quedan debajo (el ultimo se pierde si ya habia 10)
+        int ultimo = (*cantidad < TOP_REPUESTOS) ? *cantidad : TOP_REPUESTOS - 1;
+        for (int i = ultimo; i > pos; i--) {
+            top[i] = top[i - 1];
+        }
+        // 4. Lo coloco en su posicion
+        top[pos].idRepuesto = id;
+        strcpy(top[pos].codigo, rep.codigo);
+        strcpy(top[pos].nombre, rep.nombre);
+        top[pos].unidades = unidades;
+        if (*cantidad < TOP_REPUESTOS) {
+            (*cantidad)++;
+        }
+    }
+    return OK;
+}
+
+// QUE HACE: Reporte 3. Para cada mecanico (activo o de baja) suma sus ordenes CERRADAS:
+// cuantas son, su mano de obra y sus repuestos.
+Resultado reporteFacturacionMecanicos(FilaFacturacion filas[], int* cantidad, bool* hayMas) {
+    *cantidad = 0;
+    *hayMas = false;
+    ArchivoHeader hm;
+    ArchivoHeader ho;
+    if (!leerHeader(RUTA_MECANICOS, &hm) || !leerHeader(RUTA_ORDENES, &ho)) {
+        return ERROR_ARCHIVO;
+    }
+    Mecanico m;
+    OrdenServicio o;
+    for (int idM = 1; idM <= hm.cantidadRegistros; idM++) {
+        if (*cantidad == MAX_RESULTADOS) {
+            *hayMas = true;
+            break;
+        }
+        // 1. Leo el mecanico (tambien los dados de baja)
+        if (leerMecanicoPorID(idM, &m) != OK) {
+            return ERROR_ARCHIVO;
+        }
+        FilaFacturacion f;
+        f.idMecanico = idM;
+        strcpy(f.nombre, m.nombre);
+        f.dadoDeBaja = m.eliminado;
+        f.ordenesCerradas = 0;
+        f.manoObra = 0;
+        f.repuestos = 0;
+        // 2. Recorro las ordenes y sumo solo las CERRADAS de este mecanico
+        for (int idO = 1; idO <= ho.cantidadRegistros; idO++) {
+            if (leerOrdenPorID(idO, &o) != OK) {
+                return ERROR_ARCHIVO;
+            }
+            if (o.idMecanico != idM || strcmp(o.estado, "CERRADA") != 0) {
+                continue;
+            }
+            f.ordenesCerradas++;
+            f.manoObra += o.manoObra;
+            f.repuestos += calcularTotalOrden(o) - o.manoObra;   // total sin la mano de obra
+        }
+        // 3. Guardo la fila
+        filas[*cantidad] = f;
+        (*cantidad)++;
+    }
+    return OK;
 }

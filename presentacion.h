@@ -59,3 +59,12 @@ void menuOrdenes();
 void menuVerificarIntegridad();
 void menuCrearBackup();
 void menuMantenimiento();
+
+
+// ===================== REPORTES =====================
+void menuReporteHistorial();
+void menuReporteRepuestos();
+void menuReporteFacturacion();
+void menuReportes();
+
+         

@@ -1144,3 +1144,170 @@ void menuMantenimiento() {
         if (op == 2) menuCrearBackup();
     }
 }
+
+
+// =====================================================================
+// REPORTES
+// La presentacion solo muestra: los calculos los hace la logica.
+// =====================================================================
+
+// QUE HACE: Reporte 1. Pide una placa y muestra el vehiculo, todas sus ordenes
+// y el total facturado en sus ordenes CERRADAS.
+void menuReporteHistorial() {
+    // 1. Pido la placa
+    char placa[10];
+    if (!leerTexto("Placa del vehiculo: ", placa, 10)) return;
+
+    // 2. Le pido el historial a la logica
+    Vehiculo v;
+    OrdenServicio ordenes[MAX_RESULTADOS];
+    int cantidad = 0;
+    bool hayMas = false;
+    float totalCerradas = 0;
+    Resultado r = reporteHistorialVehiculo(placa, &v, ordenes, &cantidad, &hayMas, &totalCerradas);
+    if (r == NO_EXISTE) {
+        cout << "No hay un vehiculo activo con placa '" << placa << "'." << endl;
+        return;
+    }
+    if (r != OK) {
+        cout << "ERROR: " << textoResultado(r) << endl;
+        return;
+    }
+
+    // 3. Datos del vehiculo
+    encabezado("HISTORIAL DEL VEHICULO");
+    mostrarVehiculo(v);
+    cout << endl;
+    if (cantidad == 0) {
+        cout << "  Este vehiculo no tiene ordenes registradas." << endl;
+        return;
+    }
+
+    // 4. Tabla de ordenes (el mecanico con su nombre, no solo el ID)
+    cout << fixed << setprecision(2);
+    cout << "  " << left << setw(8) << "Orden" << setw(12) << "Fecha" << setw(42) << "Mecanico"
+         << setw(10) << "Estado" << right << setw(10) << "Total" << endl;
+    cout << "  --------------------------------------------------------------------------------" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        char mecanico[200];
+        describirMecanico(ordenes[i].idMecanico, mecanico);
+        mecanico[40] = '\0';               // lo recorto a 40 letras para que no se salga de su columna
+        char numero[12];
+        snprintf(numero, 12, "#%d", ordenes[i].id);
+        cout << "  " << left << setw(8) << numero << setw(12) << ordenes[i].fechaApertura
+             << setw(42) << mecanico << setw(10) << ordenes[i].estado
+             << right << setw(10) << calcularTotalOrden(ordenes[i]);
+        if (strcmp(ordenes[i].estado, "CERRADA") != 0) {
+            cout << "  (no suma)";          // ABIERTA y ANULADA no cuentan en el total
+        }
+        cout << endl;
+    }
+    if (hayMas) {
+        cout << "  (Solo se muestran las primeras " << MAX_RESULTADOS << " ordenes)" << endl;
+    }
+
+    // 5. Total facturado
+    cout << "  --------------------------------------------------------------------------------" << endl;
+    cout << "  Total facturado en ordenes CERRADAS: " << totalCerradas << endl;
+    cout << left;
+}
+
+// QUE HACE: Reporte 2. Muestra los 10 repuestos con mas unidades usadas en ordenes CERRADAS.
+void menuReporteRepuestos() {
+    // 1. Le pido el top a la logica
+    FilaTopRepuesto top[TOP_REPUESTOS];
+    int cantidad = 0;
+    Resultado r = reporteRepuestosMasUsados(top, &cantidad);
+    if (r != OK) {
+        cout << "ERROR: " << textoResultado(r) << endl;
+        return;
+    }
+    // 2. Lo muestro como tabla
+    encabezado("REPUESTOS MAS UTILIZADOS");
+    if (cantidad == 0) {
+        cout << "  Todavia no hay repuestos usados en ordenes CERRADAS." << endl;
+        return;
+    }
+    cout << "  " << left << setw(5) << "Pos" << setw(12) << "Codigo" << setw(32) << "Nombre"
+         << right << setw(9) << "Unidades" << endl;
+    cout << "  ----------------------------------------------------------" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "  " << left << setw(5) << (i + 1) << setw(12) << top[i].codigo
+             << setw(32) << top[i].nombre << right << setw(9) << top[i].unidades << endl;
+    }
+    cout << left;
+}
+
+// QUE HACE: Reporte 3. Muestra por mecanico (activos y de baja) sus ordenes CERRADAS,
+// su mano de obra y sus repuestos, como la tabla del enunciado.
+void menuReporteFacturacion() {
+    // 1. Le pido las filas a la logica
+    FilaFacturacion filas[MAX_RESULTADOS];
+    int cantidad = 0;
+    bool hayMas = false;
+    Resultado r = reporteFacturacionMecanicos(filas, &cantidad, &hayMas);
+    if (r != OK) {
+        cout << "ERROR: " << textoResultado(r) << endl;
+        return;
+    }
+    if (cantidad == 0) {
+        cout << "No hay mecanicos registrados." << endl;
+        return;
+    }
+    // 2. Encabezado de la tabla
+    const char* borde = "+======================+===========+===========+===========+";
+    cout << endl << "  FACTURACION POR MECANICO (solo ordenes CERRADAS)" << endl;
+    cout << borde << endl;
+    cout << "| Mecanico             |  Ordenes  |  M. obra  | Repuestos |" << endl;
+    cout << borde << endl;
+
+    // 3. Una fila por mecanico
+    cout << fixed << setprecision(2);
+    int totalOrdenes = 0;
+    float totalObra = 0;
+    float totalRepuestos = 0;
+    for (int i = 0; i < cantidad; i++) {
+        // nombre recortado para que quepa en la columna; los de baja llevan (BAJA)
+        char nombre[30];
+        if (filas[i].dadoDeBaja) {
+            snprintf(nombre, 30, "%.13s (BAJA)", filas[i].nombre);
+        } else {
+            snprintf(nombre, 30, "%.20s", filas[i].nombre);
+        }
+        cout << "| " << left << setw(21) << nombre << "|"
+             << right << setw(6) << filas[i].ordenesCerradas << "     |"
+             << setw(10) << filas[i].manoObra << " |"
+             << setw(10) << filas[i].repuestos << " |" << endl;
+        totalOrdenes += filas[i].ordenesCerradas;
+        totalObra += filas[i].manoObra;
+        totalRepuestos += filas[i].repuestos;
+    }
+    // 4. Fila de totales
+    cout << borde << endl;
+    cout << "| " << left << setw(21) << "TOTAL" << "|"
+         << right << setw(6) << totalOrdenes << "     |"
+         << setw(10) << totalObra << " |"
+         << setw(10) << totalRepuestos << " |" << endl;
+    cout << borde << endl;
+    if (hayMas) {
+        cout << "(Solo se muestran los primeros " << MAX_RESULTADOS << " mecanicos)" << endl;
+    }
+    cout << left;
+}
+
+// QUE HACE: submenu de reportes; se repite hasta que el usuario elige 0.
+void menuReportes() {
+    int op = -1;
+    while (op != 0) {
+        encabezado("REPORTES");
+        opcion("1. Historial de un vehiculo");
+        opcion("2. Repuestos mas utilizados");
+        opcion("3. Facturacion por mecanico");
+        opcion("0. Volver al menu principal");
+        pie();
+        op = leerEntero("Seleccione una opcion: ", 0, 3);
+        if (op == 1) menuReporteHistorial();
+        if (op == 2) menuReporteRepuestos();
+        if (op == 3) menuReporteFacturacion();
+    }
+}

@@ -157,3 +157,36 @@ Resultado verificarIntegridad(ReporteIntegridad* rep);
 
 // Crea la carpeta backup_AAAA-MM-DD_HH-MM-SS y copia los 5 .bin. Escribe el nombre en rutaBackup.
 Resultado crearBackup(char* rutaBackup);
+
+// ===================== REPORTES =====================
+// Todos leen los archivos registro por registro: nunca cargan un archivo completo en memoria.
+
+// Reporte 1: historial. Busca el vehiculo ACTIVO con esa placa y copia sus ordenes en ordenes[]
+// (maximo MAX_RESULTADOS). totalCerradas suma SOLO las ordenes CERRADAS (todas, aunque no quepan).
+// OK, NO_EXISTE, ERROR_ARCHIVO
+Resultado reporteHistorialVehiculo(const char* placa, Vehiculo* v, OrdenServicio ordenes[],
+                                   int* cantidad, bool* hayMas, float* totalCerradas);
+
+// Reporte 2: los 10 repuestos con mas unidades usadas en ordenes CERRADAS.
+const int TOP_REPUESTOS = 10;
+struct FilaTopRepuesto {
+    int idRepuesto;
+    char codigo[20];
+    char nombre[100];
+    int unidades;          // unidades consumidas en ordenes CERRADAS
+};
+// Llena top[] ordenado de mayor a menor. cantidad = cuantas filas quedaron (0 a 10).
+// OK, ERROR_ARCHIVO
+Resultado reporteRepuestosMasUsados(FilaTopRepuesto top[], int* cantidad);
+
+// Reporte 3: facturacion de cada mecanico (activos y dados de baja), solo ordenes CERRADAS.
+struct FilaFacturacion {
+    int idMecanico;
+    char nombre[100];
+    bool dadoDeBaja;       // la presentacion lo marca (BAJA)
+    int ordenesCerradas;
+    float manoObra;        // suma de la mano de obra de sus ordenes cerradas
+    float repuestos;       // suma de (cantidad x precio historico) de esas ordenes
+};
+// Una fila por mecanico, maximo MAX_RESULTADOS. OK, ERROR_ARCHIVO
+Resultado reporteFacturacionMecanicos(FilaFacturacion filas[], int* cantidad, bool* hayMas);

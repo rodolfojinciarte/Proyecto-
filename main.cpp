@@ -55,7 +55,7 @@ int main() {
         if (op == 2) menuMecanicos();
         if (op == 3) menuRepuestos();
         if (op == 4) menuOrdenes();
-        if (op == 5) cout << "Proximamente." << endl;   // reportes: lunes
+               if (op == 5) menuReportes();
         if (op == 6) menuMantenimiento();
         if (op == 0 && confirmar("Seguro que desea salir?")) {
             salir = true;
