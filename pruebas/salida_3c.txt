@@ -1,0 +1,121 @@
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #1
++==================================================================+
+  Estado   : CERRADA     Apertura: 2026-11-09     Cierre: 2026-11-09
+  Vehiculo : AB123CD - Toyota Corolla 2015
+  Dueno    : Maria Gonzalez
+  Mecanico : Jose Perez (FRENOS)
+  Km ingreso: 46000
+  Falla    : Ruido en el motor y cambio de aceite
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  FIL001    Filtro de aceite               4      8.50     34.00
+  BUJ003    Bujia                          4      4.50     18.00
+  ACE004    Aceite 20W50 (litro)           1      9.00      9.00
++------------------------------------------------------------------+
+                                            Repuestos:     61.00
+                                         Mano de obra:     45.00
+                                                TOTAL:    106.00
++==================================================================+
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID   Codigo    Nombre                  Marca       Precio    Stock  Min
+---------------------------------------------------------------------------
+1    FIL001    Filtro de aceite        Bosch       10.00     36     5
+2    PAS002    Pastillas de freno      Brembo      32.00     25     4
+3    BUJ003    Bujia                   NGK         4.50      56     10
+4    ACE004    Aceite 20W50 (litro)    Castrol     9.00      79     10
+5    BAT005    Bateria 12V             Duncan      95.00     10     2
+Total mostrado: 5
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

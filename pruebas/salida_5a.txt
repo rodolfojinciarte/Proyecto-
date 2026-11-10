@@ -1,0 +1,337 @@
+
++==========================================+
+|  CONFIGURACION INICIAL DEL TALLER        |
++==========================================+
+Es la primera vez que se ejecuta el sistema.
+(Escriba CANCELAR para salir)
+Nombre del taller: RIF: Direccion: Telefono: Taller guardado en datos/taller.bin
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 1.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Nombre: Cedula (12345678 o V-12345678): Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
+Opcion: Guardar el mecanico? (S/N): Mecanico registrado con ID 1.
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 1.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 2.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 3.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: AB123CD - Toyota Corolla (45500 km)
+ID del mecanico:   Mecanico: Jose Perez (FRENOS)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #1 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #1  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Filtro de aceite - stock disponible: 40
+Cantidad: Repuesto agregado a la orden #1.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #1  2026-11-09  ABIERTA    Total: 17.00
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Pastillas de freno - stock disponible: 25
+Cantidad: Repuesto agregado a la orden #1.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #1  2026-11-09  ABIERTA    Total: 113.00
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Bujia - stock disponible: 60
+Cantidad: Repuesto agregado a la orden #1.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #1
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : AB123CD - Toyota Corolla 2015
+  Dueno    : Maria Gonzalez
+  Mecanico : Jose Perez (FRENOS)
+  Km ingreso: 46000
+  Falla    : Frenos y bujias
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  FIL001    Filtro de aceite               2      8.50     17.00
+  PAS002    Pastillas de freno             3     32.00     96.00
+  BUJ003    Bujia                          4      4.50     18.00
++------------------------------------------------------------------+
+                                            Repuestos:    131.00
+                                         Mano de obra:      0.00
+                                                TOTAL:    131.00
++==================================================================+
+Mano de obra en centavos (ej: 4000 = 40.00): Seguro que desea cerrar la orden? (S/N): Orden #1 CERRADA. Total: 151.00
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID   Codigo    Nombre                  Marca       Precio    Stock  Min
+---------------------------------------------------------------------------
+1    FIL001    Filtro de aceite        Bosch       8.50      38     5
+2    PAS002    Pastillas de freno      Brembo      32.00     22     4
+3    BUJ003    Bujia                   NGK         4.50      56     10
+Total mostrado: 3
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

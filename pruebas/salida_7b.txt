@@ -1,0 +1,59 @@
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
+ROTO: Orden #1 apunta al vehiculo ID 2 (no existe en vehiculos.bin)
+
++==========================================+
+|  REPORTE DE INTEGRIDAD DEL SISTEMA       |
++==========================================+
+|  Vehiculos verificados : 1               |
+|  Mecanicos verificados : 1               |
+|  Repuestos verificados : 0               |
+|  Ordenes verificadas   : 1               |
+|                                          |
+|  Problemas encontrados : 1               |
+|  Estado: SE ENCONTRARON PROBLEMAS        |
++==========================================+
+
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

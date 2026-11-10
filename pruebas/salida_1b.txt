@@ -1,0 +1,141 @@
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID   Placa     Vehiculo                  Anio  Km        Propietario
+-------------------------------------------------------------------------
+1    AB123CD   Toyota Corolla            2015  45500     Maria Gonzalez
+2    XY789ZZ   Chevrolet Aveo            2012  98000     Pedro Ramirez
+3    KL456MN   Ford Fiesta               2018  32000     Carla Mendez
+Total mostrado: 3
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID   Nombre                  Cedula        Especialidad  Abiertas  Estado
+---------------------------------------------------------------------------
+1    Jose Perez              V-10111222    FRENOS        0         ACTIVO
+2    Ana Villalobos          V-15222333    MOTOR         0         ACTIVO
+Total mostrado: 2
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID   Codigo    Nombre                  Marca       Precio    Stock  Min
+---------------------------------------------------------------------------
+1    FIL001    Filtro de aceite        Bosch       8.50      40     5
+2    PAS002    Pastillas de freno      Brembo      32.00     25     4
+3    BUJ003    Bujia                   NGK         4.50      60     10
+4    ACE004    Aceite 20W50 (litro)    Castrol     9.00      80     10
+Total mostrado: 4
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

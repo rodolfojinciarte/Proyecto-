@@ -1,0 +1,51 @@
+Autoservicio El Lago
+J-12345678-9
+Av. 5 de Julio, Maracaibo
+0261-7654321
+1
+1
+AB123CD
+Toyota
+Corolla
+2015
+45500
+Maria Gonzalez
+V-12345678
+04141234567
+s
+0
+2
+1
+Jose Perez
+V-10111222
+2
+s
+0
+6
+2
+0
+1
+1
+XY789ZZ
+Chevrolet
+Aveo
+2012
+98000
+Pedro Ramirez
+V-14567890
+04241112233
+s
+0
+4
+1
+2
+1
+99000
+Falla electrica
+s
+0
+6
+1
+0
+0
+s

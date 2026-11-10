@@ -1,0 +1,236 @@
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  REPORTES                                |
++==========================================+
+|  1. Historial de un vehiculo             |
+|  2. Repuestos mas utilizados             |
+|  3. Facturacion por mecanico             |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Placa del vehiculo: 
++==========================================+
+|  HISTORIAL DEL VEHICULO                  |
++==========================================+
+  ID 1 - AB123CD - Toyota Corolla 2015 (47000 km)
+  Propietario: Maria Gonzalez (V-12345678)  Tel: 04141234567
+  Registrado: 2026-11-09
+
+  Orden   Fecha       Mecanico                                  Estado         Total
+  --------------------------------------------------------------------------------
+  #1      2026-11-09  Jose Perez (FRENOS)                       CERRADA       123.50
+  #9      2026-11-09  Ana Villalobos (MOTOR)                    ABIERTA        32.00  (no suma)
+  --------------------------------------------------------------------------------
+  Total facturado en ordenes CERRADAS: 123.50
+
++==========================================+
+|  REPORTES                                |
++==========================================+
+|  1. Historial de un vehiculo             |
+|  2. Repuestos mas utilizados             |
+|  3. Facturacion por mecanico             |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Placa del vehiculo: 
++==========================================+
+|  HISTORIAL DEL VEHICULO                  |
++==========================================+
+  ID 2 - XY789ZZ - Chevrolet Aveo 2012 (99500 km)
+  Propietario: Pedro Ramirez (V-14567890)  Tel: 04241112233
+  Registrado: 2026-11-09
+
+  Orden   Fecha       Mecanico                                  Estado         Total
+  --------------------------------------------------------------------------------
+  #2      2026-11-09  Ana Villalobos (MOTOR)                    CERRADA       244.00
+  #10     2026-11-09  Miguel Urdaneta (ELECTRICIDAD)            ABIERTA       133.00  (no suma)
+  --------------------------------------------------------------------------------
+  Total facturado en ordenes CERRADAS: 244.00
+
++==========================================+
+|  REPORTES                                |
++==========================================+
+|  1. Historial de un vehiculo             |
+|  2. Repuestos mas utilizados             |
+|  3. Facturacion por mecanico             |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Placa del vehiculo: 
++==========================================+
+|  HISTORIAL DEL VEHICULO                  |
++==========================================+
+  ID 6 - TU987VW - Mitsubishi Lancer 2008 (210500 km)
+  Propietario: Jorge Silva (V-9876543)  Tel: 04269990011
+  Registrado: 2026-11-09
+
+  Orden   Fecha       Mecanico                                  Estado         Total
+  --------------------------------------------------------------------------------
+  #6      2026-11-09  Jose Perez (FRENOS)                       ANULADA       149.50  (no suma)
+  --------------------------------------------------------------------------------
+  Total facturado en ordenes CERRADAS: 0.00
+
++==========================================+
+|  REPORTES                                |
++==========================================+
+|  1. Historial de un vehiculo             |
+|  2. Repuestos mas utilizados             |
+|  3. Facturacion por mecanico             |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  REPUESTOS MAS UTILIZADOS                |
++==========================================+
+  Pos  Codigo      Nombre                           Unidades
+  ----------------------------------------------------------
+  1    ACE004      Aceite 20W50 (litro)                    9
+  2    BUJ003      Bujia                                   8
+  3    PAS002      Pastillas de freno                      2
+  4    AMO006      Amortiguador                            2
+  5    FIA008      Filtro de aire                          2
+  6    LIQ009      Liquido de frenos                       2
+  7    DIS011      Disco de freno                          2
+  8    FIL001      Filtro de aceite                        1
+  9    BAT005      Bateria 12V                             1
+  10   COR007      Correa de tiempo                        1
+
++==========================================+
+|  REPORTES                                |
++==========================================+
+|  1. Historial de un vehiculo             |
+|  2. Repuestos mas utilizados             |
+|  3. Facturacion por mecanico             |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
+  FACTURACION POR MECANICO (solo ordenes CERRADAS)
++======================+===========+===========+===========+
+| Mecanico             |  Ordenes  |  M. obra  | Repuestos |
++======================+===========+===========+===========+
+| Jose Perez           |     1     |     40.00 |     83.50 |
+| Ana Villalobos       |     1     |     35.00 |    209.00 |
+| Miguel Urdaneta      |     1     |     60.00 |    258.00 |
+| Luis Fuenmayor (BAJA)|     2     |     80.00 |    198.00 |
++======================+===========+===========+===========+
+| TOTAL                |     5     |    215.00 |    748.50 |
++======================+===========+===========+===========+
+
++==========================================+
+|  REPORTES                                |
++==========================================+
+|  1. Historial de un vehiculo             |
+|  2. Repuestos mas utilizados             |
+|  3. Facturacion por mecanico             |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID   Nombre                  Cedula        Especialidad  Abiertas  Estado
+---------------------------------------------------------------------------
+1    Jose Perez              V-10111222    FRENOS        1         ACTIVO
+2    Ana Villalobos          V-15222333    MOTOR         1         ACTIVO
+3    Miguel Urdaneta         V-18333444    ELECTRICIDAD  1         ACTIVO
+4    Luis Fuenmayor          V-12444555    GENERAL       0         DADO DE BAJA
+Total mostrado: 4
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
+
++==========================================+
+|  REPORTE DE INTEGRIDAD DEL SISTEMA       |
++==========================================+
+|  Vehiculos verificados : 8               |
+|  Mecanicos verificados : 4               |
+|  Repuestos verificados : 12              |
+|  Ordenes verificadas   : 10              |
+|                                          |
+|  Problemas encontrados : 0               |
+|  Estado: SISTEMA INTEGRO                 |
++==========================================+
+
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

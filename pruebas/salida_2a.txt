@@ -1,0 +1,195 @@
+
++==========================================+
+|  CONFIGURACION INICIAL DEL TALLER        |
++==========================================+
+Es la primera vez que se ejecuta el sistema.
+(Escriba CANCELAR para salir)
+Nombre del taller: RIF: Direccion: Telefono: Taller guardado en datos/taller.bin
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 1.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 2.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 3.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 4.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 5.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 6.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   ID 3 - KL456MN - Ford Fiesta 2018 (32000 km)
+  Propietario: Carla Mendez (V-20123456)  Tel: 04163334455
+  Registrado: 2026-11-09
+Seguro que desea eliminar este vehiculo? (S/N): Vehiculo eliminado (borrado logico).
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 1. Por ID   2. Por placa   3. Por propietario
+Opcion: ID del vehiculo: [DEPURACION] Registro leido en el byte 1168 de datos/vehiculos.bin (sin recorrer el archivo)
+  ID 5 - PQ654RS - Kia Rio 2020 (15000 km)
+  Propietario: Ana Torres (V-25987654)  Tel: 04127778899
+  Registrado: 2026-11-09
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 1. Por ID   2. Por placa   3. Por propietario
+Opcion: ID del vehiculo: [DEPURACION] Registro leido en el byte 592 de datos/vehiculos.bin (sin recorrer el archivo)
+El vehiculo ID 3 (KL456MN) fue ELIMINADO.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

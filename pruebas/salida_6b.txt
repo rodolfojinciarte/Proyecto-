@@ -1,0 +1,117 @@
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID   Nombre                  Cedula        Especialidad  Abiertas  Estado
+---------------------------------------------------------------------------
+1    Jose Perez              V-10111222    FRENOS        0         DADO DE BAJA
+2    Ana Villalobos          V-15222333    MOTOR         0         ACTIVO
+Total mostrado: 2
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 1. Por estado   2. Historial de un vehiculo
+Opcion: 1. ABIERTA   2. CERRADA   3. ANULADA
+Estado:   #1  2026-11-09  CERRADA    Total: 38.50
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS) [BAJA]
+Total mostrado: 1
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: XY789ZZ - Chevrolet Aveo (98000 km)
+ID del mecanico: ERROR: El mecanico 'Jose Perez' esta dado de baja y no recibe ordenes nuevas.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Valor invalido. Intente de nuevo.
+Seleccione una opcion: Valor invalido. Intente de nuevo.
+Seleccione una opcion: Valor invalido. Intente de nuevo.
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

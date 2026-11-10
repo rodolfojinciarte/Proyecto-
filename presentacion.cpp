@@ -1270,7 +1270,7 @@ void menuReporteFacturacion() {
         // nombre recortado para que quepa en la columna; los de baja llevan (BAJA)
         char nombre[30];
         if (filas[i].dadoDeBaja) {
-            snprintf(nombre, 30, "%.13s (BAJA)", filas[i].nombre);
+            snprintf(nombre, 30, "%.14s (BAJA)", filas[i].nombre);
         } else {
             snprintf(nombre, 30, "%.20s", filas[i].nombre);
         }

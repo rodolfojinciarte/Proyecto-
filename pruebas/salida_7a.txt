@@ -1,0 +1,252 @@
+
++==========================================+
+|  CONFIGURACION INICIAL DEL TALLER        |
++==========================================+
+Es la primera vez que se ejecuta el sistema.
+(Escriba CANCELAR para salir)
+Nombre del taller: RIF: Direccion: Telefono: Taller guardado en datos/taller.bin
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 1.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Nombre: Cedula (12345678 o V-12345678): Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
+Opcion: Guardar el mecanico? (S/N): Mecanico registrado con ID 1.
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Backup creado en la carpeta: backup_2026-11-09_23-34-49
+
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 2.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: XY789ZZ - Chevrolet Aveo (98000 km)
+ID del mecanico:   Mecanico: Jose Perez (FRENOS)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #1 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
+
++==========================================+
+|  REPORTE DE INTEGRIDAD DEL SISTEMA       |
++==========================================+
+|  Vehiculos verificados : 2               |
+|  Mecanicos verificados : 1               |
+|  Repuestos verificados : 0               |
+|  Ordenes verificadas   : 1               |
+|                                          |
+|  Problemas encontrados : 0               |
+|  Estado: SISTEMA INTEGRO                 |
++==========================================+
+
++==========================================+
+|  MANTENIMIENTO                           |
++==========================================+
+|  1. Verificar integridad                 |
+|  2. Crear backup                         |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

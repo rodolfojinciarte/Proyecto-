@@ -1,0 +1,1393 @@
+
++==========================================+
+|  CONFIGURACION INICIAL DEL TALLER        |
++==========================================+
+Es la primera vez que se ejecuta el sistema.
+(Escriba CANCELAR para salir)
+Nombre del taller: RIF: Direccion: Telefono: Taller guardado en datos/taller.bin
+
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 1.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 2.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 3.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 4.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 5.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 6.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 7.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Placa: Marca: Modelo: Anio (1950-2027): Kilometraje: Nombre del propietario: Cedula (12345678 o V-12345678): Telefono: Guardar el vehiculo? (S/N): Vehiculo registrado con ID 8.
+
++==========================================+
+|  GESTION DE VEHICULOS                    |
++==========================================+
+|  1. Registrar vehiculo                   |
+|  2. Buscar vehiculo                      |
+|  3. Actualizar vehiculo                  |
+|  4. Eliminar vehiculo                    |
+|  5. Listar vehiculos                     |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Nombre: Cedula (12345678 o V-12345678): Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
+Opcion: Guardar el mecanico? (S/N): Mecanico registrado con ID 1.
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Nombre: Cedula (12345678 o V-12345678): Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
+Opcion: Guardar el mecanico? (S/N): Mecanico registrado con ID 2.
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Nombre: Cedula (12345678 o V-12345678): Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
+Opcion: Guardar el mecanico? (S/N): Mecanico registrado con ID 3.
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Nombre: Cedula (12345678 o V-12345678): Especialidad: 1.MOTOR 2.FRENOS 3.ELECTRICIDAD 4.SUSPENSION 5.GENERAL
+Opcion: Guardar el mecanico? (S/N): Mecanico registrado con ID 4.
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 1.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 2.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 3.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 4.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 5.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 6.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 7.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 8.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 9.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 10.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 11.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: (Escriba CANCELAR en cualquier texto para salir)
+Codigo: Nombre: Marca: Precio en centavos (ej: 2550 = 25.50): Stock inicial: Stock minimo: Guardar el repuesto? (S/N): Repuesto registrado con ID 12.
+
++==========================================+
+|  INVENTARIO DE REPUESTOS                 |
++==========================================+
+|  1. Registrar repuesto                   |
+|  2. Buscar repuesto                      |
+|  3. Entrada de mercancia                 |
+|  4. Listar repuestos                     |
+|  5. Cambiar precio                       |
+|  6. Eliminar repuesto                    |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: AB123CD - Toyota Corolla (45500 km)
+ID del mecanico:   Mecanico: Jose Perez (FRENOS)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #1 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #1  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Filtro de aceite - stock disponible: 40
+Cantidad: Repuesto agregado a la orden #1.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #1  2026-11-09  ABIERTA    Total: 8.50
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Aceite 20W50 (litro) - stock disponible: 80
+Cantidad: Repuesto agregado a la orden #1.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #1  2026-11-09  ABIERTA    Total: 53.50
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Filtro de aire - stock disponible: 30
+Cantidad: Repuesto agregado a la orden #1.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #1  2026-11-09  ABIERTA    Total: 65.50
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Bujia - stock disponible: 60
+Cantidad: Repuesto agregado a la orden #1.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #1
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : AB123CD - Toyota Corolla 2015
+  Dueno    : Maria Gonzalez
+  Mecanico : Jose Perez (FRENOS)
+  Km ingreso: 46000
+  Falla    : Cambio de aceite y filtros
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  FIL001    Filtro de aceite               1      8.50      8.50
+  ACE004    Aceite 20W50 (litro)           5      9.00     45.00
+  FIA008    Filtro de aire                 1     12.00     12.00
+  BUJ003    Bujia                          4      4.50     18.00
++------------------------------------------------------------------+
+                                            Repuestos:     83.50
+                                         Mano de obra:      0.00
+                                                TOTAL:     83.50
++==================================================================+
+Mano de obra en centavos (ej: 4000 = 40.00): Seguro que desea cerrar la orden? (S/N): Orden #1 CERRADA. Total: 123.50
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: XY789ZZ - Chevrolet Aveo (98000 km)
+ID del mecanico:   Mecanico: Ana Villalobos (MOTOR)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #2 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #2  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Pastillas de freno - stock disponible: 25
+Cantidad: Repuesto agregado a la orden #2.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #2  2026-11-09  ABIERTA    Total: 64.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Disco de freno - stock disponible: 14
+Cantidad: Repuesto agregado a la orden #2.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #2  2026-11-09  ABIERTA    Total: 172.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Liquido de frenos - stock disponible: 35
+Cantidad: Repuesto agregado a la orden #2.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #2  2026-11-09  ABIERTA    Total: 179.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Bujia - stock disponible: 56
+Cantidad: Repuesto agregado a la orden #2.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #2  2026-11-09  ABIERTA    Total: 197.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Filtro de aire - stock disponible: 29
+Cantidad: Repuesto agregado a la orden #2.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #2
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : XY789ZZ - Chevrolet Aveo 2012
+  Dueno    : Pedro Ramirez
+  Mecanico : Ana Villalobos (MOTOR)
+  Km ingreso: 98500
+  Falla    : Frenos delanteros
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  PAS002    Pastillas de freno             2     32.00     64.00
+  DIS011    Disco de freno                 2     54.00    108.00
+  LIQ009    Liquido de frenos              1      7.00      7.00
+  BUJ003    Bujia                          4      4.50     18.00
+  FIA008    Filtro de aire                 1     12.00     12.00
++------------------------------------------------------------------+
+                                            Repuestos:    209.00
+                                         Mano de obra:      0.00
+                                                TOTAL:    209.00
++==================================================================+
+Mano de obra en centavos (ej: 4000 = 40.00): Seguro que desea cerrar la orden? (S/N): Orden #2 CERRADA. Total: 244.00
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: KL456MN - Ford Fiesta (32000 km)
+ID del mecanico:   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #3 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #3  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: KL456MN - Ford Fiesta   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Bomba de agua - stock disponible: 8
+Cantidad: Repuesto agregado a la orden #3.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #3  2026-11-09  ABIERTA    Total: 62.00
+      Vehiculo: KL456MN - Ford Fiesta   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Radiador - stock disponible: 6
+Cantidad: Repuesto agregado a la orden #3.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #3  2026-11-09  ABIERTA    Total: 187.00
+      Vehiculo: KL456MN - Ford Fiesta   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Correa de tiempo - stock disponible: 12
+Cantidad: Repuesto agregado a la orden #3.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #3  2026-11-09  ABIERTA    Total: 222.00
+      Vehiculo: KL456MN - Ford Fiesta   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Aceite 20W50 (litro) - stock disponible: 75
+Cantidad: Repuesto agregado a la orden #3.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #3
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : KL456MN - Ford Fiesta 2018
+  Dueno    : Carla Mendez
+  Mecanico : Miguel Urdaneta (ELECTRICIDAD)
+  Km ingreso: 32500
+  Falla    : Recalentamiento
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  BOM010    Bomba de agua                  1     62.00     62.00
+  RAD012    Radiador                       1    125.00    125.00
+  COR007    Correa de tiempo               1     35.00     35.00
+  ACE004    Aceite 20W50 (litro)           4      9.00     36.00
++------------------------------------------------------------------+
+                                            Repuestos:    258.00
+                                         Mano de obra:      0.00
+                                                TOTAL:    258.00
++==================================================================+
+Mano de obra en centavos (ej: 4000 = 40.00): Seguro que desea cerrar la orden? (S/N): Orden #3 CERRADA. Total: 318.00
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: GH321JK - Hyundai Accent (150000 km)
+ID del mecanico:   Mecanico: Luis Fuenmayor (GENERAL)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #4 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #4  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: GH321JK - Hyundai Accent   Mecanico: Luis Fuenmayor (GENERAL)
+ID del repuesto:   Amortiguador - stock disponible: 16
+Cantidad: Repuesto agregado a la orden #4.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #4  2026-11-09  ABIERTA    Total: 96.00
+      Vehiculo: GH321JK - Hyundai Accent   Mecanico: Luis Fuenmayor (GENERAL)
+ID del repuesto:   Liquido de frenos - stock disponible: 34
+Cantidad: Repuesto agregado a la orden #4.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #4
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : GH321JK - Hyundai Accent 2010
+  Dueno    : Luis Paredes
+  Mecanico : Luis Fuenmayor (GENERAL)
+  Km ingreso: 150200
+  Falla    : Suspension con ruido
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  AMO006    Amortiguador                   2     48.00     96.00
+  LIQ009    Liquido de frenos              1      7.00      7.00
++------------------------------------------------------------------+
+                                            Repuestos:    103.00
+                                         Mano de obra:      0.00
+                                                TOTAL:    103.00
++==================================================================+
+Mano de obra en centavos (ej: 4000 = 40.00): Seguro que desea cerrar la orden? (S/N): Orden #4 CERRADA. Total: 133.00
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: PQ654RS - Kia Rio (15000 km)
+ID del mecanico:   Mecanico: Luis Fuenmayor (GENERAL)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #5 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #5  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: PQ654RS - Kia Rio   Mecanico: Luis Fuenmayor (GENERAL)
+ID del repuesto:   Bateria 12V - stock disponible: 10
+Cantidad: Repuesto agregado a la orden #5.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #5
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : PQ654RS - Kia Rio 2020
+  Dueno    : Ana Torres
+  Mecanico : Luis Fuenmayor (GENERAL)
+  Km ingreso: 15300
+  Falla    : No enciende
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  BAT005    Bateria 12V                    1     95.00     95.00
++------------------------------------------------------------------+
+                                            Repuestos:     95.00
+                                         Mano de obra:      0.00
+                                                TOTAL:     95.00
++==================================================================+
+Mano de obra en centavos (ej: 4000 = 40.00): Seguro que desea cerrar la orden? (S/N): Orden #5 CERRADA. Total: 145.00
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: TU987VW - Mitsubishi Lancer (210000 km)
+ID del mecanico:   Mecanico: Jose Perez (FRENOS)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #6 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #6  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: TU987VW - Mitsubishi Lancer   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Correa de tiempo - stock disponible: 11
+Cantidad: Repuesto agregado a la orden #6.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #6  2026-11-09  ABIERTA    Total: 35.00
+      Vehiculo: TU987VW - Mitsubishi Lancer   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Aceite 20W50 (litro) - stock disponible: 71
+Cantidad: Repuesto agregado a la orden #6.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #6  2026-11-09  ABIERTA    Total: 71.00
+      Vehiculo: TU987VW - Mitsubishi Lancer   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Filtro de aceite - stock disponible: 39
+Cantidad: Repuesto agregado a la orden #6.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #6
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : TU987VW - Mitsubishi Lancer 2008
+  Dueno    : Jorge Silva
+  Mecanico : Jose Perez (FRENOS)
+  Km ingreso: 210500
+  Falla    : Embrague patina
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  COR007    Correa de tiempo               1     35.00     35.00
+  ACE004    Aceite 20W50 (litro)           4      9.00     36.00
+  FIL001    Filtro de aceite               1      8.50      8.50
++------------------------------------------------------------------+
+                                            Repuestos:     79.50
+                                         Mano de obra:      0.00
+                                                TOTAL:     79.50
++==================================================================+
+Mano de obra en centavos (ej: 4000 = 40.00): Seguro que desea cerrar la orden? (S/N): Orden #6 CERRADA. Total: 149.50
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #6
++==================================================================+
+  Estado   : CERRADA     Apertura: 2026-11-09     Cierre: 2026-11-09
+  Vehiculo : TU987VW - Mitsubishi Lancer 2008
+  Dueno    : Jorge Silva
+  Mecanico : Jose Perez (FRENOS)
+  Km ingreso: 210500
+  Falla    : Embrague patina
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  COR007    Correa de tiempo               1     35.00     35.00
+  ACE004    Aceite 20W50 (litro)           4      9.00     36.00
+  FIL001    Filtro de aceite               1      8.50      8.50
++------------------------------------------------------------------+
+                                            Repuestos:     79.50
+                                         Mano de obra:     70.00
+                                                TOTAL:    149.50
++==================================================================+
+Seguro que desea anular la orden? (S/N): Orden #6 ANULADA. Las unidades de sus lineas volvieron al inventario.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: CD246EF - Renault Logan (67000 km)
+ID del mecanico:   Mecanico: Ana Villalobos (MOTOR)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #7 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #7  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: CD246EF - Renault Logan   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Radiador - stock disponible: 5
+Cantidad: Repuesto agregado a la orden #7.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #7  2026-11-09  ABIERTA    Total: 125.00
+      Vehiculo: CD246EF - Renault Logan   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Bujia - stock disponible: 52
+Cantidad: Repuesto agregado a la orden #7.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden: 
++==================================================================+
+  ORDEN DE SERVICIO #7
++==================================================================+
+  Estado   : ABIERTA     Apertura: 2026-11-09     Cierre: -
+  Vehiculo : CD246EF - Renault Logan 2016
+  Dueno    : Rosa Fernandez
+  Mecanico : Ana Villalobos (MOTOR)
+  Km ingreso: 67200
+  Falla    : Sensor de oxigeno malo
++------------------------------------------------------------------+
+  Codigo    Repuesto                    Cant    P.Unit     Total
+  RAD012    Radiador                       1    125.00    125.00
+  BUJ003    Bujia                          4      4.50     18.00
++------------------------------------------------------------------+
+                                            Repuestos:    143.00
+                                         Mano de obra:      0.00
+                                                TOTAL:    143.00
++==================================================================+
+Seguro que desea anular la orden? (S/N): Orden #7 ANULADA. Las unidades de sus lineas volvieron al inventario.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: MN135OP - Nissan Sentra (120500 km)
+ID del mecanico:   Mecanico: Jose Perez (FRENOS)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #8 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #8  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: MN135OP - Nissan Sentra   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Filtro de aceite - stock disponible: 39
+Cantidad: Repuesto agregado a la orden #8.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #8  2026-11-09  ABIERTA    Total: 8.50
+      Vehiculo: MN135OP - Nissan Sentra   Mecanico: Jose Perez (FRENOS)
+ID del repuesto:   Aceite 20W50 (litro) - stock disponible: 71
+Cantidad: Repuesto agregado a la orden #8.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: AB123CD - Toyota Corolla (46000 km)
+ID del mecanico:   Mecanico: Ana Villalobos (MOTOR)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #9 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #9  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: AB123CD - Toyota Corolla   Mecanico: Ana Villalobos (MOTOR)
+ID del repuesto:   Pastillas de freno - stock disponible: 23
+Cantidad: Repuesto agregado a la orden #9.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del vehiculo:   Vehiculo: XY789ZZ - Chevrolet Aveo (98500 km)
+ID del mecanico:   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+Kilometraje de ingreso: Descripcion de la falla: Abrir la orden? (S/N): Orden #10 abierta.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #10  2026-11-09  ABIERTA    Total: 0.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Amortiguador - stock disponible: 14
+Cantidad: Repuesto agregado a la orden #10.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #10  2026-11-09  ABIERTA    Total: 96.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Liquido de frenos - stock disponible: 33
+Cantidad: Repuesto agregado a la orden #10.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #10  2026-11-09  ABIERTA    Total: 103.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Bujia - stock disponible: 52
+Cantidad: Repuesto agregado a la orden #10.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: Numero de orden:   #10  2026-11-09  ABIERTA    Total: 121.00
+      Vehiculo: XY789ZZ - Chevrolet Aveo   Mecanico: Miguel Urdaneta (ELECTRICIDAD)
+ID del repuesto:   Filtro de aire - stock disponible: 28
+Cantidad: Repuesto agregado a la orden #10.
+
++==========================================+
+|  ORDENES DE SERVICIO                     |
++==========================================+
+|  1. Abrir orden                          |
+|  2. Agregar repuesto a orden             |
+|  3. Quitar repuesto de orden             |
+|  4. Cerrar orden                         |
+|  5. Anular orden                         |
+|  6. Ver detalle de orden                 |
+|  7. Listar ordenes                       |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: ID del mecanico:   ID 4 - Luis Fuenmayor (GENERAL)
+  Cedula: V-12444555  Ingreso: 2026-11-09  Ordenes abiertas: 0
+Seguro que desea dar de baja a este mecanico? (S/N): Mecanico dado de baja. Sus ordenes anteriores conservan su nombre.
+
++==========================================+
+|  GESTION DE MECANICOS                    |
++==========================================+
+|  1. Registrar mecanico                   |
+|  2. Buscar mecanico                      |
+|  3. Listar mecanicos                     |
+|  4. Dar de baja mecanico                 |
+|  0. Volver al menu principal             |
++==========================================+
+Seleccione una opcion: 
++==========================================+
+|  SISTEMA DE GESTION DE TALLER            |
++==========================================+
+|  Taller: Autoservicio El Lago            |
++==========================================+
+|  1. Gestion de Vehiculos                 |
+|  2. Gestion de Mecanicos                 |
+|  3. Inventario de Repuestos              |
+|  4. Ordenes de Servicio                  |
+|  5. Reportes                             |
+|  6. Mantenimiento                        |
+|  0. Salir                                |
++==========================================+
+Seleccione una opcion: Seguro que desea salir? (S/N): Hasta luego. Los datos quedaron guardados en datos/.

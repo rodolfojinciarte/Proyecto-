@@ -26,6 +26,12 @@ Pruebas con entrada desde archivo (en PowerShell el `<` no funciona, se usa `cmd
 cmd /c "taller.exe < pruebas\entrada_1a.txt > pruebas\salida_1a.txt"
 ```
 
+Para ejecutar los 8 casos de uso de una vez (ver la sección **Pruebas**):
+
+```
+cmd /c pruebas\ejecutar_pruebas.bat
+```
+
 Los archivos binarios están en la carpeta `datos/`. Si falta alguno, el programa lo crea al arrancar.
 
 ## Capas
@@ -157,7 +163,109 @@ bool inicializarArchivos();
 
 ## Firmas: capa de lógica
 
-*(Se completa al terminar la lógica.)*
+```cpp
+// Vehículos
+Resultado registrarVehiculo(Vehiculo datos, int* idAsignado);
+Resultado obtenerVehiculoPorID(int id, Vehiculo* v);
+Resultado obtenerVehiculoPorPlaca(const char* placa, Vehiculo* v);
+Resultado buscarVehiculosPorPropietario(const char* texto, Vehiculo resultados[], int* cantidad, bool* hayMas);
+Resultado listarVehiculos(Vehiculo resultados[], int* cantidad, bool* hayMas);
+Resultado actualizarVehiculo(int id, Vehiculo datos);
+Resultado eliminarVehiculo(int id);
+long posicionEnDiscoVehiculo(int id);
+
+// Mecánicos
+bool esEspecialidadValida(const char* especialidad);
+Resultado registrarMecanico(Mecanico datos, int* idAsignado);
+Resultado obtenerMecanicoPorID(int id, Mecanico* m);
+Resultado contarOrdenesAbiertas(int idMecanico, int* cantidad);
+Resultado listarMecanicos(Mecanico resultados[], int ordenesAbiertas[], int* cantidad, bool* hayMas);
+Resultado darDeBajaMecanico(int id);
+
+// Repuestos
+Resultado registrarRepuesto(Repuesto datos, int* idAsignado);
+Resultado obtenerRepuestoPorID(int id, Repuesto* r);
+Resultado obtenerRepuestoPorCodigo(const char* codigo, Repuesto* r);
+Resultado buscarRepuestosPorNombre(const char* texto, Repuesto resultados[], int* cantidad, bool* hayMas);
+Resultado registrarEntradaRepuesto(int id, int cantidad);
+Resultado listarRepuestos(Repuesto resultados[], int* cantidad, bool* hayMas);
+bool esBajoStock(Repuesto r);
+Resultado cambiarPrecioRepuesto(int id, float nuevoPrecio);
+Resultado eliminarRepuesto(int id);
+
+// Órdenes
+Resultado abrirOrden(int idVehiculo, int idMecanico, int kilometraje, const char* falla, int* idAsignado);
+Resultado obtenerOrdenPorID(int id, OrdenServicio* o);
+Resultado agregarRepuestoAOrden(int idOrden, int idRepuesto, int cantidad);
+Resultado quitarRepuestoDeOrden(int idOrden, int idRepuesto);
+Resultado cerrarOrden(int idOrden, float manoObra);
+Resultado anularOrden(int idOrden);
+float calcularTotalOrden(OrdenServicio o);
+Resultado listarOrdenesPorEstado(const char* estado, OrdenServicio resultados[], int* cantidad, bool* hayMas);
+Resultado listarOrdenesPorVehiculo(int idVehiculo, OrdenServicio resultados[], int* cantidad, bool* hayMas);
+
+// Taller, mantenimiento y reportes
+bool prepararArchivos();
+bool tallerConfigurado();
+Resultado configurarTaller(Taller t);
+Resultado obtenerTaller(Taller* t);
+Resultado verificarIntegridad(ReporteIntegridad* rep);
+Resultado crearBackup(char* rutaBackup);
+Resultado reporteHistorialVehiculo(const char* placa, Vehiculo* v, OrdenServicio ordenes[], int* cantidad, bool* hayMas, float* totalCerradas);
+Resultado reporteRepuestosMasUsados(FilaTopRepuesto top[], int* cantidad);
+Resultado reporteFacturacionMecanicos(FilaFacturacion filas[], int* cantidad, bool* hayMas);
+```
+
+**Cómo informan el éxito, el fallo y su causa:**
+
+- Toda operación que puede fallar devuelve un `Resultado`. Cuando hay más de una causa posible, cada causa tiene su valor: por ejemplo, `abrirOrden` puede devolver `NO_EXISTE`, `ELIMINADO`, `VEHICULO_CON_ORDEN_ABIERTA`, `MECANICO_OCUPADO` o `KILOMETRAJE_MENOR`. Así la presentación muestra el mensaje exacto sin repetir las validaciones.
+- Igual que en la persistencia, **ninguna función devuelve un puntero a un registro**: el registro leído se copia en una variable del que llama (`Vehiculo* v`) y el ID nuevo se entrega por `int* idAsignado`.
+- `obtenerXPorID` devuelve `ELIMINADO` cuando el registro existe pero fue borrado, **y aun así llena la variable**, para que la presentación pueda decir cuál era (por ejemplo, el nombre de un mecánico dado de baja).
+- Las búsquedas y listados no cargan el archivo completo: llenan un arreglo de máximo `MAX_RESULTADOS = 20` y ponen `hayMas = true` si quedaron registros sin entregar. La presentación avisa en ese caso.
+- Las funciones que solo responden sí/no (`esBajoStock`, `esEspecialidadValida`, `tallerConfigurado`) devuelven `bool` porque no pueden fallar.
+- La lógica no usa `cin`/`cout` y no abre archivos: todo lo lee y escribe a través de la persistencia.
+
+## Mantenimiento
+
+- **Verificar integridad** (`verificarIntegridad`): recorre los archivos un registro a la vez y anota como `ROTO:` cada orden que apunta a un vehículo, mecánico o repuesto inexistente, cada orden ABIERTA con vehículo o mecánico inactivo, cada repuesto con stock negativo y cada header que no coincide con lo que hay en el archivo (registros físicos contados con `tellg` y registros activos).
+- **Backup** (`crearBackup`): crea la carpeta `backup_AAAA-MM-DD_HH-MM-SS` y copia byte a byte los cinco `.bin`.
+
+## Reportes
+
+Los tres reportes leen los archivos un registro a la vez, sin cargarlos completos en memoria. Solo suman las órdenes **CERRADAS**; las ABIERTAS y ANULADAS no.
+
+1. **Historial de vehículo:** dada una placa, muestra el vehículo y todas sus órdenes (número, fecha, mecánico, estado y total), más el total facturado en órdenes cerradas. Las que no suman se marcan "(no suma)".
+2. **Repuestos más utilizados:** para cada repuesto cuenta las unidades usadas en órdenes cerradas y lo inserta ordenado en un arreglo de 10 posiciones (`TOP_REPUESTOS`). Solo existe ese arreglo de 10 en memoria.
+3. **Facturación por mecánico:** para cada mecánico (activos y dados de baja, marcados `(BAJA)`) muestra cuántas órdenes cerradas tiene, el total de mano de obra y el total de repuestos de esas órdenes.
+
+## Datos de ejemplo
+
+La carpeta `datos/` se entrega con: 8 vehículos, 4 mecánicos (Luis Fuenmayor dado de baja), 12 repuestos y 10 órdenes:
+
+| Estado | Órdenes |
+|---|---|
+| CERRADA | #1, #2, #3, #4, #5 |
+| ANULADA | #6 (anulada después de cerrarla), #7 (anulada estando abierta) |
+| ABIERTA | #8, #9, #10 |
+
+Las órdenes #1, #2, #3 y #10 tienen 4 o más líneas. Estos datos se generan con el Caso de Uso 8.
+
+## Pruebas
+
+La carpeta `pruebas/` tiene una entrada y una salida por cada ejecución del programa. Cuando un caso necesita reiniciar el programa, hay un archivo por ejecución (`entrada_3a.txt`, `entrada_3b.txt`, `entrada_3c.txt`, …).
+
+`pruebas/ejecutar_pruebas.bat` ejecuta todos los casos: antes de cada caso borra los `.bin` de `datos/` para empezar de cero, y al final `datos/` queda con los datos de ejemplo.
+
+| Caso | Archivos | Qué demuestra |
+|---|---|---|
+| 1. Persistencia | 1a, 1b | 1a registra 3 vehículos, 2 mecánicos y 4 repuestos; 1b (otra ejecución) los lista con los mismos IDs |
+| 2. Acceso directo | 2a | Registra 6 vehículos, elimina el 3, busca el 5 (byte 1168) y el 3 (informa ELIMINADO) |
+| 3. Orden con detalle | 3a, 3b, 3c | 3a abre la orden y agrega 3 repuestos; 3b agrega un 4.º, acumula 2 unidades, quita uno (su stock vuelve) y la cierra; además cambia el precio del filtro; 3c muestra la orden con el precio histórico |
+| 4. 15 líneas | 4a, 4b | 4a agrega 15 repuestos y el 16.º es rechazado; 4b muestra las 15 líneas después de reiniciar |
+| 5. Anulación | 5a, 5b, 5c | 5a cierra una orden de 3 líneas y lista el stock; 5b la anula; 5c muestra que el stock volvió al valor previo |
+| 6. Baja de mecánico | 6a, 6b | 6a: baja rechazada con orden abierta, se cierra la orden y la baja es aceptada; 6b: la orden cerrada sigue con su nombre y una orden nueva con él es rechazada |
+| 7. Integridad | 7a, 7b | 7a crea un backup, registra un vehículo y le abre una orden; el `.bat` copia `vehiculos.bin` del backup; 7b detecta la orden que apunta a un vehículo inexistente |
+| 8. Reportes | 8a, 8b | 8a carga los datos de ejemplo; 8b genera los tres reportes (las órdenes abiertas y anuladas no suman) y verifica la integridad |
 
 ## Preguntas de análisis
 
@@ -167,7 +275,15 @@ bool inicializarArchivos();
 
 ### 2. Orden de escritura al agregar un repuesto a una orden
 
-*(Se completa al programar las operaciones compuestas.)*
+Al agregar un repuesto se escriben dos archivos: la orden (con su línea nueva) en `ordenes.bin` y el stock en `repuestos.bin`. Antes de escribir nada, la lógica hace **todas las validaciones** (orden ABIERTA, repuesto activo, stock suficiente, espacio para la línea). Recién entonces escribe, y elegimos este orden: **primero la orden, después el stock**.
+
+Si el programa se interrumpe entre las dos escrituras, la orden ya tiene la línea pero el stock no se descontó: el inventario queda **más alto** de lo real.
+
+Este orden deja el daño más fácil de detectar y corregir porque la línea de la orden queda como **evidencia**: dice qué repuesto, cuántas unidades y a qué precio. Comparando las líneas de las órdenes con el stock se puede saber cuánto falta descontar.
+
+Con el orden contrario (primero el stock), el stock bajaría pero la orden no tendría la línea: las unidades desaparecerían sin dejar rastro de a dónde fueron, y no habría forma de saber qué pasó.
+
+Usamos el mismo criterio en todas las operaciones compuestas: abrir orden (orden y después kilometraje del vehículo), quitar repuesto y anular (orden y después devolución del stock).
 
 ### 3. ¿Qué habría pasado con el historial si se eliminara físicamente un mecánico?
 
